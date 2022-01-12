@@ -1,4 +1,4 @@
-# iws
+# iGEM-WorkSpace
 
 ## Project setup
 ```
