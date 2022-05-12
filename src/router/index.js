@@ -1,34 +1,34 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HelloWorld from '../components/HelloWorld.vue'
+// import HelloWorld from '../components/HelloWorld.vue'
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: HelloWorld
+    name: 'home',
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/wiki',
-    name: 'Wiki',
+    name: 'wiki',
     component: () => import('../views/Wiki.vue')
   },
   {
     path: '/user',
-    name: 'User',
+    name: 'user',
     component: () => import('../views/User.vue')
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     component: () => import('../views/About.vue')
   },
   {
     path: '/setting',
-    name: 'Setting',
+    name: 'setting',
     component: () => import('../views/Setting.vue')
   },
   {
     path: '/team',
-    name: 'Team',
+    name: 'team',
     component: () => import('../views/Team.vue')
   }
 ];
@@ -38,4 +38,4 @@ const router = createRouter({
   routes
 });
 
-export default router
+export default router;

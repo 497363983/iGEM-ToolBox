@@ -7,21 +7,27 @@
         :key="index"
         :class="'heading-' + heading.attrs.level"
       >
-        <a class="text-truncate d-block" href="javascript:void(0);" :title="heading.content">{{heading.content}}</a>
+        <a
+          class="text-truncate"
+          href="javascript:void(0);"
+          @click="scrollIntoHeading(heading.attrs.id)"
+          :title="heading.content"
+        >{{heading.content}}</a>
       </li>
     </ul>
   </div>
 </template>
 <style lang="scss" scoped>
 @for $i from 1 through 6 {
-  .heading-#{$i}{
+  .heading-#{$i} {
     margin-left: 1em * ($i - 1);
   }
 }
-a{
+a {
+  display: block;
   text-decoration: none;
   color: #000000;
-  &:hover{
+  &:hover {
     color: skyblue;
   }
 }
@@ -33,6 +39,16 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    scrollIntoHeading: function(id) {
+      document.getElementById(id).scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "start"
+      });
+      // document.getElementById("editorContainer").scrollTop = document.getElementById(id).offsetTop
+    }
   },
   computed: {
     filterHeadings() {
@@ -52,6 +68,7 @@ export default {
           heading[index].content = item.content[0].text;
         }
       }
+      console.log("filter", heading);
       return heading;
     }
   }

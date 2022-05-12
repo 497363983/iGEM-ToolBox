@@ -1,10 +1,13 @@
 import { createApp, ref } from 'vue'
-import App from './Index.vue'
+import App from './index.vue'
 import router from '../../router'
 import store from '../../store'
 import SvgIcon from "@/components/SvgIcon";
-import ControlBar from "@/components/ControlBar";
+import 'element-plus/dist/index.css'
+// import ControlBar from "@/components/ControlBar";
+// import TopBar from '@/components/TopBar'
 const app = createApp(App);
 app.component("SvgIcon",SvgIcon);
-app.component("ControlBar",ControlBar);
+// app.component("ControlBar",ControlBar);
+// app.component("TopBar",TopBar);
 app.use(store).use(router).use(ref).mount('#app');

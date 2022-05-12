@@ -3,6 +3,9 @@
 /**
  * @type {import('@vue/cli-service').ProjectOptions}
  */
+ const AutoImport = require('unplugin-auto-import/webpack')
+ const Components = require('unplugin-vue-components/webpack')
+ const { ElementPlusResolver } = require('unplugin-vue-components/resolvers');
 const path = require('path');
 
 function resolve(dir) {
@@ -18,7 +21,7 @@ module.exports = { //多页面打包
       // 在 dist 中生成的html文件名字
       filename: 'index.html',
       // template html 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-      title: 'iws'
+      title: 'iGEM-WorkSpace'
     }
   },
   chainWebpack(config) {
@@ -36,6 +39,17 @@ module.exports = { //多页面打包
       .loader('svg-sprite-loader') // 指定loader
       .options({
         symbolId: 'icon-[name]'
-      }).end(); // 选项配置，将来使用图标的名称, 例：icon-qq
+      }).end(); // 选项配置，将来使用图标的名称
+  },
+  configureWebpack:{
+    plugins: [
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
+    ],
   }
+  
 };

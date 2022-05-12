@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-calendar >
+      <template #dateCell="{data}">
+        <p>{{data.day.split('-').slice(1)[1]}}</p>
+        <p>
+          <ul>
+          </ul>
+        </p>
+      </template>
+    </el-calendar>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'Home',
-  components: {
-    HolloWorld
-  }
+  name: 'Home'
 }
 </script>

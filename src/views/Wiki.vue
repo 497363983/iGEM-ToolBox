@@ -1,13 +1,13 @@
 <template>
-    <div id="wiki">
-        <Tiptap/>
+    <div id="wiki" style="height:100%">
+        <TiptapEditor/>
     </div>
 </template>
 <script>
-    import Tiptap from '@/components/Tiptap'
-    export default {
-        components:{
-            Tiptap
-        }
-    }
+import TiptapEditor from "@/TiptapEditor";
+export default {
+  components: {
+    TiptapEditor
+  }
+};
 </script>

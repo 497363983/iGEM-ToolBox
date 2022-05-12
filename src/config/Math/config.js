@@ -1,0 +1,1 @@
+export const  REGEX_INLINE_MATH_DOLLARS = new RegExp("$(.+)$", "i");

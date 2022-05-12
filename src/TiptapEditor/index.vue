@@ -1,5 +1,6 @@
 <template>
-  <div class="editorContainer">
+  <div class="editorContainer" id="editorContainer">
+    <el-page-header title content="Wiki" />
     <div v-if="editor">
       <bubble-menu
         id="choose-menu"
@@ -52,7 +53,6 @@
           </button>
         </div>
       </bubble-menu>
-
       <floating-menu
         class="floating-menu editor-menu"
         :tippy-options="{ duration: 100 }"
@@ -61,11 +61,37 @@
         <MenuItem v-for="(item, index) in floating" :key="index" v-bind="item"></MenuItem>
       </floating-menu>
     </div>
-    <side-directory :content="content"></side-directory>
-    <editor-content :editor="editor" />
+
+    <el-container style="height: calc(100% - 24px);">
+      <el-header>
+        <div>
+          
+        </div>
+      </el-header>
+      <el-container style="height:90%">
+        <el-aside width="25%">
+          <side-directory :content="content"></side-directory>
+        </el-aside>
+        <el-main>
+          <el-scrollbar height="100%">
+            <editor-content id="editor" :editor="editor" />
+          </el-scrollbar>
+        </el-main>
+      </el-container>
+    </el-container>
+
+    <el-empty v-if="!editor" />
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
+.el-main {
+  // margin: 0;
+  // padding: 0;
+  border-left: 1px solid #ced4da;
+}
+.el-header{
+  height: 10%;
+}
 .resize-cursor {
   cursor: ew-resize;
   cursor: col-resize;
@@ -87,9 +113,6 @@
       // left: 0;
       transform: translate(-25%, 0);
     }
-    &:hover .dropdown {
-      display: flex;
-    }
   }
   label.menuItem {
     display: inline-block;
@@ -102,32 +125,23 @@
     svg {
       height: 30px;
     }
-    &:hover {
-      background-color: #eaebec;
-    }
-    &.is-active {
-      color: rgb(54, 151, 241);
-    }
   }
 }
 .editorContainer {
-  height: 90vh;
+  height: 100%;
   width: 100%;
-  overflow-y: auto;
-  margin-top: 20px;
   .not-show {
     opacity: 0;
   }
   .sideDirectory {
-    position: fixed;
-    width: 20%;
+    // position: fixed;
+    width: 100%;
     background-color: #ffffff;
   }
-  .ProseMirror {
-    min-height: 90vh;
-    width: 75%;
-    left: 25%;
-    // height: 100%;
+  #editor {
+    min-height: 100%;
+    // width: 75%;
+    // left: 25%;
     position: relative;
     table {
       border-collapse: collapse;
@@ -135,7 +149,6 @@
       width: 100%;
       margin: 0;
       overflow: hidden;
-
       td,
       th {
         min-width: 1em;
@@ -217,33 +230,13 @@
 // }
 </style>
 <script>
-import { Editor, EditorContent, FloatingMenu, BubbleMenu } from "@tiptap/vue-3";
-import StarterKit from "@tiptap/starter-kit";
-import TextAlign from "@tiptap/extension-text-align";
-import Highlight from "@tiptap/extension-highlight";
-import Link from "@tiptap/extension-link";
-import Image from "@tiptap/extension-image";
-import SideDirectory from "./SideDirectory.vue";
-import MenuItem from "@/components/MenuItem";
-// import Dropcursor from "@tiptap/extension-dropcursor";
-import eventHandler from "@/extentions/ImageExtention";
-// const fs = window.require('fs');
+import { Editor } from "@tiptap/vue-3";
 import { getClipboardImageURL } from "../utils/pasteImage";
-import Table from '@tiptap/extension-table'
-import TableRow from '@tiptap/extension-table-row'
-import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
-import Gapcursor from '@tiptap/extension-gapcursor'
-import HeadingExtention from '@/extentions/HeadingExtention'
+import { Extentions, Components } from "./config/config";
 import { ref } from "vue";
 export default {
-  components: {
-    EditorContent,
-    FloatingMenu,
-    SideDirectory,
-    BubbleMenu,
-    MenuItem
-  },
+  name: "TiptapEditor",
+  components: Components,
   setup() {
     const content = ref([]);
     return {
@@ -418,6 +411,13 @@ export default {
           isActive: () => this.editor.isActive("link") || this.LinkMenu
         },
         {
+          role: "item",
+          icon: "reference",
+          title: "Reference",
+          action: this.toggleLink,
+          isActive: () => this.editor.isActive("link") || this.LinkMenu
+        },
+        {
           role: "dropItem",
           icon: "more",
           title: "More",
@@ -461,7 +461,7 @@ export default {
             {
               role: "item",
               icon: "justify",
-              title: "Justify",
+              title: "Align justify",
               action: () =>
                 this.editor
                   .chain()
@@ -524,46 +524,29 @@ export default {
 
   mounted() {
     this.editor = new Editor({
-      extensions: [
-        StarterKit,
-        TextAlign.configure({
-          types: ["heading", "paragraph"]
-        }),
-        Highlight,
-        Link.configure({
-          autolink: true,
-          openOnClick: true,
-          linkOnPaste: true
-        }),
-        Image,
-        eventHandler,
-        Table.configure({
-          resizable: true,
-        }),
-        TableRow,
-        TableHeader,
-        TableCell,
-        Gapcursor,
-        HeadingExtention
-      ],
+      extensions: Extentions,
       injectCSS: false,
       content: `
         <p>
-          This is a radically reduced version of tiptap. It has support for a document, with paragraphs and text. That’s it. It’s probably too much for real minimalists though.
+          This is a radically reduced version of tiptap. It has support for a document, with paragraphs and text. That’s it. It’s probably too much for real minimalists though.$ a+b$
         </p>
         <p>
           The paragraph extension is not really required, but you need at least one node. Sure, that node can be something different.
+          <math-inline data-type="InlineMath" data-math-src="jknkz">jknkz</math-inline>
         </p>
       `,
       onUpdate: ({ editor }) => {
-        const json = editor.getJSON();
-        this.content = [...json.content];
-        
-        // console.log(this.content);
+        // const json = editor.getJSON();
+        // this.content = [...json.content];
+        console.log(editor.getHTML());
+        console.log(this.content);
+      },
+      onSelectionUpdate: () => {
+        this.LinkMenu = false;
       }
     });
-    this.editor.on('update', this.handleUpdate)
-    this.$nextTick(this.handleUpdate)
+    this.editor.on("update", this.handleUpdate);
+    this.$nextTick(this.handleUpdate);
   },
   methods: {
     showLinkMenu: function() {
@@ -589,7 +572,7 @@ export default {
       if (link != "") {
         // console.log(this);
         self.editor.commands.setLink({
-          href: `${reg.test(link) ? "" : "http://"}${link}`
+          href: `${reg.test(link) ? "" : "https://"}${link}`
         });
       }
       this.LinkMenu = !this.LinkMenu;
@@ -622,34 +605,39 @@ export default {
       // this.editor.commands.pasteImage();
       // console.log(this.editor.commands.scrollIntoView())
     },
-    addTable: function(){
-      this.editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+    addTable: function() {
+      this.editor
+        .chain()
+        .focus()
+        .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+        .run();
     },
-    handleUpdate: function(){
+    handleUpdate: function() {
       const headings = [];
       const transaction = this.editor.state.tr;
-      this.editor.state.doc.descendants((node, pos)=>{
+      this.editor.state.doc.descendants((node, pos) => {
         console.log(this.editor);
-        if(node.type.name === 'heading') {
-          const id = `heading-${headings.length + 1}`
-          if(node.attrs.id != id){
+        if (node.type.name === "heading") {
+          const id = `heading-${headings.length + 1}`;
+          if (node.attrs.id != id) {
             transaction.setNodeMarkup(pos, undefined, {
               ...node.attrs,
               id
-            })
+            });
           }
           headings.push({
             level: node.attrs.level,
             text: node.textContent,
-            id,
-          })
+            id
+          });
         }
-      })
-      console.log(headings);
-      transaction.setMeta('preventUpdate', true)
-      this.editor.view.dispatch(transaction)
+      });
+      // console.log(headings);
+      transaction.setMeta("preventUpdate", true);
+      this.editor.view.dispatch(transaction);
+      const json = this.editor.getJSON();
+      this.content = [...json.content];
     }
-      
   },
 
   beforeUnmount() {

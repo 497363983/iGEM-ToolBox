@@ -10,7 +10,7 @@ import {
   Menu,
   // screen
 } from 'electron'
-import {PythonShell} from 'python-shell'
+import runPython from './utils/runPython';
 // import installExtension, {
 //   VUEJS3_DEVTOOLS
 // } from 'electron-devtools-installer'
@@ -20,7 +20,7 @@ const iconPath = path.join(__static, 'icon.png');
 // const {
 //   PythonShell
 // } = require('python-shell');
-let mainWindow, tray, remindWindow;
+let mainWindow, tray;
 // Scheme must be registered before the app is ready
 // protocol.registerSchemesAsPrivileged([{
 //   scheme: 'app',
@@ -68,7 +68,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+    // createWindow();
   }
 })
 
@@ -77,7 +77,7 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   mainWindow = new BrowserWindow({
-    frame: false,
+    frame: true,
     width: 1000,
     height: 700,
     minHeight: 450,
@@ -178,9 +178,15 @@ ipcMain.on('show-context-menu', (event) => {
   menu.popup(BrowserWindow.fromWebContents(event.sender))
 })
 
-PythonShell.run("./py/hello.py", null, function(err, results) {
-  if (err) {
-    throw err;
-  }
-  console.log('results', results);
+ipcMain.on('runPython', (event, arg) => {
+  const {
+    src,
+    options
+  } = arg;
+  runPython(src, options, function (err, results) {
+    event.reply('PythonReturn', {
+      err,
+      results
+    });
+  });
 })
