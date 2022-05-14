@@ -40,16 +40,17 @@ graph LR
     writer2(内容编写人员2) --编辑--> content2(页面内容2)
     writer3(内容编写人员3) --编辑--> content3(页面内容3)
     omitwriter(..........) --编辑--> omitcontent(..........)
-    content1 --> toolbox(iGEM-ToolBox)
-    content2 --> toolbox(iGEM-ToolBox)
-    content3 --> toolbox(iGEM-ToolBox)
-    omitcontent --> toolbox(iGEM-ToolBox)
-    toolbox --翻译--> page1(页面1)
-    toolbox --翻译--> page2(页面2)
-    toolbox --翻译--> page3(页面3)
-    toolbox --翻译--> omitpage(......)
     developer(开发人员) --开发--> template(模板)
-    template --> toolbox
+    subgraph iGEM-ToolBox
+      content1 --> template
+      content2 --> template
+      content3 --> template
+      omitcontent --> template
+      template --翻译--> page1(页面1)
+      template --翻译--> page2(页面2)
+      template --翻译--> page3(页面3)
+      template --翻译--> omitpage(......)
+      end
     page1 --上传-->server(服务器)
     page2 --上传-->server
     page3 --上传-->server
@@ -66,7 +67,8 @@ graph LR
 - [vue 3.0.0](https://vue3js.cn/)
 - [electron 13.0.0](https://www.electronjs.org/)
 - python
-- node
+- [node](https://nodejs.org/en/)
+- [element-plus](https://element-plus.org/zh-CN/)
 
 ## TODO
 
@@ -90,6 +92,8 @@ graph LR
   - [ ] 比赛日程获取
 
 ## 项目运行
+
+想要运行该项目，首先需要确保安装了[node](https://nodejs.org/en/)
 
 将该项目clone到本地后，运行
 

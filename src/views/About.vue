@@ -10,8 +10,9 @@ import { runPythonByMain } from "../utils/useIPC";
 export default {
   methods: {
     test: function() {
-      console.log("click")
-      runPythonByMain("./py/hello.py", null, (err, results) => {
+      runPythonByMain("./py/hello.py", {
+        args:[11,2,3]
+      }, (err, results) => {
         console.log(err, results);
         console.log(JSON.parse(results[0].replace(/'/g, `"`)));
       });

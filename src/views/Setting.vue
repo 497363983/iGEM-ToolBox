@@ -56,9 +56,7 @@
 </style>
 <script>
 import { ElMessage } from "element-plus";
-import { elSwitch } from "element-plus";
 import FormItem from "../components/FormItem/index.vue";
-// import FormItem from "@/components/FormItem"
 export default {
   name: "Setting",
   components: {
@@ -66,7 +64,6 @@ export default {
   },
   data() {
     return {
-      elswitch: elSwitch
     };
   },
   methods: {
