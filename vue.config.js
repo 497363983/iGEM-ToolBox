@@ -3,9 +3,11 @@
 /**
  * @type {import('@vue/cli-service').ProjectOptions}
  */
- const AutoImport = require('unplugin-auto-import/webpack')
- const Components = require('unplugin-vue-components/webpack')
- const { ElementPlusResolver } = require('unplugin-vue-components/resolvers');
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const {
+  ElementPlusResolver
+} = require('unplugin-vue-components/resolvers');
 const path = require('path');
 
 function resolve(dir) {
@@ -41,7 +43,7 @@ module.exports = { //多页面打包
         symbolId: 'icon-[name]'
       }).end(); // 选项配置，将来使用图标的名称
   },
-  configureWebpack:{
+  configureWebpack: {
     plugins: [
       AutoImport({
         resolvers: [ElementPlusResolver()],
@@ -68,8 +70,7 @@ module.exports = { //多页面打包
           "background": "build/background.jfif",
           "icon": "build/icons/icon.icns",
           "iconSize": 100,
-          "contents": [
-            {
+          "contents": [{
               "x": 380,
               "y": 180,
               "type": "link",
@@ -102,5 +103,5 @@ module.exports = { //多页面打包
       }
     }
   }
-  
+
 };

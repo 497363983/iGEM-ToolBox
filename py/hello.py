@@ -1,5 +1,4 @@
-import sys
-# print(dict(name="hhh",age=16))
-# simple argument echo script
-for v in sys.argv[1:]:
-  print(v)
+from utils.reference import references
+
+if __name__ =="__main__":
+  references("10.1186/s13045-020-00910-5").getInformationByDOIToBib()

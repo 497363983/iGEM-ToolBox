@@ -4,6 +4,7 @@ import router from '../../router'
 import store from '../../store'
 import SvgIcon from "@/components/SvgIcon";
 import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
 // import ControlBar from "@/components/ControlBar";
 // import TopBar from '@/components/TopBar'
 const app = createApp(App);

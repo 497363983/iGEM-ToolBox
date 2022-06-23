@@ -4,8 +4,6 @@
       <template #dateCell="{data}">
         <p>{{data.day.split('-').slice(1)[1]}}</p>
         <p>
-          <ul>
-          </ul>
         </p>
       </template>
     </el-calendar>

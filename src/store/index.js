@@ -5,7 +5,9 @@ import createPersistedState from 'vuex-persistedstate';
 // import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 
 export default createStore({
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({
+    storage: window.sessionStorage
+  })],
   state: {
     logined: false,
     user: {
@@ -31,7 +33,7 @@ export default createStore({
         }
       },
       {
-        
+
         type: "input",
         value: "",
         prop: {

@@ -1,0 +1,416 @@
+{
+    "indexed": {
+        "date-parts": [
+            [
+                2022,
+                5,
+                22
+            ]
+        ],
+        "date-time": "2022-05-22T09:06:46Z",
+        "timestamp": 1653210406780
+    },
+    "reference-count": 27,
+    "publisher": "Elsevier BV",
+    "issue": "1-2",
+    "license": [
+        {
+            "start": {
+                "date-parts": [
+                    [
+                        2002,
+                        8,
+                        1
+                    ]
+                ],
+                "date-time": "2002-08-01T00:00:00Z",
+                "timestamp": 1028160000000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+        }
+    ],
+    "content-domain": {
+        "domain": [],
+        "crossmark-restriction": false
+    },
+    "short-container-title": [
+        "Journal of Membrane Science"
+    ],
+    "published-print": {
+        "date-parts": [
+            [
+                2002,
+                8
+            ]
+        ]
+    },
+    "DOI": "10.1016/s0376-7388(01)00626-3",
+    "type": "journal-article",
+    "created": {
+        "date-parts": [
+            [
+                2002,
+                10,
+                11
+            ]
+        ],
+        "date-time": "2002-10-11T17:44:56Z",
+        "timestamp": 1034358296000
+    },
+    "page": "61-68",
+    "source": "Crossref",
+    "is-referenced-by-count": 24,
+    "title": [
+        "Removal of phenol from wastewater using membrane-immobilized enzymes"
+    ],
+    "prefix": "10.1016",
+    "volume": "206",
+    "author": [
+        {
+            "given": "G",
+            "family": "Akay",
+            "sequence": "first",
+            "affiliation": []
+        },
+        {
+            "given": "E",
+            "family": "Erhan",
+            "sequence": "additional",
+            "affiliation": []
+        },
+        {
+            "given": "B",
+            "family": "Keskinler",
+            "sequence": "additional",
+            "affiliation": []
+        },
+        {
+            "given": "O.F",
+            "family": "Algur",
+            "sequence": "additional",
+            "affiliation": []
+        }
+    ],
+    "member": "78",
+    "reference": [
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB1",
+            "doi-asserted-by": "crossref",
+            "first-page": "159",
+            "DOI": "10.1099/00221287-43-2-159",
+            "article-title": "The aerobic pseudomonads: a taxonomic study",
+            "volume": "46",
+            "author": "Stanier",
+            "year": "1966",
+            "journal-title": "J. Gen. Microbiol."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB2",
+            "doi-asserted-by": "crossref",
+            "first-page": "869",
+            "DOI": "10.1128/JB.100.2.869-877.1969",
+            "article-title": "Phenol and benzoate metabolism by Pseudomonas putida: regulation of tangential pathways",
+            "volume": "100",
+            "author": "Feist",
+            "year": "1969",
+            "journal-title": "J. Bacteriol."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB3",
+            "doi-asserted-by": "crossref",
+            "first-page": "3800",
+            "DOI": "10.1016/S0021-9258(18)99842-X",
+            "article-title": "The conversion of catechol and protocatechuate to β-ketoadipate by Pseudomonas putida. Part IV. Regulation",
+            "volume": "241",
+            "author": "Ornston",
+            "year": "1966",
+            "journal-title": "J. Biol. Chem."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB4",
+            "doi-asserted-by": "crossref",
+            "first-page": "209",
+            "DOI": "10.1016/S0141-0229(98)00110-0",
+            "article-title": "A capillary membrane bioreactor using immobilized polyphenol oxidase for the removal of phenols from industrial effluents",
+            "volume": "24",
+            "author": "Edwards",
+            "year": "1999",
+            "journal-title": "Enzyme Microbiol. Technol."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB5",
+            "doi-asserted-by": "crossref",
+            "first-page": "854",
+            "DOI": "10.1002/bit.260420710",
+            "article-title": "Removal of phenols from wastewater by soluble and immobilized tyrosinase",
+            "volume": "42",
+            "author": "Wada",
+            "year": "1993",
+            "journal-title": "Biotechnol. Bioeng."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB6",
+            "doi-asserted-by": "crossref",
+            "first-page": "599",
+            "DOI": "10.1002/bit.260260607",
+            "article-title": "Dephenolization of industrial wastewaters catalyzed by polyphenol oxidase",
+            "volume": "26",
+            "author": "Atlow",
+            "year": "1984",
+            "journal-title": "Biotechnol. Bioeng."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB7",
+            "doi-asserted-by": "crossref",
+            "first-page": "259",
+            "DOI": "10.1126/science.221.4607.259-a",
+            "article-title": "Peroxidase catalyzed removal of phenols from coal-conversion wastewaters",
+            "volume": "221",
+            "author": "Klibanov",
+            "year": "1983",
+            "journal-title": "Science"
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB8",
+            "doi-asserted-by": "crossref",
+            "first-page": "1701",
+            "DOI": "10.1016/0043-1354(93)90106-R",
+            "article-title": "Optimization of the reaction conditions for enzymatic removal of phenol from wastewater in the presence of polyethylene glycol",
+            "volume": "27",
+            "author": "Wu",
+            "year": "1993",
+            "journal-title": "Water Res."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB9",
+            "first-page": "414",
+            "article-title": "Enzymatic removal of toxic phenols and anilines from wastewaters",
+            "volume": "2",
+            "author": "Klibanov",
+            "year": "1980",
+            "journal-title": "J. Appl. Biochem."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB10",
+            "doi-asserted-by": "crossref",
+            "first-page": "1011",
+            "DOI": "10.1002/bit.260400904",
+            "article-title": "Tyrosinase reaction/chitosan adsorption for selectively removing phenols from aqueous mixtures",
+            "volume": "40",
+            "author": "Payne",
+            "year": "1992",
+            "journal-title": "Biotechnol. Bioeng."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB11",
+            "doi-asserted-by": "crossref",
+            "unstructured": "E. Erhan, B. Keskinler, G. Akay, O.F. Algur, Removal of phenol from water by membrane-immobilized enzymes. Part I. Dead-end filtration, J. Membr. Sci. 204 (2002).",
+            "DOI": "10.1016/S0376-7388(01)00779-7"
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB12",
+            "doi-asserted-by": "crossref",
+            "first-page": "717",
+            "DOI": "10.1016/S0043-1354(97)00236-4",
+            "article-title": "Phosphate removal from water by red mud using cross-flow microfiltration",
+            "volume": "32",
+            "author": "Akay",
+            "year": "1998",
+            "journal-title": "Water Res."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB13",
+            "doi-asserted-by": "crossref",
+            "unstructured": "G. Akay, P.T. Odirile, B. Keskinler, R.J. Wakeman, Cross-flow microfiltration characteristics of surfactants, in: J.F. Scamehorn, J.H. Harwell (Eds.), Surfactant-based Separations, ACS Symposium Series, Vol. 740, 2000, p. 175.",
+            "DOI": "10.1021/bk-2000-0740.ch012"
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB14",
+            "doi-asserted-by": "crossref",
+            "first-page": "2191",
+            "DOI": "10.1016/S0043-1354(00)00499-1",
+            "article-title": "Removal of divalent heavy metal mixtures from water by Saccharomyces cerevisiae using cross-flow microfiltration",
+            "volume": "35",
+            "author": "Bayhan",
+            "year": "2001",
+            "journal-title": "Water Res."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB15",
+            "unstructured": "G. Akay, B.J. Azzopardi (Eds.), Science, Engineering and Technology of Intensive Processing, Quorn Litho, Loughborough, UK, 1995 (ISBN No. 0-853-58040-5)."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB16",
+            "unstructured": "G. Akay, R.J. Wakeman, in: Process Intensification, Special Topic issue of Chemical Engineering Research Design, Vol. 74, Part 5, 1996."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB17",
+            "first-page": "517",
+            "article-title": "Electric field intensification of surfactant mediated separations",
+            "volume": "74",
+            "author": "Akay",
+            "year": "1996",
+            "journal-title": "Chem. Eng. Res. Design"
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB18",
+            "doi-asserted-by": "crossref",
+            "first-page": "229",
+            "DOI": "10.1016/S0376-7388(97)00048-3",
+            "article-title": "Electric field enhanced cross-flow microfiltration of hydrophobically modified water soluble polymers",
+            "volume": "131",
+            "author": "Akay",
+            "year": "1997",
+            "journal-title": "J. Membr. Sci."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB19",
+            "doi-asserted-by": "crossref",
+            "first-page": "1140",
+            "DOI": "10.1128/JB.91.3.1140-1154.1966",
+            "article-title": "Synthesis of the enzymes of the mandelate pathway by Pseudomonas putida. Part I. Synthesis of enzymes of wild type",
+            "volume": "91",
+            "author": "Hegeman",
+            "year": "1966",
+            "journal-title": "J. Bacteriol."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB20",
+            "doi-asserted-by": "crossref",
+            "unstructured": "R.K. Scopes, Protein Purification, New York, 1974, p. 239.",
+            "DOI": "10.1016/0003-2697(74)90034-7"
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB21",
+            "doi-asserted-by": "crossref",
+            "first-page": "544",
+            "DOI": "10.1016/0003-2697(77)90428-6",
+            "article-title": "A rapid, sensitive and versatile assay for protein using Coomassie Brilliant Blue G250",
+            "volume": "79",
+            "author": "Sedmak",
+            "year": "1977",
+            "journal-title": "Anal. Biochem."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB22",
+            "unstructured": "APHA, AWWA, WPCF, Standard Methods for Water and Wastewater Examination, New York, 1986, p. 465."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB23",
+            "unstructured": "J.F. Bailey, D.F. Ollis, Biochemical Engineering Fundamentals, McGraw-Hill, Singapore, 1986, p. 204."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB24",
+            "doi-asserted-by": "crossref",
+            "unstructured": "K. Mosbach (Ed.), Immobilized Enzymes, Methods in Enzymology, Vol. XLIV, Academic Press, New York, 1976.",
+            "DOI": "10.1016/S0076-6879(76)44063-6"
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB25",
+            "unstructured": "J.S. Taylor, M. Wiesner, in: R.D. Letterman (Ed.), Water Quality and Treatment, McGraw-Hill, NY, USA, 1999 (Chapter 11)."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB26",
+            "doi-asserted-by": "crossref",
+            "first-page": "11",
+            "DOI": "10.1002/(SICI)1097-4660(199705)69:1<11::AID-JCTB673>3.0.CO;2-Q",
+            "article-title": "Catalytic behavior of lipase free and immobilized in biphasic membrane reactor with different low water-soluble substrates",
+            "volume": "69",
+            "author": "Giorno",
+            "year": "1997",
+            "journal-title": "J. Chem. Technol. Biotechnol."
+        },
+        {
+            "key": "10.1016/S0376-7388(01)00626-3_BIB27",
+            "unstructured": "E. Drioli, L. Giorno, Biocatalytic Membrane Reactors, T.J. International Ltd., Padstow, UK, 1999."
+        }
+    ],
+    "container-title": [
+        "Journal of Membrane Science"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+        {
+            "URL": "https://api.elsevier.com/content/article/PII:S0376738801006263?httpAccept=text/xml",
+            "content-type": "text/xml",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+        },
+        {
+            "URL": "https://api.elsevier.com/content/article/PII:S0376738801006263?httpAccept=text/plain",
+            "content-type": "text/plain",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+        }
+    ],
+    "deposited": {
+        "date-parts": [
+            [
+                2021,
+                5,
+                26
+            ]
+        ],
+        "date-time": "2021-05-26T20:06:06Z",
+        "timestamp": 1622059566000
+    },
+    "score": 1,
+    "resource": {
+        "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0376738801006263"
+        }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+        "date-parts": [
+            [
+                2002,
+                8
+            ]
+        ]
+    },
+    "references-count": 27,
+    "journal-issue": {
+        "issue": "1-2",
+        "published-print": {
+            "date-parts": [
+                [
+                    2002,
+                    8
+                ]
+            ]
+        }
+    },
+    "alternative-id": [
+        "S0376738801006263"
+    ],
+    "URL": "http://dx.doi.org/10.1016/s0376-7388(01)00626-3",
+    "relation": {},
+    "ISSN": [
+        "0376-7388"
+    ],
+    "issn-type": [
+        {
+            "value": "0376-7388",
+            "type": "print"
+        }
+    ],
+    "subject": [
+        "Filtration and Separation",
+        "Physical and Theoretical Chemistry",
+        "General Materials Science",
+        "Biochemistry"
+    ],
+    "published": {
+        "date-parts": [
+            [
+                2002,
+                8
+            ]
+        ]
+    }
+}

@@ -1,5 +1,9 @@
 {
-  "name": "iGEM-ToolBox",
+  "name": "igem_toolbox",
+  "author": {
+    "name": "Weiwei Qian",
+    "email": "497363953@qq.com"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -28,8 +32,9 @@
     "@tiptap/starter-kit": "^2.0.0-beta.168",
     "@tiptap/suggestion": "^2.0.0-beta.90",
     "@tiptap/vue-3": "^2.0.0-beta.87",
+    "axios": "^0.27.2",
     "core-js": "^3.6.5",
-    "element-plus": "^2.1.11",
+    "element-plus": "^2.2.6",
     "mathjax-full": "^3.2.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
@@ -52,8 +57,8 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "svg-sprite-loader": "^6.0.11",
-    "unplugin-auto-import": "^0.7.1",
-    "unplugin-vue-components": "^0.19.3",
+    "unplugin-auto-import": "^0.7.2",
+    "unplugin-vue-components": "^0.19.5",
     "vue-cli-plugin-electron-builder": "~2.1.1"
   },
   "eslintConfig": {
