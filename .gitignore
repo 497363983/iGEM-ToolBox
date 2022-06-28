@@ -2,6 +2,7 @@
 node_modules
 /dist
 /py/.env
+.jshintrc
 
 # local env files
 .env.local
