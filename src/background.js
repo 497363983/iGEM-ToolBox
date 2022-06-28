@@ -11,6 +11,7 @@ import {
   // screen
 } from 'electron'
 import runPython from './utils/runPython';
+const fs = require('fs');
 // import installExtension, {
 //   VUEJS3_DEVTOOLS
 // } from 'electron-devtools-installer'
@@ -123,25 +124,55 @@ ipcMain.on('mainWindow:minimize', (e) => {
   mainWindow.minimize();
 });
 
-function setTray() {
-  tray = new Tray(iconPath)
-  tray.setToolTip('IWS')
-  tray.on('click', () => {
-    if (mainWindow.isVisible()) {
-      mainWindow.hide()
-    } else {
-      mainWindow.show()
-    }
-  })
-  tray.on('right-click', () => {
-    const menuConfig = Menu.buildFromTemplate([{
-      label: 'Quit',
-      click: () => app.quit()
-    }])
-    tray.popUpContextMenu(menuConfig)
-  })
+ipcMain.on('readJSONFile', function (event, arg) {
+  // arg是从渲染进程返回来的数据
+  console.log(arg);
 
-}
+  // 这里是传给渲染进程的数据
+  fs.readFile(arg, "utf8", (err, data) => {
+    if (err) {
+      event.sender.send('readJSONFile-reply', err);
+    } else {
+      event.sender.send('readJSONFile-reply', data);
+    }
+
+  })
+});
+
+ipcMain.on('writeJSONFile', function (event, arg) {
+  // arg是从渲染进程返回来的数据
+  console.log(arg);
+
+  // 这里是传给渲染进程的数据
+  fs.writeFile(arg, "utf8", (err, data) => {
+    if (err) {
+      event.sender.send('writeJSONFile-reply', err);
+    } else {
+      event.sender.send('writeJSONFile-reply', data);
+    }
+
+  })
+});
+
+  function setTray() {
+    tray = new Tray(iconPath)
+    tray.setToolTip('IWS')
+    tray.on('click', () => {
+      if (mainWindow.isVisible()) {
+        mainWindow.hide()
+      } else {
+        mainWindow.show()
+      }
+    })
+    tray.on('right-click', () => {
+      const menuConfig = Menu.buildFromTemplate([{
+        label: 'Quit',
+        click: () => app.quit()
+      }])
+      tray.popUpContextMenu(menuConfig)
+    })
+
+  }
 
 // Exit cleanly on request from parent process in development mode.
 // if (isDevelopment) {

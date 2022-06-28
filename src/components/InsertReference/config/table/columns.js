@@ -1,14 +1,35 @@
 /* jshint esversion: 6 */
 
-const getTypes = references => {
+export function getTypes(references) {
     let types = [...new Set(references.map(reference => reference.type))];
     return Array.from(types, type => ({
         text: type,
         value: type
     }));
-};
+}
 
-const columns = [{
+let data = [
+    {
+      author:
+        "Zlatev, Roumen;Magnin, Jean-Pierre;Ozil, Patrick;Stoytcheva, Margarita",
+      year: 2006,
+      title:
+        "Bacterial sensors based on Acidithiobacillus ferrooxidans: Part I. Fe2+ and S2O32− determination",
+      journal: "Biosensors and Bioelectronics",
+      type: "Journal Article"
+    },
+    {
+      author:
+        "Zlatev, Roumen;Magnin, Jean-Pierre;Ozil, Patrick;Stoytcheva, Margarita",
+      year: 2006,
+      title:
+        "Bacterial sensors based on Acidithiobacillus ferrooxidans: Part I. Fe2+ and S2O32− determination",
+      journal: "Biosensors and Bioelectronics",
+      type: "Article"
+    }
+  ];
+
+export const columns = [{
         label: "Author",
         prop: "author",
         sortable: true

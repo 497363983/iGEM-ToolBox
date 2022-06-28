@@ -1,6 +1,6 @@
 import requests
 
-base_url = "https://gitlab.com/api/v4/{}"
+base_url = "https://gitlab.igem.org/api/v4/{}"
 
 def getPrivateToken():
     url = base_url.format("version")

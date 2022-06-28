@@ -39,8 +39,8 @@ function getReference(doi) {
         success: (res) => {
             console.log(res);
             // return parseReferenceFromResToJSON(res.message)
-            parseReferenceFromResToJSON(res.message).getReference()
-            console.log(parseReferenceFromResToJSON(res.message))
+            parseReferenceFromResToJSON(res.message).getReference();
+            console.log(parseReferenceFromResToJSON(res.message));
         },
         failure: (err) => {
             console.log(err)

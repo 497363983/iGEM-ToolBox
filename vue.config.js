@@ -3,8 +3,8 @@
 /**
  * @type {import('@vue/cli-service').ProjectOptions}
  */
-const AutoImport = require('unplugin-auto-import/webpack')
-const Components = require('unplugin-vue-components/webpack')
+const AutoImport = require('unplugin-auto-import/webpack');
+const Components = require('unplugin-vue-components/webpack');
 const {
   ElementPlusResolver
 } = require('unplugin-vue-components/resolvers');
@@ -23,7 +23,7 @@ module.exports = { //多页面打包
       // 在 dist 中生成的html文件名字
       filename: 'index.html',
       // template html 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-      title: 'iGEM-WorkSpace'
+      title: 'iGEM-ToolBox'
     }
   },
   chainWebpack(config) {
@@ -31,7 +31,6 @@ module.exports = { //多页面打包
     config.module.rule('svg')
       .exclude.add(resolve('src/icons'))
       .end();
-    // config.module.rule('py').test(/\.py$/i).use('python-shell').loader('python-shell').end();
     // 新增icons规则，设置svg-sprite-loader
     config.module.rule('icons') // 创建规则 ‘icons’
       .test(/\.svg$/) // 检测的具体目录
