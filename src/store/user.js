@@ -8,6 +8,5 @@ export const useUserStore = defineStore('userStore', {
         realname: "Weiwei Qian",
         password: "",
         description: "",
-       
     })
 });

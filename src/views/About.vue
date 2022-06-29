@@ -34,7 +34,7 @@ export default {
       //   }
       // });
       // console.log(getReference("10.1016/j.molcel.2018.01.003"))
-      getReference("10.1128/AEM.01156-08");
+      getReference({doi:"references"});
     }
   }
 };

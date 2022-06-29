@@ -57,6 +57,7 @@
                   @change="react(`password`)"
                   type="password"
                   v-model="useUserStore().password"
+                  show-password
                 ></el-input>
               </el-form-item>
               <el-form-item label="Realname">
@@ -178,8 +179,7 @@
 </style>
 <script setup>
 import { ElMessage } from "element-plus";
-import { useConfigStore } from "../store/config";
-import { useUserStore } from "../store/user";
+import { useConfigStore, useUserStore } from "../store";
 import { Uppercase } from "../utils/index";
 import { toRefs, ref } from "vue";
 

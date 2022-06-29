@@ -39,8 +39,7 @@
     "mathjax-full": "^3.2.0",
     "pinia": "^2.0.14",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0",
-    "vuex-persistedstate": "^4.1.0"
+    "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
