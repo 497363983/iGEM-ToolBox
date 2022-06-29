@@ -1,7 +1,6 @@
-'use strict'
 import {
   createProtocol
-} from 'vue-cli-plugin-electron-builder/lib'
+} from 'vue-cli-plugin-electron-builder/lib';
 import {
   app,
   BrowserWindow,
@@ -9,7 +8,7 @@ import {
   Tray,
   Menu,
   // screen
-} from 'electron'
+} from 'electron';
 import runPython from './utils/runPython';
 const fs = require('fs');
 // import installExtension, {
@@ -63,7 +62,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-})
+});
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
@@ -71,7 +70,7 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     // createWindow();
   }
-})
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -136,43 +135,39 @@ ipcMain.on('readJSONFile', function (event, arg) {
       event.sender.send('readJSONFile-reply', data);
     }
 
-  })
+  });
 });
 
 ipcMain.on('writeJSONFile', function (event, arg) {
-  // arg是从渲染进程返回来的数据
-  console.log(arg);
-
-  // 这里是传给渲染进程的数据
-  fs.writeFile(arg, "utf8", (err, data) => {
+  fs.writeFile(arg.file, arg.data, (err, data) => {
     if (err) {
       event.sender.send('writeJSONFile-reply', err);
     } else {
       event.sender.send('writeJSONFile-reply', data);
     }
 
-  })
+  });
 });
 
-  function setTray() {
-    tray = new Tray(iconPath)
-    tray.setToolTip('IWS')
-    tray.on('click', () => {
-      if (mainWindow.isVisible()) {
-        mainWindow.hide()
-      } else {
-        mainWindow.show()
-      }
-    })
-    tray.on('right-click', () => {
-      const menuConfig = Menu.buildFromTemplate([{
-        label: 'Quit',
-        click: () => app.quit()
-      }])
-      tray.popUpContextMenu(menuConfig)
-    })
+function setTray() {
+  tray = new Tray(iconPath);
+  tray.setToolTip('IWS');
+  tray.on('click', () => {
+    if (mainWindow.isVisible()) {
+      mainWindow.hide();
+    } else {
+      mainWindow.show();
+    }
+  });
+  tray.on('right-click', () => {
+    const menuConfig = Menu.buildFromTemplate([{
+      label: 'Quit',
+      click: () => app.quit()
+    }]);
+    tray.popUpContextMenu(menuConfig);
+  });
 
-  }
+}
 
 // Exit cleanly on request from parent process in development mode.
 // if (isDevelopment) {
@@ -191,23 +186,23 @@ ipcMain.on('writeJSONFile', function (event, arg) {
 
 ipcMain.on('show-context-menu', (event) => {
   const template = [{
-      label: 'Menu Item 1',
-      click: () => {
-        event.sender.send('context-menu-command', 'menu-item-1')
-      }
-    },
-    {
-      type: 'separator'
-    },
-    {
-      label: 'Menu Item 2',
-      type: 'checkbox',
-      checked: true
+    label: 'Menu Item 1',
+    click: () => {
+      event.sender.send('context-menu-command', 'menu-item-1');
     }
-  ]
-  const menu = Menu.buildFromTemplate(template)
-  menu.popup(BrowserWindow.fromWebContents(event.sender))
-})
+  },
+  {
+    type: 'separator'
+  },
+  {
+    label: 'Menu Item 2',
+    type: 'checkbox',
+    checked: true
+  }
+  ];
+  const menu = Menu.buildFromTemplate(template);
+  menu.popup(BrowserWindow.fromWebContents(event.sender));
+});
 
 ipcMain.on('runPython', (event, arg) => {
   const {
@@ -220,4 +215,4 @@ ipcMain.on('runPython', (event, arg) => {
       results
     });
   });
-})
+});

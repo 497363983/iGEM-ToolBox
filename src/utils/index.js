@@ -17,7 +17,7 @@ export function readJSONFile(file, callback) {
 }
 
 export function writeJSONFile(file, data, callback) {
-    ipcRenderer.send("writeJSONFile", file, data);
+    ipcRenderer.send("writeJSONFile", {file, data:JSON.stringify(data)});
     ipcRenderer.once("writeJSONFile-reply", function (event, data) {
         if (callback && typeof callback === "function") {
             callback(data);

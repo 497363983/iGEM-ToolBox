@@ -21,35 +21,41 @@ class Reference {
 
         this.abstract = JSONInformation.abstract;
         this.page = JSONInformation.page;
+        this.subject = JSONInformation.subject;
 
     }
 
     getReference(model = "{author:3}({year}).{title}.{publisher}.{volume}.{page}") {
         const regx = new RegExp("{*}");
-        console.log(regx.exec(model));
+        model.replace(regx, `$& `);
+    }
+    getAuthorString() {
 
-        model.replace(regx,`$& `)
     }
 }
 
-function getReference(doi) {
+function getReference({ doi, success, failure }) {
     const url = `${base_url}${doi}`;
     request.get({
         url,
-        success: (res) => {
-            console.log(res);
-            // return parseReferenceFromResToJSON(res.message)
-            parseReferenceFromResToJSON(res.message).getReference();
-            console.log(parseReferenceFromResToJSON(res.message));
+        success: async (res) => {
+            const reference = await parseReferenceFromResToJSON(res.message);
+            if (success && typeof success === "function") {
+                // console.log('success');
+                success({ reference, res });
+            }
+
         },
         failure: (err) => {
-            console.log(err)
+            if (failure && typeof failure === "function") {
+                failure({ err });
+            }
         }
-    })
+    });
 }
 
 function parseReferenceFromResToJSON(JSONRes) {
-    return new Reference(JSONRes);
+    return new Promise((resolve) => resolve(new Reference(JSONRes)));
 }
 
 export default getReference;

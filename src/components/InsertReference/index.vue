@@ -48,15 +48,15 @@
               </el-dropdown>
             </template>
           </el-input>
-          <el-button style="width: 10%">
-            <el-icon class>
+          <el-button style="width: 10%" @click="refresh">
+            <el-icon :class="{ 'is-loading': isloading }">
               <Refresh />
             </el-icon>
           </el-button>
         </div>
         <el-table
           :height="height"
-          @row-dblclick="showRefernenceInformation"
+          @row-dblclick="showReferenceInformation"
           highlight-current-row
           :data="filterData"
           border
@@ -66,7 +66,19 @@
             :key="index"
             v-bind="column"
             show-overflow-tooltip
-          ></el-table-column>
+          >
+            <template
+              v-if="column.label === `Author`"
+              #default="{ row, column }"
+            >
+              <span
+                v-for="(item, index) in row.authors"
+                :key="index"
+                :class="{ firstAuthor: item.sequence === `first` }"
+                >{{ `${item.given} ${item.family}` }};</span
+              >
+            </template>
+          </el-table-column>
         </el-table>
       </template>
     </el-auto-resizer>
@@ -77,7 +89,7 @@
       destroy-on-close
       center
     >
-      <ReferenceInformation v-model="currentReference" />
+      <ReferenceInformation :reference="currentReference" />
     </el-dialog>
     <el-dialog
       v-model="importByDOI"
@@ -104,53 +116,68 @@
 </template>
 
 <script setup>
-import { defineProps, ref, computed } from "vue";
-import { ElAutoResizer, ElMessage } from "element-plus";
-import { ArrowDown, Refresh } from "@element-plus/icons-vue";
+import { ref, computed } from "vue";
+import { ElMessage, ElAutoResizer } from "element-plus";
+import { ArrowDown, Refresh, Files, Link } from "@element-plus/icons-vue";
 import { columns } from "./config/table/columns.js";
 import ReferenceInformation from "../ReferenceInformation";
-import { readJSONFile } from "../../utils/index";
-import getReference from "@/api/reference/getReference";
-import { importOptions } from "./config";
-let data = ref([]);
+// import getReference from "@/api/reference/getReference";
+import { useReferenceStore } from "@/store";
 const SearchKey = ref("title");
 const SearchValue = ref("");
+const isloading = ref(false);
 let showInformation = ref(false);
 let importByDOI = ref(false);
 let inputDOI = ref("");
-let currentReference = {};
+let currentReference = ref({});
 
-function showRefernenceInformation(row) {
-  currentReference = row;
+useReferenceStore().getReferences();
+
+function showReferenceInformation(row, column, cell, event) {
+  console.log(row, column, cell, event);
+  currentReference.value = row;
+  console.log(currentReference);
   showInformation.value = true;
 }
 
 function importByDOIAction() {
-  if (inputDOI.value === "") {
+  if (inputDOI.value.trim() === "") {
     ElMessage({
       type: "warning",
       message: "Input cannot be empty!",
     });
   } else {
-    getReference(inputDOI.value);
+    useReferenceStore().importReferenceByDOI(inputDOI.value, () => {
+      importByDOI.value = false;
+      inputDOI.value = ""
+    });
   }
 }
 
-// function refresh() {
-//   readJSONFile(
-//     "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references.json",
-//     content => {
-//       data.value = JSON.parse(content);
-//     }
-//   );
-// }
+const importOptions = [
+  {
+    label: "file",
+    icon: Files,
+    action: () => {},
+  },
+  {
+    label: "DOI",
+    icon: Link,
+    action: () => {
+      importByDOI.value = true;
+    },
+  },
+];
 
-defineProps({
-  References: Object,
-});
+function refresh() {
+  isloading.value = true;
+  useReferenceStore().getReferences(() => {
+    isloading.value = false;
+  });
+}
 
 const filterData = computed(() => {
-  return data.value.filter((item) => {
+  return useReferenceStore().references.filter((item) => {
     return (
       !SearchValue.value ||
       item[SearchKey.value]
@@ -159,12 +186,6 @@ const filterData = computed(() => {
     );
   });
 });
-readJSONFile(
-  "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references.json",
-  (content) => {
-    data.value = JSON.parse(content);
-  }
-);
 </script>
 
 <style lang="scss">
@@ -176,6 +197,9 @@ readJSONFile(
   }
   .el-table__row:hover {
     cursor: pointer;
+  }
+  .firstAuthor {
+    color: #79bbff;
   }
 }
 </style>

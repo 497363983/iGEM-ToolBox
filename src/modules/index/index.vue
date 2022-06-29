@@ -116,7 +116,7 @@ body {
 </style>
 <script setup>
 import "../../icons";
-import { useConfigStore } from "@/store/config";
+import { useConfigStore } from "@/store";
 import { computed } from "vue";
 
 const language = computed(() => {

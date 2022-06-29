@@ -1,5 +1,3 @@
-/* jshint esversion: 6 */
-
 export function getTypes(references) {
     let types = [...new Set(references.map(reference => reference.type))];
     return Array.from(types, type => ({
@@ -55,7 +53,7 @@ export const columns = [{
         filters: getTypes(data),
         filterMethod: (value, row, column) => {
             console.log(row);
-            const property = column["property"];
+            const property = column.property;
             return row[property] === value;
         }
     }

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export const request = {
     get: (options = {
@@ -47,10 +47,10 @@ export const request = {
 
         return new Promise((resolve, reject) => {
             axios.post(url, config).then((res) => {
-                success ? resolve(success(res.data)) : resolve(res.data)
+                success ? resolve(success(res.data)) : resolve(res.data);
             }).catch((err) => {
-                failure ? reject(failure(err)) : reject(err)
-            })
-        })
+                failure ? reject(failure(err)) : reject(err);
+            });
+        });
     }
 };
