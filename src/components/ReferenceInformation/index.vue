@@ -1,8 +1,14 @@
 <template>
-  <div>
+  <div style="height">
     <el-descriptions :column="1" direction="vertical" size="large" border>
       <el-descriptions-item label="Type">
         <el-input v-model="Reference.type"></el-input>
+      </el-descriptions-item>
+      <el-descriptions-item label="Title">
+        <el-input v-model="Reference.title"></el-input>
+      </el-descriptions-item>
+      <el-descriptions-item label="Year">
+        <el-input v-model="Reference.year"></el-input>
       </el-descriptions-item>
       <el-descriptions-item label="Author">
         <el-tag
@@ -32,15 +38,21 @@
           + author
         </el-button>
       </el-descriptions-item>
+      <el-descriptions-item label="Abstract">
+        <el-input
+          type="textarea"
+          v-model="Reference.abstract"
+          :autosize="{ minRows: 2, maxRows: 5 }"
+        ></el-input>
+      </el-descriptions-item>
       <el-descriptions-item label="Subject">
         <el-tag
           style="margin: 5px"
-          v-for="(item, index) in Reference.authors"
+          v-for="(item, index) in Reference.subject"
           :key="index"
-          :type="item.sequence === `first` ? `` : `info`"
           closable
           :effect="useConfigStore().theme.currrentTheme"
-          >{{ `${item.given} ${item.family}` }}
+          >{{ item }}
         </el-tag>
         <el-input
           v-if="authorEditable"
@@ -57,8 +69,26 @@
           size="small"
           @click="showAuthorInput"
         >
-          + author
+          + subject
         </el-button>
+      </el-descriptions-item>
+      <el-descriptions-item label="DOI">
+        <el-input v-model="Reference.doi"></el-input>
+      </el-descriptions-item>
+      <el-descriptions-item label="ISSN">
+        <el-input v-model="Reference.issn"></el-input>
+      </el-descriptions-item>
+      <el-descriptions-item label="Volume">
+        <el-input v-model="Reference.volume"></el-input>
+      </el-descriptions-item>
+      <el-descriptions-item label="url">
+        <el-input v-model="Reference.url"></el-input>
+      </el-descriptions-item>
+      <el-descriptions-item label="Page">
+        <el-input v-model="Reference.page"></el-input>
+      </el-descriptions-item>
+      <el-descriptions-item label="Publisher">
+        <el-input v-model="Reference.publisher"></el-input>
       </el-descriptions-item>
     </el-descriptions>
   </div>
@@ -69,6 +99,7 @@ import { defineProps, nextTick, toRefs, ref } from "vue";
 import { useConfigStore } from "@/store/config";
 const props = defineProps({
   reference: Object,
+  height: Number,
 });
 const authorInput = ref();
 const { reference } = toRefs(props);

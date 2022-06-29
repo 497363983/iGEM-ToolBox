@@ -88,8 +88,14 @@
       fullscreen
       destroy-on-close
       center
+      style="height: 100vh;"
     >
-      <ReferenceInformation :reference="currentReference" />
+    <el-auto-resizer>
+      <template #default="{height}">
+        <ReferenceInformation :height="height" :reference="currentReference" />
+      </template>
+    </el-auto-resizer>
+      
     </el-dialog>
     <el-dialog
       v-model="importByDOI"
