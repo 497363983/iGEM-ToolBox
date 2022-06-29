@@ -5,6 +5,8 @@ import { readJSONFile, writeJSONFile } from "@/utils/index";
 import getReference from "@/api/reference/getReference";
 import { ElMessage } from 'element-plus';
 
+const jsonPath = "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references.json";
+
 export const useReferenceStore = defineStore('referenceStore', {
     state: () => ({
         references: []
@@ -13,7 +15,7 @@ export const useReferenceStore = defineStore('referenceStore', {
         getReferences(callback) {
             //TODO:get references from gitlab
             readJSONFile(
-                "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references.json",
+                jsonPath,
                 (content) => {
                     this.$state.references = JSON.parse(content);
                     if (callback && typeof callback === 'function') {
@@ -22,21 +24,21 @@ export const useReferenceStore = defineStore('referenceStore', {
                 }
             );
         },
-        importReferenceByDOI(doi,callback) {
+        importReferenceByDOI(doi, callback) {
             let references = this.$state.references;
             getReference({
                 doi,
                 success: function ({ reference }) {
                     references.push(reference);
-                    writeJSONFile("E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references.json",references,(data)=>{
+                    writeJSONFile("E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references.json", references, (data) => {
                         console.log(data);
                     });
                     ElMessage({
                         type: "success",
                         message: `Import success!`
                     });
-                    console.log(callback,typeof callback);
-                    if(callback && typeof callback==='function'){
+                    console.log(callback, typeof callback);
+                    if (callback && typeof callback === 'function') {
                         callback();
                     }
                 },
@@ -47,6 +49,11 @@ export const useReferenceStore = defineStore('referenceStore', {
                         message: `Import failure!`
                     });
                 }
+            });
+        },
+        saveReferences() {
+            writeJSONFile(jsonPath, this.$state.references, (data) => {
+                console.log(data);
             });
         }
     }

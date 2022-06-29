@@ -91,8 +91,8 @@
       style="height: 100vh;"
     >
     <el-auto-resizer>
-      <template #default="{height}">
-        <ReferenceInformation :height="height" :reference="currentReference" />
+      <template #default>
+        <ReferenceInformation :reference="currentReference" />
       </template>
     </el-auto-resizer>
       
@@ -135,14 +135,20 @@ const isloading = ref(false);
 let showInformation = ref(false);
 let importByDOI = ref(false);
 let inputDOI = ref("");
-let currentReference = ref({});
+let currentReference = ref(0);
 
 useReferenceStore().getReferences();
 
-function showReferenceInformation(row, column, cell, event) {
-  console.log(row, column, cell, event);
-  currentReference.value = row;
-  console.log(currentReference);
+function showReferenceInformation(row) {
+  console.log(row);
+  useReferenceStore().references.forEach((item,index)=>{
+    if(item === row){
+      currentReference.value = index;
+    }
+  })
+  // console.log(row, column, cell, event);
+  // currentReference.value = row;
+  // console.log(currentReference);
   showInformation.value = true;
 }
 
