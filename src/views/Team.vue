@@ -1,13 +1,9 @@
 <template>
-    <div>
-        <InsertReference />
-        
-    </div>
+  <div>
+    Team
+  </div>
 </template>
 
 <script setup>
-import InsertReference from '../components/InsertReference';
-// import ReferenceInformation from '@/components/ReferenceInformation'
-
 
 </script>

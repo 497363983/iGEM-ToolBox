@@ -26,6 +26,14 @@
                 <span>Wiki</span>
               </template>
             </el-menu-item>
+            <el-menu-item index="literature">
+              <el-icon>
+                <SvgIcon iconClass="literature" />
+              </el-icon>
+              <template #title>
+                <span>Literature</span>
+              </template>
+            </el-menu-item>
             <el-menu-item index="team">
               <el-icon>
                 <SvgIcon iconClass="team" />

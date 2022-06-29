@@ -88,14 +88,13 @@
       fullscreen
       destroy-on-close
       center
-      style="height: 100vh;"
+      style="height: 100vh"
     >
-    <el-auto-resizer>
-      <template #default>
-        <ReferenceInformation :reference="currentReference" />
-      </template>
-    </el-auto-resizer>
-      
+      <el-auto-resizer>
+        <template #default>
+          <ReferenceInformation :reference="currentReference" />
+        </template>
+      </el-auto-resizer>
     </el-dialog>
     <el-dialog
       v-model="importByDOI"
@@ -141,11 +140,11 @@ useReferenceStore().getReferences();
 
 function showReferenceInformation(row) {
   console.log(row);
-  useReferenceStore().references.forEach((item,index)=>{
-    if(item === row){
+  useReferenceStore().references.forEach((item, index) => {
+    if (item === row) {
       currentReference.value = index;
     }
-  })
+  });
   // console.log(row, column, cell, event);
   // currentReference.value = row;
   // console.log(currentReference);
@@ -161,7 +160,7 @@ function importByDOIAction() {
   } else {
     useReferenceStore().importReferenceByDOI(inputDOI.value, () => {
       importByDOI.value = false;
-      inputDOI.value = ""
+      inputDOI.value = "";
     });
   }
 }
