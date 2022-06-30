@@ -2,11 +2,7 @@
   <div id="setting" style="height: 100%">
     <el-container style="height: 100%">
       <el-aside style="height: 100%">
-        <el-menu
-          style="height: 100%"
-          :default-active="activeIndex"
-          mode="vertical"
-        >
+        <el-menu style="height: 100%" default-active="user" mode="vertical">
           <el-menu-item index="user" @click="scrollTo">
             <el-icon>
               <SvgIcon iconClass="user" />
@@ -58,6 +54,18 @@
                   v-model="useUserStore().username"
                 ></el-input>
               </el-form-item>
+              <el-form-item label="Realname">
+                <el-input
+                  @change="react(`realname`, useUserStore().save())"
+                  v-model="useUserStore().realname"
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="Email">
+                <el-input
+                  @change="react(`email`, useUserStore().save())"
+                  v-model="useUserStore().email"
+                ></el-input>
+              </el-form-item>
               <el-form-item label="Password">
                 <el-input
                   @change="react(`password`, useUserStore().save())"
@@ -72,12 +80,6 @@
                   @change="react(`accsess token`, useUserStore().save())"
                   v-model="useUserStore().accessTokens"
                   show-password
-                ></el-input>
-              </el-form-item>
-              <el-form-item label="Realname">
-                <el-input
-                  @change="react(`realname`, useUserStore().save())"
-                  v-model="useUserStore().realname"
                 ></el-input>
               </el-form-item>
               <el-form-item label="Description">
@@ -108,6 +110,7 @@
                   react(`team`, () => {
                     useGitLabStore().setPaths();
                     useUserStore().save();
+                    useTemplateStore().setPageTemplatePath();
                   })
                 "
                 v-model="useUserStore().team"
@@ -203,14 +206,20 @@
             </div>
             <el-form-item label="WikiPages">
               <el-input
-                @change="react(`wiki pages template path`)"
+                @change="react(`wiki pages template path`, useTemplateStore().save())"
                 v-model="useTemplateStore().pageTemplatePath"
               ></el-input>
             </el-form-item>
             <el-form-item label="WikiSuffix">
               <el-input
-                @change="react(`wiki page suffix`)"
+                @change="react(`wiki page suffix`, useTemplateStore().save())"
                 v-model="useTemplateStore().pageSuffix"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="ProjectPath">
+              <el-input
+                @change="react(`project path`, useTemplateStore().save())"
+                v-model="useTemplateStore().projectPath"
               ></el-input>
             </el-form-item>
           </el-form>
@@ -244,12 +253,11 @@ import {
 import { Uppercase } from "../utils/index";
 import { toRefs, ref } from "vue";
 
-let activeIndex = "user";
 const settingScrollBar = ref();
 
 async function react(option, callback) {
   // TODO:check the change
-  console.log(useConfigStore().$state)
+  console.log(useConfigStore().$state);
   ElMessage({
     type: "success",
     message: `Set ${

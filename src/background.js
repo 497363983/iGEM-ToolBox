@@ -12,6 +12,7 @@ import {
 import runPython from './utils/runPython';
 const fs = require('fs');
 const Store = require('electron-store');
+// const simpleGit = require('simple-git');
 
 Store.initRenderer();
 // import installExtension, {
@@ -219,3 +220,14 @@ ipcMain.on('runPython', (event, arg) => {
     });
   });
 });
+
+// ipcMain.handle('git', async function (e, { projectPath, cmd, args }) {
+//   const git = simpleGit(projectPath);
+//   try {
+//     const res = await git[cmd](...args);
+//     return res;
+//   } catch (e) {
+//     console.error('执行 simple-git 命令时发生错误', { projectPath, cmd, args }, e);
+//     throw e;
+//   }
+// });

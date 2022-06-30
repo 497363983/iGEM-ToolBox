@@ -49,7 +49,6 @@ export function runPythonByMain(src, options, callback) {
     options
   });
   ipcRenderer.once('PythonReturn', (event, arg) => {
-    // console.log(eval("("+arg.results[0]+")"));
     const {
       err,
       results
@@ -57,5 +56,13 @@ export function runPythonByMain(src, options, callback) {
     if (callback && typeof callback === "function") {
       callback(err, results);
     }
+  });
+}
+
+export function getDirName(){
+  ipcRenderer.send('getDirName');
+  ipcRenderer.once('getDirNameReply',(event, arg) =>{
+    
+
   });
 }

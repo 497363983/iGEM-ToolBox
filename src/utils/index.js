@@ -3,7 +3,7 @@ const {
     ipcRenderer
 } = electron;
 
-import { useUserStore,useConfigStore } from "@/store";
+import { useUserStore, useConfigStore, useTemplateStore } from "@/store";
 import { electronStore } from "@/electron-store";
 
 export function getData() {
@@ -20,7 +20,7 @@ export function readJSONFile(file, callback) {
 }
 
 export function writeJSONFile(file, data, callback) {
-    ipcRenderer.send("writeJSONFile", {file, data:JSON.stringify(data)});
+    ipcRenderer.send("writeJSONFile", { file, data: JSON.stringify(data) });
     ipcRenderer.once("writeJSONFile-reply", function (event, data) {
         if (callback && typeof callback === "function") {
             callback(data);
@@ -28,15 +28,16 @@ export function writeJSONFile(file, data, callback) {
     });
 }
 
-export function Uppercase(str){
-    return str.replace(/\b([\w|']+)\b/g, (word)=>{
+export function Uppercase(str) {
+    return str.replace(/\b([\w|']+)\b/g, (word) => {
         return word.replace(word.charAt(0), word.charAt(0).toUpperCase());
     });
 
 }
 
-export function getElectronStore(){
+export function getElectronStore() {
     useUserStore().$state = electronStore.get('user');
     useConfigStore().$state = electronStore.get('config');
+    useTemplateStore().$state = electronStore.get('template')
 
 }

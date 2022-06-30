@@ -10,7 +10,8 @@ export const useUserStore = defineStore('userStore', {
         password: "",
         description: "",
         accessTokens: "",
-        team: "Example"
+        team: "Example",
+        email: ""
     }),
     actions: {
         save(){

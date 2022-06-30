@@ -6,8 +6,11 @@ const schema = {
     },
     user: {
         type: 'object'
+    },
+    template: {
+        type: 'object'
     }
-}
+};
 
 export const electronStore = new Store({ schema });
 
