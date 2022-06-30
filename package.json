@@ -4,6 +4,7 @@
     "name": "Weiwei Qian",
     "email": "497363953@qq.com"
   },
+  "description": "A toolbox of iGEM",
   "version": "0.1.0",
   "private": true,
   "scripts": {
