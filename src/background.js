@@ -11,6 +11,9 @@ import {
 } from 'electron';
 import runPython from './utils/runPython';
 const fs = require('fs');
+const Store = require('electron-store');
+
+Store.initRenderer();
 // import installExtension, {
 //   VUEJS3_DEVTOOLS
 // } from 'electron-devtools-installer'

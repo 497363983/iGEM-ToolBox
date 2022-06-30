@@ -31,6 +31,12 @@
             </el-icon>
             <span>Update</span>
           </el-menu-item>
+          <el-menu-item index="gitlab" @click="scrollTo">
+            <el-icon>
+              <SvgIcon iconClass="gitlab" />
+            </el-icon>
+            <span>GitLab</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
@@ -48,35 +54,40 @@
               <el-avatar size="large">{{ useUserStore().username }}</el-avatar>
               <el-form-item label="Username">
                 <el-input
-                  @change="react(`username`)"
+                  @change="react(`username`, useUserStore().save())"
                   v-model="useUserStore().username"
                 ></el-input>
               </el-form-item>
               <el-form-item label="Password">
                 <el-input
-                  @change="react(`password`)"
+                  @change="react(`password`, useUserStore().save())"
                   type="password"
                   v-model="useUserStore().password"
                   show-password
                 ></el-input>
               </el-form-item>
+              <el-form-item label="AccessToken">
+                <el-input
+                  type="password"
+                  @change="react(`accsess token`, useUserStore().save())"
+                  v-model="useUserStore().accessTokens"
+                  show-password
+                ></el-input>
+              </el-form-item>
               <el-form-item label="Realname">
                 <el-input
-                  @change="react(`realname`)"
+                  @change="react(`realname`, useUserStore().save())"
                   v-model="useUserStore().realname"
                 ></el-input>
               </el-form-item>
               <el-form-item label="Description">
                 <el-input
-                  @change="react(`description`)"
+                  @change="react(`description`, useUserStore().save())"
                   type="textarea"
                   v-model="useUserStore().description"
                   :show-word-limit="true"
                 ></el-input>
               </el-form-item>
-              <!-- <el-button-group>
-                <el-button type="danger">logout</el-button>
-              </el-button-group> -->
             </div>
             <el-divider />
             <div class="title_wrapper">
@@ -84,14 +95,27 @@
             </div>
             <el-form-item label="Year">
               <el-date-picker
-                @change="react(`year`)"
+                @change="react(`year`, useGitLabStore().setPaths())"
                 v-model="useConfigStore().competition.year"
                 type="year"
+                format="YYYY"
+                value-format="YYYY"
               />
+            </el-form-item>
+            <el-form-item label="Team">
+              <el-input
+                @change="
+                  react(`team`, () => {
+                    useGitLabStore().setPaths();
+                    useUserStore().save();
+                  })
+                "
+                v-model="useUserStore().team"
+              ></el-input>
             </el-form-item>
             <el-form-item label="Role">
               <el-select
-                @change="react(`role`)"
+                @change="react(`role`, useConfigStore().save())"
                 v-model="useConfigStore().competition.role"
               >
                 <el-option
@@ -105,7 +129,7 @@
             </el-form-item>
             <el-form-item label="Group">
               <el-select
-                @change="react(`group`)"
+                @change="react(`group`, useConfigStore().save())"
                 v-model="useConfigStore().competition.group"
               >
                 <el-option
@@ -123,7 +147,7 @@
             </div>
             <el-form-item label="Language">
               <el-select
-                @change="react(`language`)"
+                @change="react(`language`, useConfigStore().save())"
                 v-model="useConfigStore().language.currentLanguage"
               >
                 <el-option
@@ -136,7 +160,7 @@
             </el-form-item>
             <el-form-item label="Theme">
               <el-select
-                @change="react(`theme`)"
+                @change="react(`theme`, useConfigStore().save())"
                 v-model="useConfigStore().theme.currrentTheme"
               >
                 <el-option
@@ -153,9 +177,41 @@
             </div>
             <el-form-item label="AutoUpdate">
               <el-switch
-                @change="react(`autoupdate`)"
+                @change="react(`autoupdate`, useConfigStore().save())"
                 v-model="useConfigStore().update.autoUpdate"
               ></el-switch>
+            </el-form-item>
+            <el-divider />
+            <div class="title_wrapper">
+              <h1>GitLab</h1>
+            </div>
+            <el-form-item label="GitLabPath">
+              <el-input
+                @change="react(`gitlab path`)"
+                v-model="useGitLabStore().gitLabPath"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="GitPath">
+              <el-input
+                @change="react(`git path`)"
+                v-model="useGitLabStore().gitPath"
+              ></el-input>
+            </el-form-item>
+            <el-divider />
+            <div class="title_wrapper">
+              <h1>Template</h1>
+            </div>
+            <el-form-item label="WikiPages">
+              <el-input
+                @change="react(`wiki pages template path`)"
+                v-model="useTemplateStore().pageTemplatePath"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="WikiSuffix">
+              <el-input
+                @change="react(`wiki page suffix`)"
+                v-model="useTemplateStore().pageSuffix"
+              ></el-input>
             </el-form-item>
           </el-form>
         </el-scrollbar>
@@ -179,21 +235,30 @@
 </style>
 <script setup>
 import { ElMessage } from "element-plus";
-import { useConfigStore, useUserStore } from "../store";
+import {
+  useConfigStore,
+  useUserStore,
+  useGitLabStore,
+  useTemplateStore,
+} from "../store";
 import { Uppercase } from "../utils/index";
 import { toRefs, ref } from "vue";
 
 let activeIndex = "user";
 const settingScrollBar = ref();
 
-function react(option) {
+async function react(option, callback) {
   // TODO:check the change
+  console.log(useConfigStore().$state)
   ElMessage({
     type: "success",
     message: `Set ${
       typeof option === "string" ? option.toLowerCase() : option
     } success`,
   });
+  if (callback && typeof callback === "function") {
+    callback();
+  }
 }
 
 function scroll({ scrollTop }) {
@@ -218,6 +283,7 @@ function scroll({ scrollTop }) {
   });
 }
 function scrollTo(event) {
+  console.log(settingScrollBar);
   const { index } = toRefs(event);
   const title = document.querySelectorAll(".title_wrapper");
   let target = 0;

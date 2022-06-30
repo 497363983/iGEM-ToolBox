@@ -2,6 +2,7 @@ import {
     defineStore
 } from 'pinia';
 import { en, zhCn } from "element-plus/lib/locale";
+import { electronStore } from '@/electron-store';
 
 export const useConfigStore = defineStore('configStore', {
     state: () => ({
@@ -23,7 +24,7 @@ export const useConfigStore = defineStore('configStore', {
             currentLanguage: "en"
         },
         competition: {
-            year: "2022",
+            year: `${new Date().getFullYear()}`,
             group: "",
             role: "",
             ALLOWED_ROLE: ["leader", "member", "PI", "advisor"],
@@ -41,6 +42,9 @@ export const useConfigStore = defineStore('configStore', {
     actions: {
         setCurrentLanguage: (language) => {
             this.language.currentLanguage = this.language.languageList[language];
+        },
+        save() {
+            electronStore.set('config',this.$state);
         }
     }
 });

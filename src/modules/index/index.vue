@@ -125,7 +125,12 @@ body {
 <script setup>
 import "../../icons";
 import { useConfigStore } from "@/store";
-import { computed } from "vue";
+import { computed,onMounted } from "vue";
+import { getElectronStore } from "@/utils";
+
+onMounted(() => {
+  getElectronStore();
+});
 
 const language = computed(() => {
   const configStore = useConfigStore();

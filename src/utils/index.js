@@ -3,6 +3,9 @@ const {
     ipcRenderer
 } = electron;
 
+import { useUserStore,useConfigStore } from "@/store";
+import { electronStore } from "@/electron-store";
+
 export function getData() {
 
 }
@@ -29,5 +32,11 @@ export function Uppercase(str){
     return str.replace(/\b([\w|']+)\b/g, (word)=>{
         return word.replace(word.charAt(0), word.charAt(0).toUpperCase());
     });
+
+}
+
+export function getElectronStore(){
+    useUserStore().$state = electronStore.get('user');
+    useConfigStore().$state = electronStore.get('config');
 
 }
