@@ -437,5 +437,129 @@
         "subject": [
             "General Dentistry"
         ]
+    },
+    {
+        "doi": "10.1177/00220345211000668",
+        "url": "http://dx.doi.org/10.1177/00220345211000668",
+        "authors": [
+            {
+                "given": "J.",
+                "family": "Chen",
+                "sequence": "first",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "A.",
+                "family": "Zhang",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "Z.",
+                "family": "Xiang",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "M.",
+                "family": "Lu",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "P.",
+                "family": "Huang",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "T.",
+                "family": "Gong",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "Y.",
+                "family": "Pan",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "Y.",
+                "family": "Lin",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "X.",
+                "family": "Zhou",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "Y.",
+                "family": "Li",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            }
+        ],
+        "year": 2021,
+        "date": [
+            2021,
+            3,
+            20
+        ],
+        "language": "en",
+        "issn": "0022-0345",
+        "title": [
+            "EpsR Negatively Regulates <i>Streptococcus mutans</i> Exopolysaccharide Synthesis"
+        ],
+        "type": "journal-article",
+        "publisher": "SAGE Publications",
+        "abstract": "<jats:p> Streptococcus mutans is considered the primary etiological agent of human dental caries. Glucosyltransferases (Gtfs) from S. mutans play important roles in the formation of biofilm matrix and the development of cariogenic oral biofilm. Therefore, Gtfs are considered an important target to prevent the development of dental caries. However, the role of transcription factors in regulating gtf expression is not yet clear. Here, we identify a MarR (multiple antibiotic resistance regulator) family transcription factor named EpsR (exopolysaccharide synthesis regulator), which negatively regulates gtfB expression and exopolysaccharide (EPS) production in S. mutans. The epsR in-frame deletion strain grew slowly, aggregated more easily in the presence of dextran, and displayed different colony morphology and biofilm structure. Notably, epsR deletion resulted in altered 3-dimensional biofilm architecture, increased water-insoluble EPS production, and upregulated GtfB protein content and activity. In addition, global gene expression profiling revealed differences in the expression levels of 69 genes in which gtfB was markedly upregulated. The conserved DNA motif for EpsR binding was determined by electrophoretic mobility shift assay and DNase I footprinting assays. Moreover, analysis of β-galactosidase activity suggested that EpsR acted as a repressor and inhibited gtfB expression. Taken together, our findings indicate that EpsR is an important transcription factor that regulates gtfB expression and EPS production in S. mutans. These results add new aspects to the complexity of regulating the expression of genes involved in the cariogenicity of S. mutans, which might lead to novel strategies to prevent the formation of cariogenic biofilm that may favor diseases. </jats:p>",
+        "page": "002203452110006",
+        "subject": [
+            "General Dentistry"
+        ]
     }
 ]
