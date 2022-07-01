@@ -1,1 +1,441 @@
-[{"doi":"10.1128/aac.05175-11","url":"http://dx.doi.org/10.1128/aac.05175-11","authors":[{"given":"Junni","family":"Mai","sequence":"first","affiliation":[{"name":"Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"},{"name":"Guanghua School of Stomatology, Sun Yat-Sen University, Guangzhou, China"}]},{"given":"Xiao-Lin","family":"Tian","sequence":"additional","affiliation":[{"name":"Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"}]},{"given":"Jeffrey W.","family":"Gallant","sequence":"additional","affiliation":[{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Nadine","family":"Merkley","sequence":"additional","affiliation":[{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Zakia","family":"Biswas","sequence":"additional","affiliation":[{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Raymond","family":"Syvitski","sequence":"additional","affiliation":[{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Susan E.","family":"Douglas","sequence":"additional","affiliation":[{"name":"Department of Microbiology and Immunology, Dalhousie University, Halifax, Canada"},{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Junqi","family":"Ling","sequence":"additional","affiliation":[{"name":"Guanghua School of Stomatology, Sun Yat-Sen University, Guangzhou, China"}]},{"given":"Yung-Hua","family":"Li","sequence":"additional","affiliation":[{"name":"Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"},{"name":"Department of Microbiology and Immunology, Dalhousie University, Halifax, Canada"}]}],"year":"2011","date":[2011,11],"language":"en","issn":"0066-4804","issue":"11","title":["A Novel Target-Specific, Salt-Resistant Antimicrobial Peptide against the Cariogenic Pathogen Streptococcus mutans"],"type":"journal-article","publisher":"American Society for Microbiology","volume":"55","abstract":"<jats:title>ABSTRACT</jats:title>\n          <jats:p>\n            In this study, we constructed and evaluated a target-specific, salt-resistant antimicrobial peptide (AMP) that selectively targeted\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">Streptococcus mutans</jats:named-content>\n            , a leading cariogenic pathogen. The rationale for creating such a peptide was based on the addition of a targeting domain of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            ComC signaling peptide pheromone (CSP) to a killing domain consisting of a portion of the marine-derived, broad-spectrum AMP pleurocidin to generate a target-specific AMP. Here, we report the results of our assessment of such fusion peptides against\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            and two closely related species. The results showed that nearly 95% of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            cells lost viability following exposure to fusion peptide IMB-2 (5.65 μM) for 15 min. In contrast, only 20% of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. sanguinis</jats:named-content>\n            or\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. gordonii</jats:named-content>\n            cells were killed following the same exposure. Similar results were also observed in dual-species mixed cultures of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            with\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. sanguinis</jats:named-content>\n            or\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. gordonii</jats:named-content>\n            . The peptide-guided killing was further confirmed in\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            biofilms and was shown to be dose dependent. An\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            mutant defective in the CSP receptor retained 60% survival following exposure to IMB-2, suggesting that the targeted peptide predominantly bound to the CSP receptor to mediate killing in the wild-type strain. Our work confirmed that IMB-2 retained its activity in the presence of physiological or higher salt concentrations. In particular, the fusion peptide showed a synergistic killing effect on\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            with a preventive dose of NaF. In addition, IMB-2 was relatively stable in the presence of saliva containing 1 mM EDTA and did not cause any hemolysis. We also found that replacement of serine-14 by histidine improved its activity at lower pH. Because of its effectiveness, salt resistance, and minimal toxicity to host cells, this novel target-specific peptide shows promise for future development as an anticaries agent.\n          </jats:p>","page":"5205-5213"},{"doi":"10.1128/aem.01156-08","url":"http://dx.doi.org/10.1128/aem.01156-08","authors":[{"given":"Xin","family":"Yan","sequence":"first","affiliation":[{"name":"Department of Microbiology, College of Life Sciences, Key Laboratory for Microbiological Engineering of Agricultural Environment of Ministry of Agriculture, Nanjing Agricultural University, 6 Tongwei Road, Nanjing, Jiangsu 210095, People's Republic of China"}]},{"given":"Hao-Jie","family":"Yu","sequence":"additional","affiliation":[{"name":"Department of Microbiology, College of Life Sciences, Key Laboratory for Microbiological Engineering of Agricultural Environment of Ministry of Agriculture, Nanjing Agricultural University, 6 Tongwei Road, Nanjing, Jiangsu 210095, People's Republic of China"}]},{"given":"Qing","family":"Hong","sequence":"additional","affiliation":[{"name":"Department of Microbiology, College of Life Sciences, Key Laboratory for Microbiological Engineering of Agricultural Environment of Ministry of Agriculture, Nanjing Agricultural University, 6 Tongwei Road, Nanjing, Jiangsu 210095, People's Republic of China"}]},{"given":"Shun-Peng","family":"Li","sequence":"additional","affiliation":[{"name":"Department of Microbiology, College of Life Sciences, Key Laboratory for Microbiological Engineering of Agricultural Environment of Ministry of Agriculture, Nanjing Agricultural University, 6 Tongwei Road, Nanjing, Jiangsu 210095, People's Republic of China"}]}],"year":2008,"date":[2008,9],"language":"en","issn":"0099-2240","issue":"17","title":["Cre/\n            <i>lox</i>\n            System and PCR-Based Genome Engineering in\n            <i>Bacillus subtilis</i>"],"type":"journal-article","publisher":"American Society for Microbiology","volume":"74","abstract":"<jats:title>ABSTRACT</jats:title>\n          <jats:p>\n            We have developed a fast and accurate method to engineer the\n            <jats:italic>Bacillus subtilis</jats:italic>\n            genome that involves fusing by PCR two flanking homology regions with an antibiotic resistance gene cassette bordered by two mutant\n            <jats:italic>lox</jats:italic>\n            sites (\n            <jats:italic>lox71</jats:italic>\n            and\n            <jats:italic>lox66</jats:italic>\n            ). The resulting PCR products were used directly to transform\n            <jats:italic>B. subtilis</jats:italic>\n            , and then transient Cre recombinase expression in the transformants was used to recombine\n            <jats:italic>lox71</jats:italic>\n            and\n            <jats:italic>lox66</jats:italic>\n            into a double-mutant\n            <jats:italic>lox72</jats:italic>\n            site, thereby excising the marker gene. The mutation process could also be accomplished in 2 days by using a strain containing a\n            <jats:italic>cre</jats:italic>\n            isopropyl-β-\n            <jats:sc>d</jats:sc>\n            -thiogalactopyranoside (IPTG)-inducible expression cassette in the chromosome as the recipient or using the\n            <jats:italic>lox</jats:italic>\n            site-flanked cassette containing both the\n            <jats:italic>cre</jats:italic>\n            IPTG-inducible expression cassette and resistance marker. The in vivo recombination efficiencies of different\n            <jats:italic>lox</jats:italic>\n            pairs were compared; the\n            <jats:italic>lox72</jats:italic>\n            site that remains in the chromosome after Cre recombination had a low affinity for Cre and did not interfere with subsequent rounds of Cre/\n            <jats:italic>lox</jats:italic>\n            mutagenesis. We used this method to inactivate a specific gene, to delete a long fragment, to realize the in-frame deletion of a target gene, to introduce a gene of interest, and to carry out multiple manipulations in the same background. Furthermore, it should also be applicable to large genome rearrangement.\n          </jats:p>","page":"5556-5562","subject":["Ecology","Applied Microbiology and Biotechnology","Food Science","Biotechnology"]},{"doi":"10.1128/aac.05175-11","url":"http://dx.doi.org/10.1128/aac.05175-11","authors":[{"given":"Junni","family":"Mai","sequence":"first","affiliation":[{"name":"Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"},{"name":"Guanghua School of Stomatology, Sun Yat-Sen University, Guangzhou, China"}]},{"given":"Xiao-Lin","family":"Tian","sequence":"additional","affiliation":[{"name":"Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"}]},{"given":"Jeffrey W.","family":"Gallant","sequence":"additional","affiliation":[{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Nadine","family":"Merkley","sequence":"additional","affiliation":[{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Zakia","family":"Biswas","sequence":"additional","affiliation":[{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Raymond","family":"Syvitski","sequence":"additional","affiliation":[{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Susan E.","family":"Douglas","sequence":"additional","affiliation":[{"name":"Department of Microbiology and Immunology, Dalhousie University, Halifax, Canada"},{"name":"Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"}]},{"given":"Junqi","family":"Ling","sequence":"additional","affiliation":[{"name":"Guanghua School of Stomatology, Sun Yat-Sen University, Guangzhou, China"}]},{"given":"Yung-Hua","family":"Li","sequence":"additional","affiliation":[{"name":"Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"},{"name":"Department of Microbiology and Immunology, Dalhousie University, Halifax, Canada"}]}],"year":2011,"date":[2011,11],"language":"en","issn":"0066-4804","issue":"11","title":["A Novel Target-Specific, Salt-Resistant Antimicrobial Peptide against the Cariogenic Pathogen Streptococcus mutans"],"type":"journal-article","publisher":"American Society for Microbiology","volume":"55","abstract":"<jats:title>ABSTRACT</jats:title>\n          <jats:p>\n            In this study, we constructed and evaluated a target-specific, salt-resistant antimicrobial peptide (AMP) that selectively targeted\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">Streptococcus mutans</jats:named-content>\n            , a leading cariogenic pathogen. The rationale for creating such a peptide was based on the addition of a targeting domain of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            ComC signaling peptide pheromone (CSP) to a killing domain consisting of a portion of the marine-derived, broad-spectrum AMP pleurocidin to generate a target-specific AMP. Here, we report the results of our assessment of such fusion peptides against\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            and two closely related species. The results showed that nearly 95% of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            cells lost viability following exposure to fusion peptide IMB-2 (5.65 μM) for 15 min. In contrast, only 20% of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. sanguinis</jats:named-content>\n            or\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. gordonii</jats:named-content>\n            cells were killed following the same exposure. Similar results were also observed in dual-species mixed cultures of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            with\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. sanguinis</jats:named-content>\n            or\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. gordonii</jats:named-content>\n            . The peptide-guided killing was further confirmed in\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            biofilms and was shown to be dose dependent. An\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            mutant defective in the CSP receptor retained 60% survival following exposure to IMB-2, suggesting that the targeted peptide predominantly bound to the CSP receptor to mediate killing in the wild-type strain. Our work confirmed that IMB-2 retained its activity in the presence of physiological or higher salt concentrations. In particular, the fusion peptide showed a synergistic killing effect on\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            with a preventive dose of NaF. In addition, IMB-2 was relatively stable in the presence of saliva containing 1 mM EDTA and did not cause any hemolysis. We also found that replacement of serine-14 by histidine improved its activity at lower pH. Because of its effectiveness, salt resistance, and minimal toxicity to host cells, this novel target-specific peptide shows promise for future development as an anticaries agent.\n          </jats:p>","page":"5205-5213","subject":["Infectious Diseases","Pharmacology (medical)","Pharmacology"]}]
+[
+    {
+        "doi": "10.1128/aac.05175-11",
+        "url": "http://dx.doi.org/10.1128/aac.05175-11",
+        "authors": [
+            {
+                "given": "Junni",
+                "family": "Mai",
+                "sequence": "first",
+                "affiliation": [
+                    {
+                        "name": "Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"
+                    },
+                    {
+                        "name": "Guanghua School of Stomatology, Sun Yat-Sen University, Guangzhou, China"
+                    }
+                ]
+            },
+            {
+                "given": "Xiao-Lin",
+                "family": "Tian",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Jeffrey W.",
+                "family": "Gallant",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Nadine",
+                "family": "Merkley",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Zakia",
+                "family": "Biswas",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Raymond",
+                "family": "Syvitski",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Susan E.",
+                "family": "Douglas",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Microbiology and Immunology, Dalhousie University, Halifax, Canada"
+                    },
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Junqi",
+                "family": "Ling",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Guanghua School of Stomatology, Sun Yat-Sen University, Guangzhou, China"
+                    }
+                ]
+            },
+            {
+                "given": "Yung-Hua",
+                "family": "Li",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"
+                    },
+                    {
+                        "name": "Department of Microbiology and Immunology, Dalhousie University, Halifax, Canada"
+                    }
+                ]
+            }
+        ],
+        "year": "2011",
+        "date": [
+            2011,
+            11
+        ],
+        "language": "en",
+        "issn": "0066-4804",
+        "issue": "11",
+        "title": [
+            "A Novel Target-Specific, Salt-Resistant Antimicrobial Peptide against the Cariogenic Pathogen Streptococcus mutans"
+        ],
+        "type": "journal-article",
+        "publisher": "American Society for Microbiology",
+        "volume": "55",
+        "abstract": "<jats:title>ABSTRACT</jats:title>\n          <jats:p>\n            In this study, we constructed and evaluated a target-specific, salt-resistant antimicrobial peptide (AMP) that selectively targeted\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">Streptococcus mutans</jats:named-content>\n            , a leading cariogenic pathogen. The rationale for creating such a peptide was based on the addition of a targeting domain of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            ComC signaling peptide pheromone (CSP) to a killing domain consisting of a portion of the marine-derived, broad-spectrum AMP pleurocidin to generate a target-specific AMP. Here, we report the results of our assessment of such fusion peptides against\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            and two closely related species. The results showed that nearly 95% of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            cells lost viability following exposure to fusion peptide IMB-2 (5.65 μM) for 15 min. In contrast, only 20% of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. sanguinis</jats:named-content>\n            or\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. gordonii</jats:named-content>\n            cells were killed following the same exposure. Similar results were also observed in dual-species mixed cultures of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            with\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. sanguinis</jats:named-content>\n            or\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. gordonii</jats:named-content>\n            . The peptide-guided killing was further confirmed in\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            biofilms and was shown to be dose dependent. An\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            mutant defective in the CSP receptor retained 60% survival following exposure to IMB-2, suggesting that the targeted peptide predominantly bound to the CSP receptor to mediate killing in the wild-type strain. Our work confirmed that IMB-2 retained its activity in the presence of physiological or higher salt concentrations. In particular, the fusion peptide showed a synergistic killing effect on\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            with a preventive dose of NaF. In addition, IMB-2 was relatively stable in the presence of saliva containing 1 mM EDTA and did not cause any hemolysis. We also found that replacement of serine-14 by histidine improved its activity at lower pH. Because of its effectiveness, salt resistance, and minimal toxicity to host cells, this novel target-specific peptide shows promise for future development as an anticaries agent.\n          </jats:p>",
+        "page": "5205-5213"
+    },
+    {
+        "doi": "10.1128/aem.01156-08",
+        "url": "http://dx.doi.org/10.1128/aem.01156-08",
+        "authors": [
+            {
+                "given": "Xin",
+                "family": "Yan",
+                "sequence": "first",
+                "affiliation": [
+                    {
+                        "name": "Department of Microbiology, College of Life Sciences, Key Laboratory for Microbiological Engineering of Agricultural Environment of Ministry of Agriculture, Nanjing Agricultural University, 6 Tongwei Road, Nanjing, Jiangsu 210095, People's Republic of China"
+                    }
+                ]
+            },
+            {
+                "given": "Hao-Jie",
+                "family": "Yu",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Microbiology, College of Life Sciences, Key Laboratory for Microbiological Engineering of Agricultural Environment of Ministry of Agriculture, Nanjing Agricultural University, 6 Tongwei Road, Nanjing, Jiangsu 210095, People's Republic of China"
+                    }
+                ]
+            },
+            {
+                "given": "Qing",
+                "family": "Hong",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Microbiology, College of Life Sciences, Key Laboratory for Microbiological Engineering of Agricultural Environment of Ministry of Agriculture, Nanjing Agricultural University, 6 Tongwei Road, Nanjing, Jiangsu 210095, People's Republic of China"
+                    }
+                ]
+            },
+            {
+                "given": "Shun-Peng",
+                "family": "Li",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Microbiology, College of Life Sciences, Key Laboratory for Microbiological Engineering of Agricultural Environment of Ministry of Agriculture, Nanjing Agricultural University, 6 Tongwei Road, Nanjing, Jiangsu 210095, People's Republic of China"
+                    }
+                ]
+            }
+        ],
+        "year": 2008,
+        "date": [
+            2008,
+            9
+        ],
+        "language": "en",
+        "issn": "0099-2240",
+        "issue": "17",
+        "title": [
+            "Cre/\n            <i>lox</i>\n            System and PCR-Based Genome Engineering in\n            <i>Bacillus subtilis</i>"
+        ],
+        "type": "journal-article",
+        "publisher": "American Society for Microbiology",
+        "volume": "74",
+        "abstract": "<jats:title>ABSTRACT</jats:title>\n          <jats:p>\n            We have developed a fast and accurate method to engineer the\n            <jats:italic>Bacillus subtilis</jats:italic>\n            genome that involves fusing by PCR two flanking homology regions with an antibiotic resistance gene cassette bordered by two mutant\n            <jats:italic>lox</jats:italic>\n            sites (\n            <jats:italic>lox71</jats:italic>\n            and\n            <jats:italic>lox66</jats:italic>\n            ). The resulting PCR products were used directly to transform\n            <jats:italic>B. subtilis</jats:italic>\n            , and then transient Cre recombinase expression in the transformants was used to recombine\n            <jats:italic>lox71</jats:italic>\n            and\n            <jats:italic>lox66</jats:italic>\n            into a double-mutant\n            <jats:italic>lox72</jats:italic>\n            site, thereby excising the marker gene. The mutation process could also be accomplished in 2 days by using a strain containing a\n            <jats:italic>cre</jats:italic>\n            isopropyl-β-\n            <jats:sc>d</jats:sc>\n            -thiogalactopyranoside (IPTG)-inducible expression cassette in the chromosome as the recipient or using the\n            <jats:italic>lox</jats:italic>\n            site-flanked cassette containing both the\n            <jats:italic>cre</jats:italic>\n            IPTG-inducible expression cassette and resistance marker. The in vivo recombination efficiencies of different\n            <jats:italic>lox</jats:italic>\n            pairs were compared; the\n            <jats:italic>lox72</jats:italic>\n            site that remains in the chromosome after Cre recombination had a low affinity for Cre and did not interfere with subsequent rounds of Cre/\n            <jats:italic>lox</jats:italic>\n            mutagenesis. We used this method to inactivate a specific gene, to delete a long fragment, to realize the in-frame deletion of a target gene, to introduce a gene of interest, and to carry out multiple manipulations in the same background. Furthermore, it should also be applicable to large genome rearrangement.\n          </jats:p>",
+        "page": "5556-5562",
+        "subject": [
+            "Ecology",
+            "Applied Microbiology and Biotechnology",
+            "Food Science",
+            "Biotechnology"
+        ]
+    },
+    {
+        "doi": "10.1128/aac.05175-11",
+        "url": "http://dx.doi.org/10.1128/aac.05175-11",
+        "authors": [
+            {
+                "given": "Junni",
+                "family": "Mai",
+                "sequence": "first",
+                "affiliation": [
+                    {
+                        "name": "Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"
+                    },
+                    {
+                        "name": "Guanghua School of Stomatology, Sun Yat-Sen University, Guangzhou, China"
+                    }
+                ]
+            },
+            {
+                "given": "Xiao-Lin",
+                "family": "Tian",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Jeffrey W.",
+                "family": "Gallant",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Nadine",
+                "family": "Merkley",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Zakia",
+                "family": "Biswas",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Raymond",
+                "family": "Syvitski",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Susan E.",
+                "family": "Douglas",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Microbiology and Immunology, Dalhousie University, Halifax, Canada"
+                    },
+                    {
+                        "name": "Institute for Marine Biosciences, National Research Council of Canada, Halifax, Canada"
+                    }
+                ]
+            },
+            {
+                "given": "Junqi",
+                "family": "Ling",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Guanghua School of Stomatology, Sun Yat-Sen University, Guangzhou, China"
+                    }
+                ]
+            },
+            {
+                "given": "Yung-Hua",
+                "family": "Li",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Applied Oral Sciences, Dalhousie University, Halifax, Canada"
+                    },
+                    {
+                        "name": "Department of Microbiology and Immunology, Dalhousie University, Halifax, Canada"
+                    }
+                ]
+            }
+        ],
+        "year": 2011,
+        "date": [
+            2011,
+            11
+        ],
+        "language": "en",
+        "issn": "0066-4804",
+        "issue": "11",
+        "title": [
+            "A Novel Target-Specific, Salt-Resistant Antimicrobial Peptide against the Cariogenic Pathogen Streptococcus mutans"
+        ],
+        "type": "journal-article",
+        "publisher": "American Society for Microbiology",
+        "volume": "55",
+        "abstract": "<jats:title>ABSTRACT</jats:title>\n          <jats:p>\n            In this study, we constructed and evaluated a target-specific, salt-resistant antimicrobial peptide (AMP) that selectively targeted\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">Streptococcus mutans</jats:named-content>\n            , a leading cariogenic pathogen. The rationale for creating such a peptide was based on the addition of a targeting domain of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            ComC signaling peptide pheromone (CSP) to a killing domain consisting of a portion of the marine-derived, broad-spectrum AMP pleurocidin to generate a target-specific AMP. Here, we report the results of our assessment of such fusion peptides against\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            and two closely related species. The results showed that nearly 95% of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            cells lost viability following exposure to fusion peptide IMB-2 (5.65 μM) for 15 min. In contrast, only 20% of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. sanguinis</jats:named-content>\n            or\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. gordonii</jats:named-content>\n            cells were killed following the same exposure. Similar results were also observed in dual-species mixed cultures of\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            with\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. sanguinis</jats:named-content>\n            or\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. gordonii</jats:named-content>\n            . The peptide-guided killing was further confirmed in\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            biofilms and was shown to be dose dependent. An\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            mutant defective in the CSP receptor retained 60% survival following exposure to IMB-2, suggesting that the targeted peptide predominantly bound to the CSP receptor to mediate killing in the wild-type strain. Our work confirmed that IMB-2 retained its activity in the presence of physiological or higher salt concentrations. In particular, the fusion peptide showed a synergistic killing effect on\n            <jats:named-content xmlns:xlink=\"http://www.w3.org/1999/xlink\" content-type=\"genus-species\" xlink:type=\"simple\">S. mutans</jats:named-content>\n            with a preventive dose of NaF. In addition, IMB-2 was relatively stable in the presence of saliva containing 1 mM EDTA and did not cause any hemolysis. We also found that replacement of serine-14 by histidine improved its activity at lower pH. Because of its effectiveness, salt resistance, and minimal toxicity to host cells, this novel target-specific peptide shows promise for future development as an anticaries agent.\n          </jats:p>",
+        "page": "5205-5213",
+        "subject": [
+            "Infectious Diseases",
+            "Pharmacology (medical)",
+            "Pharmacology"
+        ]
+    },
+    {
+        "doi": "10.1177/00220345211000668",
+        "url": "http://dx.doi.org/10.1177/00220345211000668",
+        "authors": [
+            {
+                "given": "J.",
+                "family": "Chen",
+                "sequence": "first",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "A.",
+                "family": "Zhang",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "Z.",
+                "family": "Xiang",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "M.",
+                "family": "Lu",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "P.",
+                "family": "Huang",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "T.",
+                "family": "Gong",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "Y.",
+                "family": "Pan",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "Y.",
+                "family": "Lin",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "X.",
+                "family": "Zhou",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            },
+            {
+                "given": "Y.",
+                "family": "Li",
+                "sequence": "additional",
+                "affiliation": [
+                    {
+                        "name": "Department of Operative Dentistry and Endodontics, State Key Laboratory of Oral Diseases, National Clinical Research Center for Oral Diseases, West China Hospital of Stomatology, Sichuan University, Chengdu, China"
+                    }
+                ]
+            }
+        ],
+        "year": 2021,
+        "date": [
+            2021,
+            3,
+            20
+        ],
+        "language": "en",
+        "issn": "0022-0345",
+        "title": [
+            "EpsR Negatively Regulates <i>Streptococcus mutans</i> Exopolysaccharide Synthesis"
+        ],
+        "type": "journal-article",
+        "publisher": "SAGE Publications",
+        "abstract": "<jats:p> Streptococcus mutans is considered the primary etiological agent of human dental caries. Glucosyltransferases (Gtfs) from S. mutans play important roles in the formation of biofilm matrix and the development of cariogenic oral biofilm. Therefore, Gtfs are considered an important target to prevent the development of dental caries. However, the role of transcription factors in regulating gtf expression is not yet clear. Here, we identify a MarR (multiple antibiotic resistance regulator) family transcription factor named EpsR (exopolysaccharide synthesis regulator), which negatively regulates gtfB expression and exopolysaccharide (EPS) production in S. mutans. The epsR in-frame deletion strain grew slowly, aggregated more easily in the presence of dextran, and displayed different colony morphology and biofilm structure. Notably, epsR deletion resulted in altered 3-dimensional biofilm architecture, increased water-insoluble EPS production, and upregulated GtfB protein content and activity. In addition, global gene expression profiling revealed differences in the expression levels of 69 genes in which gtfB was markedly upregulated. The conserved DNA motif for EpsR binding was determined by electrophoretic mobility shift assay and DNase I footprinting assays. Moreover, analysis of β-galactosidase activity suggested that EpsR acted as a repressor and inhibited gtfB expression. Taken together, our findings indicate that EpsR is an important transcription factor that regulates gtfB expression and EPS production in S. mutans. These results add new aspects to the complexity of regulating the expression of genes involved in the cariogenicity of S. mutans, which might lead to novel strategies to prevent the formation of cariogenic biofilm that may favor diseases. </jats:p>",
+        "page": "002203452110006",
+        "subject": [
+            "General Dentistry"
+        ]
+    }
+]
