@@ -1,21 +1,37 @@
-// const electron = window.require('electron');
-// const {
-//     ipcRenderer
-// } = electron;
 const simpleGit = window.require('simple-git');
-import { computed } from 'vue';
-import { useUserStore, useTemplateStore, useGitLabStore } from '@/store';
 
-
-export async function cloneProject() {
-    const { username, accessTokens } = computed(() => useUserStore().$state).value;
-    const { gitPath } = computed(() => useGitLabStore().$state).value;
-    const gitpath = computed(() => `https://${username}:${accessTokens}@${gitPath.replace('git@', '')}`).value;
-    const { projectPath } = computed(() => useTemplateStore().$state).value;
-    console.log(projectPath, gitpath);
-    simpleGit(projectPath).clone(gitpath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+export async function isGitRepository(projectPath) {
+    return await simpleGit(projectPath).raw('rev-parse', '--is-inside-work-tree');
 }
 
-export async function pullProject() {
-    
+export async function cloneProject(options) {
+    const { username, accessTokens, gitPath, projectPath } = options;
+    const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
+    if (!isGitRepository(projectPath)) {
+        simpleGit(projectPath).clone(gitpath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+    }
+}
+
+export async function pullProject(options) {
+    const { success, failure, projectPath } = options;
+    if (isGitRepository(projectPath)) {
+        simpleGit(projectPath).pull().then((res) => {
+            const { changes, deletions, insertions } = res.summary;
+            if (changes !== 0 || deletions !== 0 || insertions !== 0) {
+                simpleGit(projectPath).merge().then(() => (success && typeof success === 'function') ? success(res) : console.log('pull success', res)).catch((err) => console.log(err));
+            } else {
+                (success && typeof success === 'function') ? success(res) : console.log('pull success', res);
+            }
+        }).catch((err) => (failure && typeof failure === 'function') ? failure(err) : console.err('pull failed:', err));
+    } else {
+        cloneProject();
+    }
+}
+
+export async function pushProject(options) {
+    const { projectPath, commitInformation, branch = 'main', file } = options;
+    // const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
+    if (isGitRepository(projectPath)) {
+        simpleGit(projectPath).add(file).commit(commitInformation).push(['origin', branch], (res) => console.log('push success', res));
+    }
 }
