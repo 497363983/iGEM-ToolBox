@@ -58,7 +58,7 @@ module.exports = { //多页面打包
         // options placed here will be merged with default configuration and passed to electron-builder
         "appId": "this.is.tasky",
         "productName": "iGEM-ToolBox",
-        "copyright": "Copyright © 2021 Alaso",
+        "copyright": "",
         "directories": {
           "buildResources": "build"
         },
