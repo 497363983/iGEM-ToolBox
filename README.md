@@ -21,9 +21,9 @@
 
 ```mermaid
 graph LR
-    writer(Word,在线文档等) --> developer(开发人员)
-    developer --翻译--> HTML(HTML) 
-    developer --开发--> template(CSS+JavaScript)
+    writer(Word,online document etc.) --> developer(developer)
+    developer --translate--> HTML(HTML) 
+    developer --develop--> template(CSS+JavaScript)
     HTML --> WIKI(WIKI)
     template --> WIKI
 ```
@@ -36,25 +36,25 @@ graph LR
 
 ```mermaid
 graph LR
-    writer1(内容编写人员1) --编辑--> content1(页面内容1)
-    writer2(内容编写人员2) --编辑--> content2(页面内容2)
-    writer3(内容编写人员3) --编辑--> content3(页面内容3)
-    omitwriter(..........) --编辑--> omitcontent(..........)
-    developer(开发人员) --开发--> template(模板)
+    writer1(writer1) --edit--> content1(page content1)
+    writer2(writer2) --edit--> content2(page content2)
+    writer3(writer3) --edit--> content3(page content3)
+    omitwriter(..........) --edit--> omitcontent(..........)
+    developer(developer) --develop--> template(template)
     subgraph iGEM-ToolBox
       content1 --> template
       content2 --> template
       content3 --> template
       omitcontent --> template
-      template --翻译--> page1(页面1)
-      template --翻译--> page2(页面2)
-      template --翻译--> page3(页面3)
+      template --翻译--> page1(page1)
+      template --翻译--> page2(page2)
+      template --翻译--> page3(page3)
       template --翻译--> omitpage(......)
       end
-    page1 --上传-->server(服务器)
-    page2 --上传-->server
-    page3 --上传-->server
-    omitpage --上传-->server
+    page1 --upload-->server(server)
+    page2 --upload-->server
+    page3 --upload-->server
+    omitpage --upload-->server
 ```
 
 富文本编辑器无疑是一种选择，但现有的富文本编辑器只能勉强满足我们的需求，它们或多或少会缺乏一些我们所需求的功能（如文献引用、公式等）并且不够自由。因此，本项目打算基于[tiptap2](https://tiptap.dev/)开发一款更适用于编辑iGEM WIKI的富文本编辑器。
