@@ -164,7 +164,7 @@
             <el-form-item label="Theme">
               <el-select
                 @change="react(`theme`, useConfigStore().save())"
-                v-model="useConfigStore().theme.currrentTheme"
+                v-model="useConfigStore().theme.currentTheme"
               >
                 <el-option
                   v-for="(item, index) in useConfigStore().theme.themeList"
@@ -206,7 +206,9 @@
             </div>
             <el-form-item label="WikiPages">
               <el-input
-                @change="react(`wiki pages template path`, useTemplateStore().save())"
+                @change="
+                  react(`wiki pages template path`, useTemplateStore().save())
+                "
                 v-model="useTemplateStore().pageTemplatePath"
               ></el-input>
             </el-form-item>
@@ -257,7 +259,6 @@ const settingScrollBar = ref();
 
 async function react(option, callback) {
   // TODO:check the change
-  console.log(useConfigStore().$state);
   ElMessage({
     type: "success",
     message: `Set ${

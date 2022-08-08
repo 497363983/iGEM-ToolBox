@@ -186,14 +186,32 @@ function refresh() {
     isloading.value = false;
   });
 }
-
+//TODO:rewrite the method of search.
 const filterData = computed(() => {
   return useReferenceStore().references.filter((item) => {
+    console.log(typeof item[SearchKey.value]);
     return (
       !SearchValue.value ||
-      item[SearchKey.value]
-        .toLowerCase()
-        .includes(SearchValue.value.toLowerCase())
+      (typeof item[SearchKey.value] === "string"
+        ? item[SearchKey.value]
+            .toLowerCase()
+            .includes(SearchValue.value.toLowerCase())
+        : () => {
+            console.log("ii");
+            if (SearchKey.value === "title") {
+              return item[SearchKey.value][0]
+                .toLowerCase()
+                .includes(SearchValue.value.toLowerCase());
+            } else {
+              let authors = "";
+              item[SearchKey.value].forEach((item) => {
+                authors += `${item.given} ${item.family};`;
+              });
+              return authors
+                .toLowerCase()
+                .includes(SearchValue.value.toLowerCase());
+            }
+          })
     );
   });
 });

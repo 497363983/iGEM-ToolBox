@@ -31,7 +31,7 @@ import {
 
 
 /* eslint-disable */
-export default Node.create({
+export const BlockMath =  Node.create({
     name: 'math_display',
     group: 'block math',
     content: 'text*', // important!

@@ -46,10 +46,10 @@ graph LR
       content2 --> template
       content3 --> template
       omitcontent --> template
-      template --翻译--> page1(page1)
-      template --翻译--> page2(page2)
-      template --翻译--> page3(page3)
-      template --翻译--> omitpage(......)
+      template --translation--> page1(page1)
+      template --translation--> page2(page2)
+      template --translation--> page3(page3)
+      template --translation--> omitpage(......)
       end
     page1 --upload-->server(server)
     page2 --upload-->server

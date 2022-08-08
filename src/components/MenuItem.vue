@@ -1,14 +1,24 @@
 <template>
-  <el-popover :disabled="!(role === 'dropItem')">
+  <el-popover
+    :effect="useConfigStore().theme.currentTheme"
+    :disabled="!(role === 'dropItem')"
+  >
     <template #reference>
       <label
-        :for="bindElement?bindElement.id:''"
+        :for="bindElement ? bindElement.id : ''"
         :id="id"
         class="menuItem"
-        :class="{ 'is-active': isActive? isActive(): null, 'dropMenu': role == 'dropItem' }"
-        @click="action"
+        :class="{
+          'is-active': isActive ? isActive() : null,
+          dropMenu: role == 'dropItem',
+        }"
+        @click.prevent="action"
       >
-        <el-tooltip effect="light" :content="title" placement="top">
+        <el-tooltip
+          :effect="useConfigStore().theme.currentTheme"
+          :content="title"
+          placement="top"
+        >
           <SvgIcon :iconClass="icon" />
         </el-tooltip>
       </label>
@@ -16,16 +26,16 @@
     <template #default v-if="role === 'dropItem'">
       <section class="dropdown">
         <label
-          :for="item.bindElement?item.bindElement.id:''"
+          :for="item.bindElement ? item.bindElement.id : ''"
           :id="item.id"
           v-for="(item, index) in children"
           :key="index"
           class="menuItem"
-          @click="item.action"
-          :class="{ 'is-active': item.isActive?item.isActive():null}"
+          @click.prevent="item.action"
+          :class="{ 'is-active': item.isActive ? item.isActive() : null }"
         >
           <el-tooltip
-            effect="light"
+            :effect="useConfigStore().theme.currentTheme"
             :content="item.title"
             placement="bottom"
           >
@@ -47,9 +57,11 @@
       <input
         v-if="bindElement"
         v-show="bindElement.isShow"
-        @change="bindElement.event.change?bindElement.event.change($event):null"
+        @change="
+          bindElement.event.change ? bindElement.event.change($event) : null
+        "
         :id="bindElement.id"
-        :type="bindElement.type?bindElement.type:''"
+        :type="bindElement.type ? bindElement.type : ''"
         :accept="bindElement.accept"
       />
     </template>
@@ -86,30 +98,30 @@ label.menuItem {
   }
 }
 </style>
-<script>
-export default {
-  props: {
-    role: {
-      type: String,
-      default: "item",
-      validator(value) {
-        return ["item", "dropItem"].includes(value);
-      }
+<script setup>
+import { defineProps } from "vue";
+import { useConfigStore } from "@/store";
+
+defineProps({
+  role: {
+    type: String,
+    default: "item",
+    validator(value) {
+      return ["item", "dropItem"].includes(value);
     },
-    icon: {
-      type: String,
-      required: true
-    },
-    action: {
-      type: Function,
-      default: () => {}
-    },
-    isActive: Function,
-    children: Array,
-    id: String,
-    bindElement: Object,
-    title: String
   },
-  setup() {}
-};
+  icon: {
+    type: String || Object,
+    required: true,
+  },
+  action: {
+    type: Function,
+    default: () => {},
+  },
+  isActive: Function,
+  children: Array,
+  id: String,
+  bindElement: Object,
+  title: String,
+});
 </script>
