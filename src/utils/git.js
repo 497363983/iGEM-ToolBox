@@ -1,5 +1,23 @@
 const simpleGit = window.require('simple-git');
 
+export async function getGit() {
+    console.log(await simpleGit().raw('version'))
+    return await simpleGit().raw('version');
+}
+
+export async function getAllBranch() {
+    let branches = await simpleGit().raw('branch', '-a');
+    return branches.split("\n")
+}
+
+export async function getBranch() {
+    return await simpleGit().raw('symbolic-ref', '--short', '-q', 'HEAD');
+}
+
+export async function setBranch(branch) {
+    await simpleGit().raw('checkout', branch);
+}
+
 export async function isGitRepository(projectPath) {
     return await simpleGit(projectPath).raw('rev-parse', '--is-inside-work-tree');
 }
@@ -35,3 +53,4 @@ export async function pushProject(options) {
         simpleGit(projectPath).add(file).commit(commitInformation).push(['origin', branch], (res) => console.log('push success', res));
     }
 }
+
