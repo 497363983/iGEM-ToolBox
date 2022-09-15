@@ -5,12 +5,12 @@ import { electronStore } from '@/electron-store';
 
 export const useUserStore = defineStore('userStore', {
     state: () => ({
-        username: "sky1",
-        realname: "Weiwei Qian",
+        username: "",
+        realname: "",
         password: "",
         description: "",
         accessTokens: "",
-        team: "Example",
+        team: "",
         email: ""
     }),
     actions: {
