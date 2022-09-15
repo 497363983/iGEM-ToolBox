@@ -200,6 +200,25 @@
                 v-model="useGitLabStore().gitPath"
               ></el-input>
             </el-form-item>
+            <el-form-item label="Branch">
+              <el-select
+                v-model="useGitLabStore().currentBranch"
+                remote
+                filterable
+                :remote-method="getBranches"
+                :loading="branchLoading"
+                @change="
+                  react(`branch`, setBranch(useGitLabStore().currentBranch))
+                "
+              >
+                <el-option
+                  v-for="item in branches"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
             <el-divider />
             <div class="title_wrapper">
               <h1>Template</h1>
@@ -253,9 +272,12 @@ import {
   useTemplateStore,
 } from "../store";
 import { Uppercase } from "../utils/index";
-import { toRefs, ref } from "vue";
+import { toRefs, ref, onMounted } from "vue";
+import { getAllBranch, setBranch } from "@/utils/git";
 
 const settingScrollBar = ref();
+const branches = ref([]);
+const branchLoading = ref(false);
 
 async function react(option, callback) {
   // TODO:check the change
@@ -303,4 +325,24 @@ function scrollTo(event) {
   });
   settingScrollBar.value.setScrollTop(target);
 }
+
+const getBranches = async () => {
+  branchLoading.value = true;
+  let list = await getAllBranch();
+  list = list.filter((item) => {
+    return item !== "";
+  });
+  branches.value = list.map((item) => {
+    item = item.replace("* ", "");
+    return {
+      value: item.trim(),
+      label: item.trim(),
+    };
+  });
+  branchLoading.value = false;
+};
+useGitLabStore().getCurrentBranch();
+onMounted(() => {
+  useGitLabStore().getCurrentBranch();
+});
 </script>
