@@ -40,7 +40,7 @@
     "element-plus": "^2.2.6",
     "mathjax-full": "^3.2.0",
     "pinia": "^2.0.14",
-    "simple-git": "^3.10.0",
+    "simple-git": "^3.14.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
