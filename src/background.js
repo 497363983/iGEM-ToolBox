@@ -7,6 +7,7 @@ import {
   ipcMain,
   Tray,
   Menu,
+  shell
   // screen
 } from 'electron';
 import runPython from './utils/runPython';
@@ -58,6 +59,13 @@ let mainWindow, tray;
 //   win.loadURL('app://./main.html')
 // }
 // }
+
+app.on('web-contents-created', (e, webContents) => {
+  webContents.on('new-window', (event, url) => {
+      event.preventDefault();
+      shell.openExternal(url);
+  });
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

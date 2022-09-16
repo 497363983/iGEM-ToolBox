@@ -1,8 +1,4 @@
 // vue.config.js
-
-/**
- * @type {import('@vue/cli-service').ProjectOptions}
- */
 const AutoImport = require('unplugin-auto-import/webpack');
 const Components = require('unplugin-vue-components/webpack');
 const {
@@ -48,44 +44,45 @@ module.exports = {
   },
   pluginOptions: {
     electronBuilder: {
+      nodeModulesPath: ["./node_modules"],
+      externals: ["simple-git"],
       builderOptions: {
         // options placed here will be merged with default configuration and passed to electron-builder
         "appId": "this.is.tasky",
-        "productName": "iGEM-ToolBox",
+        "productName": "iGEM_ToolBox",
         "copyright": "",
-        "directories": {
-          "buildResources": "build"
-        },
         "mac": {
           "category": "public.app-category.utilities"
         },
-        "dmg": {
-          "background": "build/background.jfif",
-          "icon": "build/icons/icon.icns",
-          "iconSize": 100,
-          "contents": [{
-            "x": 380,
-            "y": 180,
-            "type": "link",
-            "path": "/Applications"
-          },
-          {
-            "x": 130,
-            "y": 180,
-            "type": "file"
-          }
-          ],
-          "window": {
-            "width": 540,
-            "height": 380
-          }
-        },
+        "asar": false,
+
+        // "dmg": {
+        //   // "background": "build/background.jfif",
+        //   // "icon": "build/icons/icon.icns",
+        //   "iconSize": 100,
+        //   "contents": [{
+        //     "x": 380,
+        //     "y": 180,
+        //     "type": "link",
+        //     "path": "/Applications"
+        //   },
+        //   {
+        //     "x": 130,
+        //     "y": 180,
+        //     "type": "file"
+        //   }
+        //   ],
+        //   "window": {
+        //     "width": 540,
+        //     "height": 380
+        //   }
+        // },
         "win": {
           "target": [
             "msi",
             "nsis"
           ],
-          "icon": "build/icons/icon.ico"
+          // "icon": "build/icons/icon.ico"
         },
         "nsis": {
           "oneClick": false,

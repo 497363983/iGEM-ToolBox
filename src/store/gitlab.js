@@ -3,14 +3,14 @@ import {
 } from 'pinia';
 import { useUserStore } from './user';
 import { useConfigStore } from './config';
-import { getGit, getBranch } from '@/utils/git';
+import { getBranch } from '@/utils/git';
 
 export const useGitLabStore = defineStore('gitLabStore', {
     state: () => ({
         gitLabPath: `https://gitlab.igem.org/${useConfigStore().competition.year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}`,
         gitPath: `https://gitlab.igem.org:${useConfigStore().competition.year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`,
         git: {
-            version: getGit()
+            version: ""
         },
         currentBranch: ""
     }),

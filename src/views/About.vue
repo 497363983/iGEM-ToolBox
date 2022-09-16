@@ -8,7 +8,7 @@
 <script setup>
 // import { pullProject } from "@/utils/git";
 import { useUserStore } from "@/store";
-import { SyncFiles } from "@/api/upload";
+import { SyncFiles, get_cookie } from "@/api/upload";
 
 async function test() {
   // const { username, accsessTokens } = useUserStore().$state;
@@ -39,8 +39,9 @@ async function test() {
   ];
   const username = useUserStore().username;
   const password = useUserStore().password;
+  get_cookie(username, password);
   SyncFiles(filelist, username, password).then((URL_list) => {
-    console.log(URL_list);
+    console.log(username, password, URL_list);
   });
 }
 </script>
