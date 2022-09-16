@@ -38,6 +38,7 @@
     "core-js": "^3.6.5",
     "electron-store": "^8.0.2",
     "element-plus": "^2.2.6",
+    "form-data": "^4.0.0",
     "mathjax-full": "^3.2.0",
     "pinia": "^2.0.14",
     "simple-git": "^3.14.0",

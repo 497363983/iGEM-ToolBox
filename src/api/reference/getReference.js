@@ -26,7 +26,7 @@ class Reference {
     }
 
     getReference(model = "{author:3}({year}).{title}.{publisher}.{volume}.{page}") {
-        const regx = new RegExp("{*}");
+        const regx = /{*}/
         model.replace(regx, `$& `);
     }
     getAuthorString() {
@@ -34,7 +34,8 @@ class Reference {
     }
 }
 
-function getReference({ doi, success, failure }) {
+
+export function getReference({ doi, success, failure }) {
     const url = `${base_url}${doi}`;
     request.get({
         url,
@@ -44,7 +45,6 @@ function getReference({ doi, success, failure }) {
                 // console.log('success');
                 success({ reference, res });
             }
-
         },
         failure: (err) => {
             if (failure && typeof failure === "function") {
@@ -57,5 +57,3 @@ function getReference({ doi, success, failure }) {
 function parseReferenceFromResToJSON(JSONRes) {
     return new Promise((resolve) => resolve(new Reference(JSONRes)));
 }
-
-export default getReference;

@@ -4,8 +4,9 @@ import {
 import { readJSONFile, writeJSONFile } from "@/utils/index";
 import getReference from "@/api/reference/getReference";
 import { ElMessage } from 'element-plus';
+import { pullProject } from "@/utils/git";
 
-const jsonPath = "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references.json";
+const jsonPath = "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references\\index.json";
 
 export const useReferenceStore = defineStore('referenceStore', {
     state: () => ({
@@ -14,6 +15,7 @@ export const useReferenceStore = defineStore('referenceStore', {
     actions: {
         getReferences(callback) {
             //TODO:get references from gitlab
+            pullProject()
             readJSONFile(
                 jsonPath,
                 (content) => {

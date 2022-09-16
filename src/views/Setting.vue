@@ -203,9 +203,7 @@
             <el-form-item label="Branch">
               <el-select
                 v-model="useGitLabStore().currentBranch"
-                remote
-                filterable
-                :remote-method="getBranches"
+                @visible-change="getBranches"
                 :loading="branchLoading"
                 @change="
                   react(`branch`, setBranch(useGitLabStore().currentBranch))

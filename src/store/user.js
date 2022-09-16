@@ -11,7 +11,7 @@ export const useUserStore = defineStore('userStore', {
         description: "",
         accessTokens: "",
         team: "",
-        email: ""
+        email: "",
     }),
     actions: {
         save(){
