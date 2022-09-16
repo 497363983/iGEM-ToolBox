@@ -4,32 +4,32 @@ const axios = require('axios');
 // const https = require('https');
 
 //user profile
-// const username = "username"
-// // const password = "password"
-// const filelist = [
-//     {
-//         "filename": "logo",
-//         "filepath": "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\src\\assets\\logo.png",
-//         "type": "ima"
-//     },
-//     {
-//         "filename": "hack-bold-subset",
-//         "filepath": "E:\\iGEM\\zjut-china\\src\\assets\\fonts\\hack-bold-subset.woff",
-//         "type": "ima"
-//     }
-// ]
+const username = "sky1"
+const password = "qian12345"
+const filelist = [
+    {
+        "filename": "logo",
+        "filepath": "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\src\\assets\\logo.png",
+        "type": "ima"
+    },
+    {
+        "filename": "hack-bold-subset",
+        "filepath": "E:\\iGEM\\zjut-china\\src\\assets\\fonts\\hack-bold-subset.woff",
+        "type": "ima"
+    }
+]
 
 //Example
 //Asynchronous
-// SyncFiles(filelist, username, password).then(URL_list => {
-//     console.log(URL_list)
-// });
+SyncFiles(filelist, username, password).then(URL_list => {
+    console.log(URL_list)
+});
 
 //Synchronous
 // URL_list = await SyncFiles(filelist,username,password);
 
 //The main function use for SyncFiles
-export async function SyncFiles(filelist, username, password) {
+async function SyncFiles(filelist, username, password) {
     //Fetch cookie
     let cookie = await get_cookie(username, password)
     if (cookie == null) {
@@ -91,10 +91,20 @@ function get_cookie(username, password) {
                 // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 ',
                 // 'cookie': cookie
             }
-        }).then((resp) => {
-            console.log(resp)
-            console.log(document)
-            // console.log(resp.headers)
+        }
+        const req = https.request(options, (res) => {
+            console.log("get cookie status:")
+            console.log(res, res.statusCode)
+            if (res.statusCode != 302) {
+                console.log("get cookie error!")
+                resolve(null);
+            }
+            let cookie = res.rawHeaders[9]
+            console.log(cookie)
+            resolve(cookie);
+        });
+        req.on('error', (error) => {
+            console.error(error)
         })
         // return res.data["location"];
     });

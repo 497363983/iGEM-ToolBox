@@ -127,12 +127,11 @@ import "../../icons";
 import { useConfigStore } from "@/store";
 import { computed, onMounted } from "vue";
 import { getElectronStore } from "@/utils";
-import { getBranch, getGit } from "@/utils/git";
+import { getBranch } from "@/utils/git";
 
 onMounted(async () => {
   getElectronStore();
   getBranch();
-  getGit();
   let branch = await getBranch()
   console.log(branch)
 });
