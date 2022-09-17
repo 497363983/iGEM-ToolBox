@@ -13,6 +13,7 @@ import {
   SyncFiles
 } from './utils/upload';
 import runPython from './utils/runPython';
+// import { concat } from 'core-js/core/array';
 const Store = require('electron-store'); 
 const fs = require('fs');
 // const simpleGit = require('simple-git');
