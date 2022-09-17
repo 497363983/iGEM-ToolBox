@@ -166,7 +166,6 @@ ipcMain.on('writeJSONFile', function (event, arg) {
     } else {
       event.sender.send('writeJSONFile-reply', data);
     }
-
   });
 });
 
