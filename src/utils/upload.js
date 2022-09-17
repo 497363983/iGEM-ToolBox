@@ -10,8 +10,8 @@ export async function SyncFiles(filelist, username, password, teamID, event) {
         resolve(null)
     });
     if (cookie == null) {
-        event.sender.send("SyncFiles:error", error)
-        resolve(null)
+        event.sender.send("SyncFiles:error", "error")
+        return null;
     }
     event.sender.send("SyncFiles:return", "fetch cookie successful!")
     //URL_list
