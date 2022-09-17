@@ -27,15 +27,15 @@ async function test() {
     {
       filename: "test",
       filepath:
-        "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\src\\assets\\logo.png",
+        "D:\\github\\iGEM-ToolBox\\src\\assets\\logo.png",
       type: "ima",
     },
-    {
-      filename: "aaa",
-      filepath:
-        "E:\\iGEM\\zjut-china\\src\\assets\\fonts\\hack-bold-subset.woff",
-      type: "ima",
-    },
+    // {
+    //   filename: "aaa",
+    //   filepath:
+    //     "E:\\iGEM\\zjut-china\\src\\assets\\fonts\\hack-bold-subset.woff",
+    //   type: "ima",
+    // },
   ];
   const isgit = await isGitRepository();
   const username = useUserStore().username;

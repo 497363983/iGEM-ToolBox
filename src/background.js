@@ -10,9 +10,13 @@ import {
   shell
   // screen
 } from 'electron';
+import {  
+  SyncFiles
+} from './utils/upload';
 import runPython from './utils/runPython';
+// import { concat } from 'core-js/core/array';
+const Store = require('electron-store'); 
 const fs = require('fs');
-const Store = require('electron-store');
 // const simpleGit = require('simple-git');
 
 Store.initRenderer();
@@ -23,7 +27,7 @@ Store.initRenderer();
 const path = require('path');
 const iconPath = path.join(__static, 'icon.png');
 // const {
-//   PythonShell
+//   PythonShell  
 // } = require('python-shell');
 let mainWindow, tray;
 // Scheme must be registered before the app is ready
@@ -73,7 +77,7 @@ app.on('window-all-closed', () => {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit();
-  }
+  } 
 });
 
 app.on('activate', () => {
@@ -89,7 +93,7 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   mainWindow = new BrowserWindow({
-    frame: true,
+    frame: true,       
     width: 1000,
     height: 700,
     minHeight: 450,
@@ -108,10 +112,10 @@ app.on('ready', async () => {
     await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '/index.html');
   } else {
     createProtocol('app');
-    // Load the index.html when not in development
+    // Load the index.html when not in development 
     mainWindow.loadURL(`file://${__dirname}/index.html`);
   }
-  if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
+  if (!process.env.IS_TEST) mainWindow.webContents.openDevTools(); 
   mainWindow.removeMenu();
   setTray();
 });
@@ -134,7 +138,12 @@ ipcMain.on('mainWindow:unmaximize', (e) => {
 ipcMain.on('mainWindow:minimize', (e) => {
   mainWindow.minimize();
 });
-
+ipcMain.on('SyncFiles', (event,filelist,username,password) => { 
+  SyncFiles(filelist , username , password , event).catch((error,resolve) => {
+    event.sender.send("SyncFiles:error",error)
+    console.log(error)
+})
+});
 ipcMain.on('readJSONFile', function (event, arg) {
   // arg是从渲染进程返回来的数据
   console.log(arg);
@@ -148,7 +157,7 @@ ipcMain.on('readJSONFile', function (event, arg) {
     }
 
   });
-});
+}); 
 
 ipcMain.on('writeJSONFile', function (event, arg) {
   fs.writeFile(arg.file, arg.data, (err, data) => {
@@ -164,19 +173,19 @@ ipcMain.on('writeJSONFile', function (event, arg) {
 function setTray() {
   tray = new Tray(iconPath);
   tray.setToolTip('IWS');
-  tray.on('click', () => {
+  tray.on('click', () => {   
     if (mainWindow.isVisible()) {
       mainWindow.hide();
     } else {
       mainWindow.show();
-    }
+    } 
   });
   tray.on('right-click', () => {
     const menuConfig = Menu.buildFromTemplate([{
       label: 'Quit',
       click: () => app.quit()
     }]);
-    tray.popUpContextMenu(menuConfig);
+    tray.popUpContextMenu(menuConfig); 
   });
 
 }
@@ -239,3 +248,5 @@ ipcMain.on('runPython', (event, arg) => {
 //     throw e;
 //   }
 // });
+//
+//
