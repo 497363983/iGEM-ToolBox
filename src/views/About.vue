@@ -8,7 +8,7 @@
 <script setup>
 // import { pullProject } from "@/utils/git";
 import { useUserStore } from "@/store";
-// import { SyncFiles } from "@/api/upload";
+import { ElMessage } from 'element-plus';
 const electron = window.require('electron');
 const {
   ipcRenderer
@@ -44,14 +44,16 @@ async function test() {
   const username = useUserStore().username;
   const password = useUserStore().password;
   ipcRenderer.send("SyncFiles",filelist, username, password)
-  // SyncFiles(filelist, username, password).then((URL_list) => {
-  //   console.log(URL_list);
-  // });
 }
 
 
-// const {ipcRenderer} = require('electron')
-        ipcRenderer.on('SyncFiles:return', (event, data) => {
-           console.log('>>>>>>>>params',data) //我是主进程发送的参数
-        });
+//upload successful
+ipcRenderer.on('SyncFiles:return', (event, data) => {
+  console.log('SyncFiles return:',data)
+});
+//upload failed
+ipcRenderer.on('SyncFiles:error', (event, msg) => {
+  console.log('SyncFiles error:',msg)
+  ElMessage(msg)
+});
 </script>
