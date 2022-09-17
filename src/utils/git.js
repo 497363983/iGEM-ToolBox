@@ -1,10 +1,17 @@
 import { useTemplateStore } from '@/store/template';
-const simpleGit = window.require('simple-git');
+// import simpleGit from "simple-git";
+const simpleGit = window.require("simple-git");
 
+export async function isGit() {
+    let version = await simpleGit().raw('version');
+    return version.includes("git version");
+}
 
-export async function getGit() {
-    console.log(await simpleGit().raw('version'), useTemplateStore().projectPath)
-    return await simpleGit().raw('version');
+export async function getGitVersion() {
+    let version = await simpleGit().raw('version');
+    version = version.replace("git version", "");
+    version = version.replace("\n", "");
+    return version;
 }
 
 export async function getAllBranch() {
