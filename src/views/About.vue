@@ -8,7 +8,11 @@
 <script setup>
 // import { pullProject } from "@/utils/git";
 import { useUserStore } from "@/store";
-import { SyncFiles, get_cookie } from "@/api/upload";
+import { ElMessage } from 'element-plus';
+const electron = window.require('electron');
+const {
+  ipcRenderer
+} = electron;
 
 async function test() {
   // const { username, accsessTokens } = useUserStore().$state;
@@ -27,21 +31,29 @@ async function test() {
     {
       filename: "test",
       filepath:
-        "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\src\\assets\\logo.png",
+        "D:\\github\\iGEM-ToolBox\\src\\assets\\logo.png",
       type: "ima",
     },
-    {
-      filename: "aaa",
-      filepath:
-        "E:\\iGEM\\zjut-china\\src\\assets\\fonts\\hack-bold-subset.woff",
-      type: "ima",
-    },
+    // {
+    //   filename: "aaa",
+    //   filepath:
+    //     "E:\\iGEM\\zjut-china\\src\\assets\\fonts\\hack-bold-subset.woff",
+    //   type: "ima",
+    // },
   ];
   const username = useUserStore().username;
   const password = useUserStore().password;
-  get_cookie(username, password);
-  SyncFiles(filelist, username, password).then((URL_list) => {
-    console.log(username, password, URL_list);
-  });
+  ipcRenderer.send("SyncFiles",filelist, username, password)
 }
+
+
+//upload successful
+ipcRenderer.on('SyncFiles:return', (event, data) => {
+  console.log('SyncFiles return:',data)
+});
+//upload failed
+ipcRenderer.on('SyncFiles:error', (event, msg) => {
+  console.log('SyncFiles error:',msg)
+  ElMessage(msg)
+});
 </script>

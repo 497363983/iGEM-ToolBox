@@ -1,7 +1,7 @@
 const fs = require('fs');
 const FormData = require('form-data');
 const axios = require('axios');
-const https = require('https');
+// const https = require('https');
 
 //user profile
 const username = "sky1"
@@ -50,16 +50,46 @@ async function SyncFiles(filelist, username, password) {
 
 //Fetch cookie
 function get_cookie(username, password) {
-    return new Promise((resolve) => {
+    return new Promise(() => {
         const data = 'return_to=https%3A%2F%2Fold.igem.org%2FLogin2&username=' + username + '&password=' + password + '&Login=Login'
-        const options = {
-            hostname: 'old.igem.org',
-            port: 443,
-            path: '/Login2',
+        console.log(data)
+        // const options = {
+        //     hostname: 'old.igem.org',
+        //     port: 443,
+        //     path: '/Login2',
+            
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Length': data.length,
+        //         "Content-Type": "application/x-www-form-urlencoded",
+        //     }
+        // }
+        // const req = https.request(options, (res) => {
+        //     console.log("get cookie status:")
+        //     console.log(res)
+        //     console.log(res.statusCode)
+        //     if (res.statusCode != 302) {
+        //         console.log("get cookie error!")
+        //         resolve(null);
+        //     }
+        //     let cookie = res.rawHeaders[9]
+        //     console.log(cookie)
+        //     resolve(cookie);
+        // });
+        // req.on('error', (error) => {
+        //     console.error(error)
+        // })
+        // req.write(data)
+        // req.end()
+        axios({
+            url: 'https://old.igem.org/Login2',
             method: 'POST',
+            maxRedirects: 0,
+            data: data ,
             headers: {
                 'Content-Length': data.length,
-                "Content-Type": "application/x-www-form-urlencoded",
+                // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 ',
+                // 'cookie': cookie
             }
         }
         const req = https.request(options, (res) => {
@@ -76,8 +106,7 @@ function get_cookie(username, password) {
         req.on('error', (error) => {
             console.error(error)
         })
-        req.write(data)
-        req.end()
+        // return res.data["location"];
     });
 }
 
