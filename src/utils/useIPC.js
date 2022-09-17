@@ -1,6 +1,7 @@
 import {
   ref
 } from 'vue'
+import ElMessage from 'element-plus';
 const electron = window.require('electron');
 const {
   ipcRenderer
@@ -62,7 +63,22 @@ export function runPythonByMain(src, options, callback) {
 export function getDirName(){
   ipcRenderer.send('getDirName');
   ipcRenderer.once('getDirNameReply',(event, arg) =>{
-    
+    arg
+  });
+}
 
+export function SyncFiles(filelist, username, password){
+  ipcRenderer.send("SyncFiles",filelist, username, password)
+
+}
+export function SyncFiles_return(){
+  //upload successful
+  ipcRenderer.on('SyncFiles:return', (event, data) => {
+    console.log('SyncFiles return:',data)
+  });
+  //upload failed
+  ipcRenderer.on('SyncFiles:error', (event, msg) => {
+    console.log('SyncFiles error:',msg)
+    ElMessage(msg)
   });
 }
