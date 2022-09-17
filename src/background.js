@@ -9,12 +9,12 @@ import {
   Menu,
   // screen
 } from 'electron';
+import {  
+  SyncFiles
+} from './utils/upload';
 import runPython from './utils/runPython';
+const Store = require('electron-store'); 
 const fs = require('fs');
-const Store = require('electron-store');
-const axios = require('axios')
-const https = require('https');
-const FormData = require('form-data');
 // const simpleGit = require('simple-git');
 
 Store.initRenderer();
@@ -25,7 +25,7 @@ Store.initRenderer();
 const path = require('path');
 const iconPath = path.join(__static, 'icon.png');
 // const {
-//   PythonShell
+//   PythonShell  
 // } = require('python-shell');
 let mainWindow, tray;
 // Scheme must be registered before the app is ready
@@ -68,7 +68,7 @@ app.on('window-all-closed', () => {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit();
-  }
+  } 
 });
 
 app.on('activate', () => {
@@ -84,7 +84,7 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   mainWindow = new BrowserWindow({
-    frame: true,
+    frame: true,       
     width: 1000,
     height: 700,
     minHeight: 450,
@@ -103,10 +103,10 @@ app.on('ready', async () => {
     await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '/index.html');
   } else {
     createProtocol('app');
-    // Load the index.html when not in development
+    // Load the index.html when not in development 
     mainWindow.loadURL(`file://${__dirname}/index.html`);
   }
-  if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
+  if (!process.env.IS_TEST) mainWindow.webContents.openDevTools(); 
   mainWindow.removeMenu();
   setTray();
 });
@@ -129,112 +129,11 @@ ipcMain.on('mainWindow:unmaximize', (e) => {
 ipcMain.on('mainWindow:minimize', (e) => {
   mainWindow.minimize();
 });
-ipcMain.on('SyncFiles', (event,filelist,username,password) => {
-  // event.sender.send("SyncFiles:return",cookie)
-  SyncFiles(filelist , username , password)
-  // event.sender.send("SyncFiles:return",filelist[0])
-  //The main function use for SyncFiles
-  async function SyncFiles(filelist, username, password) {
-    //Fetch cookie
-    let cookie = await get_cookie(username, password)
-    event.sender.send("SyncFiles:return",cookie)
-    if (cookie == null) {
-        return null;
-    }
-    //URL_list
-    let URL_list = []
-    //Upload each file
-    for (let i = 0; i < filelist.length; i++) {
-        console.log(filelist[i])
-        const formData = new FormData();
-        formData.append('file', fs.createReadStream(filelist[i]["filepath"]));
-        formData.append('directory', filelist[i]["type"]);
-        URL_list.push(await SyncFile(cookie, formData))
-    }
-    event.sender.send("SyncFiles:return",URL_list)
-    return URL_list;
-  }
-
-//Fetch cookie
-function get_cookie(username, password) {
-  return new Promise((resolve) => {
-      const data = 'return_to=https%3A%2F%2Fold.igem.org%2FLogin2&username=' + username + '&password=' + password + '&Login=Login'
-      console.log(data)
-      const options = {
-          hostname: 'old.igem.org',
-          port: 443,
-          path: '/Login2',
-          
-          method: 'POST',
-          headers: {
-              'Content-Length': data.length,
-              "Content-Type": "application/x-www-form-urlencoded",
-          }
-      }
-      const req = https.request(options, (res) => {
-          console.log("get cookie status:")
-          // console.log(res)
-          console.log(res.statusCode)
-          if (res.statusCode != 302) {
-              console.log("get cookie error!")
-              resolve(null);
-          }
-          let cookie = res.rawHeaders[9]
-          console.log(cookie)
-          resolve(cookie);
-      });
-      req.on('error', (error) => {
-          console.error(error)
-      })
-      req.write(data)
-      req.end()
-      
-      // event.sender.send("SyncFiles:return",data)
-      // axios({
-      //     url: 'https://old.igem.org/Login2',
-      //     method: 'POST',
-      //     maxRedirects: 0,
-      //     data: data ,
-      //     headers: {
-      //         'Content-Length': data.length,
-      //         // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 ',
-      //         // 'cookie': cookie
-      //     }
-      // }).then((resp) => {
-      //   // event.sender.send("SyncFiles:return",resp)
-
-      //     console.log(resp)
-      //     // console.log(resp.headers)
-      //     // return resp.data["location"];
-      // }).catch((error) => {
-      //   event.sender.send("SyncFiles:return",error)
-    
-      //   return null;
-      // });
-  }).catch((error) => {
-    event.sender.send("SyncFiles:return",error)
-
-    return null;
-  });
-}
-
-
-//Sync each file after fetch the cookie
-async function SyncFile(cookie, formData) {
-  const res = await axios({
-      url: 'https://shim-s3.igem.org/v1/teams/4227/wiki',
-      method: 'POST',
-      data: formData,
-      headers: {
-          "Content-Type": "image/png",
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 ',
-          'cookie': cookie
-      }
-  });
-  console.log("uplod status:")
-  console.log(res.status)
-  return res.data["location"];
-}
+ipcMain.on('SyncFiles', (event,filelist,username,password) => { 
+  SyncFiles(filelist , username , password , event).catch((error,resolve) => {
+    event.sender.send("SyncFiles:error",error)
+    console.log(error)
+})
 });
 ipcMain.on('readJSONFile', function (event, arg) {
   // arg是从渲染进程返回来的数据
@@ -249,7 +148,7 @@ ipcMain.on('readJSONFile', function (event, arg) {
     }
 
   });
-});
+}); 
 
 ipcMain.on('writeJSONFile', function (event, arg) {
   fs.writeFile(arg.file, arg.data, (err, data) => {
@@ -265,19 +164,19 @@ ipcMain.on('writeJSONFile', function (event, arg) {
 function setTray() {
   tray = new Tray(iconPath);
   tray.setToolTip('IWS');
-  tray.on('click', () => {
+  tray.on('click', () => {   
     if (mainWindow.isVisible()) {
       mainWindow.hide();
     } else {
       mainWindow.show();
-    }
+    } 
   });
   tray.on('right-click', () => {
     const menuConfig = Menu.buildFromTemplate([{
       label: 'Quit',
       click: () => app.quit()
     }]);
-    tray.popUpContextMenu(menuConfig);
+    tray.popUpContextMenu(menuConfig); 
   });
 
 }
