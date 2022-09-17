@@ -37,7 +37,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.6.5",
     "electron-store": "^8.0.2",
-    "element-plus": "^2.2.6",
+    "element-plus": "^2.2.17",
     "form-data": "^4.0.0",
     "mathjax-full": "^3.2.0",
     "pinia": "^2.0.14",
@@ -60,8 +60,8 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "svg-sprite-loader": "^6.0.11",
-    "unplugin-auto-import": "^0.7.2",
-    "unplugin-vue-components": "^0.19.5",
+    "unplugin-auto-import": "^0.11.2",
+    "unplugin-vue-components": "^0.20.1",
     "vue-cli-plugin-electron-builder": "~2.1.1"
   },
   "eslintConfig": {

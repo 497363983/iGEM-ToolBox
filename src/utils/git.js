@@ -3,28 +3,28 @@ import { useTemplateStore } from '@/store/template';
 const simpleGit = window.require("simple-git");
 
 export async function isGit() {
-    let version = await simpleGit().raw('version');
+    let version = await simpleGit(useTemplateStore().projectPath).raw('version');
     return version.includes("git version");
 }
 
 export async function getGitVersion() {
-    let version = await simpleGit().raw('version');
+    let version = await simpleGit(useTemplateStore().projectPath).raw('version');
     version = version.replace("git version", "");
     version = version.replace("\n", "");
     return version;
 }
 
 export async function getAllBranch() {
-    let branches = await simpleGit().raw('branch', '-a');
+    let branches = await simpleGit(useTemplateStore().projectPath).raw('branch', '-a');
     return branches.split("\n")
 }
 
 export async function getBranch() {
-    return await simpleGit().raw('symbolic-ref', '--short', '-q', 'HEAD');
+    return await simpleGit(useTemplateStore().projectPath).raw('symbolic-ref', '--short', '-q', 'HEAD');
 }
 
 export async function setBranch(branch) {
-    await simpleGit().raw('checkout', branch);
+    await simpleGit(useTemplateStore().projectPath).raw('checkout', branch);
 }
 
 export async function isGitRepository() {
@@ -40,7 +40,8 @@ export async function cloneProject(options) {
 }
 
 export async function pullProject(options) {
-    const { success = null, failure = null } = options;
+    let success = options.success ? options.success : null;
+    let failure = options.failure ? options.failure : null;
     if (isGitRepository(useTemplateStore().projectPath)) {
         simpleGit(useTemplateStore().projectPath).pull().then((res) => {
             const { changes, deletions, insertions } = res.summary;

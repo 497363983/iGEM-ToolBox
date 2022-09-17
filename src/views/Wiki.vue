@@ -15,9 +15,12 @@
                       ></svgIcon>
                     </el-col>
                     <el-col :span="20">
-                      <el-row>version: {{ gitVersion }} </el-row>
-                      <el-row>
-                        <el-col v-if="git">
+                      <el-row v-if="git">
+                        <strong>version:</strong>
+                        {{ useGitLabStore().git.version }}
+                      </el-row>
+                      <el-row v-else>
+                        <el-col>
                           <el-button type="primary">Download</el-button>
                         </el-col>
                       </el-row>
@@ -28,6 +31,16 @@
             </el-card>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="24">
+            <el-tabs v-model="currentTag" type="border-card">
+              <el-tab-pane label="Pages" name="pages"> Pages </el-tab-pane>
+              <el-tab-pane label="Templates" name="templates">
+                Templates
+              </el-tab-pane>
+            </el-tabs>
+          </el-col>
+        </el-row>
       </el-main>
     </el-container>
     <!-- <TiptapEditor /> -->
@@ -36,13 +49,12 @@
 <script setup>
 // import TiptapEditor from "@/TiptapEditor/index.vue";
 import { ref, onMounted } from "vue";
-import { getGitVersion, isGit } from "@/utils/git";
-// import { useGitLabStore } from "@/store";
-const gitVersion = ref("");
+import { isGit } from "@/utils/git";
+import { useGitLabStore } from "@/store";
 const git = ref(false);
-
+const currentTag = ref("pages");
 onMounted(async () => {
-  gitVersion.value = await getGitVersion();
   git.value = await isGit();
+  console.log(useGitLabStore().git.version);
 });
 </script>

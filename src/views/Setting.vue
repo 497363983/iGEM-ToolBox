@@ -270,7 +270,7 @@ import {
   useTemplateStore,
 } from "../store";
 import { Uppercase } from "../utils/index";
-import { toRefs, ref, onMounted } from "vue";
+import { toRefs, ref } from "vue";
 import { getAllBranch, setBranch } from "@/utils/git";
 
 const settingScrollBar = ref();
@@ -339,8 +339,4 @@ const getBranches = async () => {
   });
   branchLoading.value = false;
 };
-useGitLabStore().getCurrentBranch();
-onMounted(() => {
-  useGitLabStore().getCurrentBranch();
-});
 </script>

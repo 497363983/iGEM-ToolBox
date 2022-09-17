@@ -124,7 +124,7 @@ body {
 </style>
 <script setup>
 import "../../icons";
-import { useConfigStore } from "@/store";
+import { useConfigStore, useGitLabStore } from "@/store";
 import { computed, onMounted } from "vue";
 import { getElectronStore } from "@/utils";
 import { getBranch } from "@/utils/git";
@@ -132,8 +132,9 @@ import { getBranch } from "@/utils/git";
 onMounted(async () => {
   getElectronStore();
   getBranch();
-  let branch = await getBranch()
-  console.log(branch)
+  useGitLabStore().getGit();
+  let branch = await getBranch();
+  console.log(branch);
 });
 
 const language = computed(() => {
