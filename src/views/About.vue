@@ -8,7 +8,8 @@
 <script setup>
 // import { pullProject } from "@/utils/git";
 import { useUserStore } from "@/store";
-import { SyncFiles, get_cookie, isGitRepository } from "@/api/upload";
+import { SyncFiles, SyncFiles_return} from "../utils/useIPC";
+
 
 async function test() {
   // const { username, accsessTokens } = useUserStore().$state;
@@ -37,13 +38,12 @@ async function test() {
     //   type: "ima",
     // },
   ];
-  const isgit = await isGitRepository();
   const username = useUserStore().username;
   const password = useUserStore().password;
-  get_cookie(username, password);
-  SyncFiles(filelist, username, password).then((URL_list) => {
-    console.log(username, password, URL_list);
-  });
-  console.log(isgit)
+  SyncFiles(filelist, username, password)
 }
+
+SyncFiles_return()
+
+
 </script>
