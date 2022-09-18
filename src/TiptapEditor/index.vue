@@ -1,6 +1,5 @@
 <template>
   <div class="editorContainer" id="editorContainer">
-    <el-page-header title content="Wiki" />
     <div v-if="editor">
       <bubble-menu
         id="choose-menu"
