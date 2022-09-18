@@ -10,12 +10,12 @@ import {
   shell
   // screen
 } from 'electron';
-import {  
+import {
   SyncFiles
 } from './utils/upload';
 import runPython from './utils/runPython';
 // import { concat } from 'core-js/core/array';
-const Store = require('electron-store'); 
+const Store = require('electron-store');
 const fs = require('fs');
 // const simpleGit = require('simple-git');
 
@@ -66,8 +66,8 @@ let mainWindow, tray;
 
 app.on('web-contents-created', (e, webContents) => {
   webContents.on('new-window', (event, url) => {
-      event.preventDefault();
-      shell.openExternal(url);
+    event.preventDefault();
+    shell.openExternal(url);
   });
 });
 
@@ -77,7 +77,7 @@ app.on('window-all-closed', () => {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit();
-  } 
+  }
 });
 
 app.on('activate', () => {
@@ -93,7 +93,7 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   mainWindow = new BrowserWindow({
-    frame: true,       
+    frame: true,
     width: 1000,
     height: 700,
     minHeight: 450,
@@ -115,7 +115,7 @@ app.on('ready', async () => {
     // Load the index.html when not in development 
     mainWindow.loadURL(`file://${__dirname}/index.html`);
   }
-  if (!process.env.IS_TEST) mainWindow.webContents.openDevTools(); 
+  if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
   mainWindow.removeMenu();
   setTray();
 });
@@ -126,23 +126,23 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('mainWindow:close', (e) => {
+ipcMain.on('mainWindow:close', () => {
   mainWindow.hide();
 });
-ipcMain.on('mainWindow:maximize', (e) => {
+ipcMain.on('mainWindow:maximize', () => {
   mainWindow.maximize();
 });
-ipcMain.on('mainWindow:unmaximize', (e) => {
+ipcMain.on('mainWindow:unmaximize', () => {
   mainWindow.unmaximize();
 });
-ipcMain.on('mainWindow:minimize', (e) => {
+ipcMain.on('mainWindow:minimize', () => {
   mainWindow.minimize();
 });
-ipcMain.on('SyncFiles', (event,filelist,username,password) => { 
-  SyncFiles(filelist , username , password , event).catch((error,resolve) => {
-    event.sender.send("SyncFiles:error",error)
+ipcMain.on('SyncFiles', (event, filelist, username, password, teamID) => {
+  SyncFiles(filelist, username, password, teamID, event).catch((error) => {
+    event.sender.send("SyncFiles:error", error)
     console.log(error)
-})
+  })
 });
 ipcMain.on('readJSONFile', function (event, arg) {
   // arg是从渲染进程返回来的数据
@@ -157,7 +157,7 @@ ipcMain.on('readJSONFile', function (event, arg) {
     }
 
   });
-}); 
+});
 
 ipcMain.on('writeJSONFile', function (event, arg) {
   fs.writeFile(arg.file, arg.data, (err, data) => {
@@ -169,22 +169,27 @@ ipcMain.on('writeJSONFile', function (event, arg) {
   });
 });
 
+ipcMain.on("getInstallationPath", function (event) {
+  const installationPath = path.dirname(app.getPath('exe'));
+  event.sender.send('getInstallationPathReply', installationPath)
+})
+
 function setTray() {
   tray = new Tray(iconPath);
   tray.setToolTip('IWS');
-  tray.on('click', () => {   
+  tray.on('click', () => {
     if (mainWindow.isVisible()) {
       mainWindow.hide();
     } else {
       mainWindow.show();
-    } 
+    }
   });
   tray.on('right-click', () => {
     const menuConfig = Menu.buildFromTemplate([{
       label: 'Quit',
       click: () => app.quit()
     }]);
-    tray.popUpContextMenu(menuConfig); 
+    tray.popUpContextMenu(menuConfig);
   });
 
 }
