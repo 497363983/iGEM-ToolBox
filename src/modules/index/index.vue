@@ -124,17 +124,22 @@ body {
 </style>
 <script setup>
 import "../../icons";
-import { useConfigStore, useGitLabStore } from "@/store";
+import { useConfigStore, useGitLabStore, useUserStore } from "@/store";
 import { computed, onMounted } from "vue";
 import { getElectronStore } from "@/utils";
 import { getBranch } from "@/utils/git";
+import { getInstallationPath } from "@/utils/useIPC";
+
+useUserStore().$subscribe((mutation, state) => {
+  useUserStore().save()
+  console.log(mutation, state)
+});
 
 onMounted(async () => {
   getElectronStore();
   getBranch();
   useGitLabStore().getGit();
-  let branch = await getBranch();
-  console.log(branch);
+  getInstallationPath();
 });
 
 const language = computed(() => {
