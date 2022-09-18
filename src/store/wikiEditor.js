@@ -1,6 +1,7 @@
 import {
     defineStore
 } from 'pinia';
+import { pullProject } from '@/utils/git';
 
 export const useWikiEditorStore = defineStore('wikiEditorStore', {
     state: () => ({
@@ -8,6 +9,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
         path: "",
         headings: [],
         jsonContent: {},
+        showEditor: false,
         extensions: {
             Link: {
                 autoLink: true,
@@ -15,5 +17,22 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 linkOnPaste: true
             }
         }
-    })
+    }),
+    actions: {
+        setPath(path) {
+            this.$state.path = path;
+        },
+        async openEditor(callback) {
+            await pullProject({
+                success: () => {
+                    this.$state.showEditor = true
+                    callback && typeof callback === 'function' ? callback() : null
+                }
+            });
+
+        },
+        closeEditor() {
+            this.$state.showEditor = false;
+        }
+    }
 });
