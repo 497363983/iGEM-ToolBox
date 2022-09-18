@@ -2,6 +2,7 @@ import {
     defineStore
 } from 'pinia';
 import { electronStore } from '@/electron-store';
+import { writeJSONFile } from '@/utils';
 
 export const useUserStore = defineStore('userStore', {
     state: () => ({
@@ -14,10 +15,15 @@ export const useUserStore = defineStore('userStore', {
         email: "",
     }),
     actions: {
-        save(){
-            electronStore.set('user',this.$state);
+        save() {
+            electronStore.set('user', this.$state);
+            writeJSONFile(`E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\members\\${this.$state.username}.json`,{
+                username: this.$state.username,
+                realname: this.$state.realname,
+                description: this.$state.description
+            })
         },
-        getElectronStore(){
+        getElectronStore() {
             this.$state = electronStore.get('user');
         }
     }
