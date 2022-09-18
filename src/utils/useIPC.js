@@ -1,11 +1,12 @@
 import {
   ref
 } from 'vue'
-import ElMessage from 'element-plus';
+import { ElMessage } from 'element-plus';
 const electron = window.require('electron');
 const {
   ipcRenderer
 } = electron;
+import { useConfigStore } from '@/store';
 
 export function closeMain() {
   // console.log(ipcRenderer);
@@ -60,25 +61,35 @@ export function runPythonByMain(src, options, callback) {
   });
 }
 
-export function getDirName(){
+export function getDirName() {
   ipcRenderer.send('getDirName');
-  ipcRenderer.once('getDirNameReply',(event, arg) =>{
+  ipcRenderer.once('getDirNameReply', (event, arg) => {
     arg
   });
 }
 
-export function SyncFiles(filelist, username, password){
-  ipcRenderer.send("SyncFiles",filelist, username, password)
+export function SyncFiles(filelist, username, password, teamID) {
+  ipcRenderer.send("SyncFiles", filelist, username, password, teamID);
 
 }
-export function SyncFiles_return(){
+export function SyncFiles_return() {
   //upload successful
   ipcRenderer.on('SyncFiles:return', (event, data) => {
-    console.log('SyncFiles return:',data)
+    console.log('SyncFiles return:', data)
   });
   //upload failed
   ipcRenderer.on('SyncFiles:error', (event, msg) => {
-    console.log('SyncFiles error:',msg)
-    ElMessage(msg)
+    console.log('SyncFiles error:', msg)
+    ElMessage({
+      type: "error",
+      message: msg
+    })
+  });
+}
+
+export function getInstallationPath() {
+  ipcRenderer.send("getInstallationPath");
+  ipcRenderer.once('getInstallationPathReply', (event, arg) => {
+    useConfigStore().installationPath = arg;
   });
 }
