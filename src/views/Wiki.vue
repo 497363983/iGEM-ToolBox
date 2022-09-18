@@ -16,7 +16,7 @@
                     </el-col>
                     <el-col :span="20">
                       <el-row v-if="git">
-                        <strong>version:</strong>
+                        <strong>version: </strong>
                         {{ useGitLabStore().git.version }}
                       </el-row>
                       <el-row v-else>
@@ -31,30 +31,116 @@
             </el-card>
           </el-col>
         </el-row>
+        <el-divider />
         <el-row>
           <el-col :span="24">
-            <el-tabs v-model="currentTag" type="border-card">
-              <el-tab-pane label="Pages" name="pages"> Pages </el-tab-pane>
-              <el-tab-pane label="Templates" name="templates">
-                Templates
+            <el-tabs
+              style="margin-top: 10px; height: 60vh"
+              v-model="currentTag"
+              tab-position="left"
+            >
+              <el-tab-pane style="height: 100%" label="Pages" name="pages">
+                <div
+                  class="infinite-list-wrapper"
+                  style="overflow: auto; height: 100%"
+                >
+                  <ul
+                    v-infinite-scroll="loadPages"
+                    class="pages-list infinite-list"
+                  >
+                    <li v-for="(page, index) in pages" :key="index">
+                      <pageCard :page="page"></pageCard>
+                    </li>
+                  </ul>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane
+                style="height: 100%"
+                label="Templates"
+                name="templates"
+              >
+                <div
+                  class="infinite-list-wrapper"
+                  style="overflow: auto; height: 100%"
+                >
+                  <ul
+                    v-infinite-scroll="loadTemplates"
+                    class="pages-list infinite-list"
+                  >
+                    <li v-for="(template, index) in templates" :key="index">
+                      <pageCard :page="template"></pageCard>
+                    </li>
+                  </ul>
+                </div>
               </el-tab-pane>
             </el-tabs>
           </el-col>
         </el-row>
       </el-main>
     </el-container>
-    <!-- <TiptapEditor /> -->
+    <el-dialog
+      class="editor"
+      v-model="useWikiEditorStore().showEditor"
+      lock-scroll
+      append-to-body
+      destroy-on-close
+      fullscreen
+    >
+      <TiptapEditor />
+    </el-dialog>
   </div>
 </template>
 <script setup>
-// import TiptapEditor from "@/TiptapEditor/index.vue";
+import TiptapEditor from "@/TiptapEditor/index.vue";
 import { ref, onMounted } from "vue";
-import { isGit } from "@/utils/git";
-import { useGitLabStore } from "@/store";
+import { isGit, gitInit } from "@/utils/git";
+import {
+  useGitLabStore,
+  useTemplateStore,
+  useConfigStore,
+  useWikiEditorStore,
+} from "@/store";
+import { getDirTree } from "@/utils/files";
+import pageCard from "@/components/pageCard";
 const git = ref(false);
 const currentTag = ref("pages");
+const pages = ref([]);
+const templates = ref([]);
+function loadPages() {
+  let dirs = getDirTree(useTemplateStore().pageTemplatePath);
+  pages.value = dirs.filter((item) => {
+    return item.extname === useTemplateStore().pageSuffix;
+  });
+  console.log(pages.value);
+}
+
+function loadTemplates() {
+  console.log("kk");
+}
+
 onMounted(async () => {
   git.value = await isGit();
-  console.log(useGitLabStore().git.version);
+  console.log(useConfigStore().installationPath);
+  gitInit();
 });
 </script>
+
+<style lang="scss" scoped>
+.pages-list {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+</style>
+<style lang="scss">
+.el-tabs--left .el-tabs__content {
+  height: 100%;
+  display: block;
+}
+.editor {
+  .el-dialog__body {
+    height: 85vh;
+  }
+}
+</style>

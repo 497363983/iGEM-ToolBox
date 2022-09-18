@@ -7,7 +7,7 @@
 
 <script setup>
 // import { pullProject } from "@/utils/git";
-import { useUserStore } from "@/store";
+import { useUserStore,useCompetitionStore } from "@/store";
 import { SyncFiles, SyncFiles_return} from "../utils/useIPC";
 
 
@@ -40,7 +40,7 @@ async function test() {
   ];
   const username = useUserStore().username;
   const password = useUserStore().password;
-  SyncFiles(filelist, username, password)
+  SyncFiles(filelist, username, password, useCompetitionStore().teamID)
 }
 
 SyncFiles_return()

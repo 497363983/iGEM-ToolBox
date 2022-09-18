@@ -98,7 +98,7 @@
             <el-form-item label="Year">
               <el-date-picker
                 @change="react(`year`, useGitLabStore().setPaths())"
-                v-model="useConfigStore().competition.year"
+                v-model="useCompetitionStore().year"
                 type="year"
                 format="YYYY"
                 value-format="YYYY"
@@ -116,14 +116,25 @@
                 v-model="useUserStore().team"
               ></el-input>
             </el-form-item>
+            <el-form-item label="Team ID">
+              <el-input
+                @change="
+                  react(`team ID`, () => {
+                    useGitLabStore().setPaths();
+                    useCompetitionStore().save();
+                    useTemplateStore().setPageTemplatePath();
+                  })
+                "
+                v-model="useCompetitionStore().teamID"
+              ></el-input>
+            </el-form-item>
             <el-form-item label="Role">
               <el-select
-                @change="react(`role`, useConfigStore().save())"
-                v-model="useConfigStore().competition.role"
+                @change="react(`role`, useCompetitionStore().save())"
+                v-model="useCompetitionStore().role"
               >
                 <el-option
-                  v-for="(item, index) in useConfigStore().competition
-                    .ALLOWED_ROLE"
+                  v-for="(item, index) in useCompetitionStore().ALLOWED_ROLE"
                   :key="index"
                   :label="Uppercase(item)"
                   :value="item"
@@ -132,12 +143,11 @@
             </el-form-item>
             <el-form-item label="Group">
               <el-select
-                @change="react(`group`, useConfigStore().save())"
-                v-model="useConfigStore().competition.group"
+                @change="react(`group`, useCompetitionStore().save())"
+                v-model="useCompetitionStore().group"
               >
                 <el-option
-                  v-for="(item, index) in useConfigStore().competition
-                    .ALLOWED_GROUP"
+                  v-for="(item, index) in useCompetitionStore().ALLOWED_GROUP"
                   :key="index"
                   :label="Uppercase(item)"
                   :value="item"
@@ -268,6 +278,7 @@ import {
   useUserStore,
   useGitLabStore,
   useTemplateStore,
+  useCompetitionStore,
 } from "../store";
 import { Uppercase } from "../utils/index";
 import { toRefs, ref } from "vue";
