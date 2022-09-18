@@ -24,20 +24,14 @@ export const useConfigStore = defineStore('configStore', {
             },
             currentLanguage: "en"
         },
-        competition: {
-            year: `${new Date().getFullYear()}`,
-            group: "",
-            role: "",
-            ALLOWED_ROLE: ["leader", "member", "PI", "advisor"],
-            ALLOWED_GROUP: ["dry", "wet", "HP"]
-        },
         theme: {
             themeList: ["dark", "light"],
             currentTheme: useColorMode().value
         },
         update: {
             autoUpdate: true
-        }
+        },
+        installationPath: ""
     }),
     getters: {},
     actions: {
@@ -46,7 +40,7 @@ export const useConfigStore = defineStore('configStore', {
         },
         save() {
             useColorMode().value = this.$state.theme.currentTheme;
-            electronStore.set('config',this.$state);
+            electronStore.set('config', this.$state);
         }
     }
 });
