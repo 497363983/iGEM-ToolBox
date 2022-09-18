@@ -2,13 +2,13 @@ import {
     defineStore
 } from 'pinia';
 import { useUserStore } from './user';
-import { useConfigStore } from './config';
+import { useCompetitionStore } from './competition';
 import { getBranch, getGitVersion } from '@/utils/git';
 
 export const useGitLabStore = defineStore('gitLabStore', {
     state: () => ({
-        gitLabPath: `https://gitlab.igem.org/${useConfigStore().competition.year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}`,
-        gitPath: `https://gitlab.igem.org:${useConfigStore().competition.year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`,
+        gitLabPath: `https://gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}`,
+        gitPath: `https://gitlab.igem.org:${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`,
         git: {
             version: ""
         },
@@ -16,8 +16,8 @@ export const useGitLabStore = defineStore('gitLabStore', {
     }),
     actions: {
         setPaths() {
-            this.$state.gitLabPath = `https://gitlab.igem.org/${useConfigStore().competition.year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}`;
-            this.$state.gitPath = `git@gitlab.igem.org:${useConfigStore().competition.year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`;
+            this.$state.gitLabPath = `https://gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}`;
+            this.$state.gitPath = `git@gitlab.igem.org:${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`;
         },
         async getGit(){
             this.$state.currentBranch = await getBranch();
