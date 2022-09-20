@@ -7,32 +7,33 @@ const FormData = require('form-data');
  */
 export async function SyncFiles(args) {
     //Fetch cookies
-    let cookie = await get_cookie(args.username, args.password, args.event).catch((error, resolve) => {
-        args.event.sender.send("SyncFiles:error", error)
+    const { username, password, event, teamID, filelist } = args;
+    let cookie = await get_cookie(username, password, event).catch((error, resolve) => {
+        event.sender.send("SyncFiles:error", error)
         resolve(null)
     });
     if (cookie == null) {
-        args.event.sender.send("SyncFiles:error", "error")
+        event.sender.send("SyncFiles:error", "error")
         return null;
     }
-    args.event.sender.send("SyncFiles:return", "fetch cookie successful!")
+    event.sender.send("SyncFiles:return", "fetch cookie successful!")
     //URL_list
     let URL_list = []
     //Upload each file
-    for (let i = 0; i < args.filelist.length; i++) {
+    for (let i = 0; i < filelist.length; i++) {
         const formData = new FormData();
-        if (!existsSync(args.filelist[i]["filepath"])) {
-            args.event.sender.send("SyncFiles:error", "file '" + args.filelist[i]["filename"] + "' don't exist")
-            console.log("file '" + args.filelist[i]["filename"] + "' don't exist")
+        if (!existsSync(filelist[i]["filepath"])) {
+            event.sender.send("SyncFiles:error", "file '" + filelist[i]["filename"] + "' don't exist")
+            console.log("file '" + filelist[i]["filename"] + "' don't exist")
             URL_list.push("Get url failed");
             continue;
         } else {
-            formData.append('file', createReadStream(args.filelist[i]["filepath"]));
+            formData.append('file', createReadStream(filelist[i]["filepath"]));
         }
-        formData.append('directory', args.filelist[i]["type"]);
-        URL_list.push(await SyncFile(args.teamID, cookie, formData, args.event))
+        formData.append('directory', filelist[i]["type"]);
+        URL_list.push(await SyncFile(teamID, cookie, formData, event))
     }
-    args.event.sender.send("SyncFiles:return", URL_list)
+    event.sender.send("SyncFiles:return", URL_list)
     return URL_list;
 }
 
