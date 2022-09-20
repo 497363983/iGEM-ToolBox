@@ -7,7 +7,8 @@ import {
   ipcMain,
   Tray,
   Menu,
-  shell
+  shell,
+  dialog
   // screen
 } from 'electron';
 import {
@@ -138,35 +139,60 @@ ipcMain.on('mainWindow:unmaximize', () => {
 ipcMain.on('mainWindow:minimize', () => {
   mainWindow.minimize();
 });
-ipcMain.on('SyncFiles', (event, filelist, username, password, teamID) => {
-  SyncFiles(filelist, username, password, teamID, event).catch((error) => {
+ipcMain.on('SyncFiles', (event, { filelist, username, password, teamID }) => {
+  SyncFiles({ filelist, username, password, teamID, event }).catch((error) => {
     event.sender.send("SyncFiles:error", error)
-    console.log(error)
   })
 });
 ipcMain.on('readJSONFile', function (event, arg) {
-  // arg是从渲染进程返回来的数据
-  console.log(arg);
-
-  // 这里是传给渲染进程的数据
-  fs.readFile(arg, "utf8", (err, data) => {
-    if (err) {
-      event.sender.send('readJSONFile-reply', err);
+  fs.access(arg, fs.constants.F_OK, (err) => {
+    if (!err) {
+      fs.readFile(arg, "utf8", (err, data) => {
+        if (err) {
+          event.sender.send('readJSONFile-reply', err);
+        } else {
+          event.sender.send('readJSONFile-reply', data);
+        }
+      });
     } else {
-      event.sender.send('readJSONFile-reply', data);
+      // fs.mkdir(path.dirname(arg),{recursive: true}, (err) => {
+      // if (err) {
+      //   throw (err)
+      // } else {
+      event.sender.send('readJSONFile-reply', '[]');
+      // }
+      // })
     }
+  })
 
-  });
 });
 
 ipcMain.on('writeJSONFile', function (event, arg) {
-  fs.writeFile(arg.file, arg.data, (err, data) => {
-    if (err) {
-      event.sender.send('writeJSONFile-reply', err);
+  fs.access(path.dirname(arg.file), fs.constants.F_OK, (err) => {
+    if (!err) {
+      fs.writeFile(arg.file, arg.data, (err, data) => {
+        if (err) {
+          event.sender.send('writeJSONFile-reply', err);
+        } else {
+          event.sender.send('writeJSONFile-reply', data);
+        }
+      });
     } else {
-      event.sender.send('writeJSONFile-reply', data);
+      fs.mkdir(path.dirname(arg.file), { recursive: true }, (err) => {
+        if (err) {
+          throw (err)
+        } else {
+          fs.writeFile(arg.file, arg.data, (err, data) => {
+            if (err) {
+              event.sender.send('writeJSONFile-reply', err);
+            } else {
+              event.sender.send('writeJSONFile-reply', data);
+            }
+          });
+        }
+      })
     }
-  });
+  })
 });
 
 ipcMain.on("getInstallationPath", function (event) {
@@ -176,7 +202,7 @@ ipcMain.on("getInstallationPath", function (event) {
 
 function setTray() {
   tray = new Tray(iconPath);
-  tray.setToolTip('IWS');
+  tray.setToolTip('iGEM-Toolbox');
   tray.on('click', () => {
     if (mainWindow.isVisible()) {
       mainWindow.hide();

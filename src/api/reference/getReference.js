@@ -54,6 +54,6 @@ export function getReference({ doi, success, failure }) {
     });
 }
 
-function parseReferenceFromResToJSON(JSONRes) {
+export function parseReferenceFromResToJSON(JSONRes) {
     return new Promise((resolve) => resolve(new Reference(JSONRes)));
 }

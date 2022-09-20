@@ -8,7 +8,7 @@ export const useTemplateStore = defineStore('templateStore', {
     state: () => ({
         pageTemplatePath: `${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`,
         pageSuffix: `.html`,
-        projectPath: `E:/iGEM/igem2022/iGEMWorkSpace/wiki/zjut-china`,
+        projectPath: ``,
         componentsPath: ``
     }),
     actions: {

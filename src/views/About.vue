@@ -7,9 +7,8 @@
 
 <script setup>
 // import { pullProject } from "@/utils/git";
-import { useUserStore,useCompetitionStore } from "@/store";
-import { SyncFiles, SyncFiles_return} from "../utils/useIPC";
-
+import { useUserStore, useCompetitionStore } from "@/store";
+import { SyncFiles, SyncFiles_return } from "../utils/useIPC";
 
 async function test() {
   // const { username, accsessTokens } = useUserStore().$state;
@@ -27,23 +26,17 @@ async function test() {
   const filelist = [
     {
       filename: "test",
-      filepath:
-        "D:\\github\\iGEM-ToolBox\\src\\assets\\logo.png",
-      type: "ima",
+      filepath: "E:\\desktop\\图片1.png",
+      type: "test",
     },
-    // {
-    //   filename: "aaa",
-    //   filepath:
-    //     "E:\\iGEM\\zjut-china\\src\\assets\\fonts\\hack-bold-subset.woff",
-    //   type: "ima",
-    // },
   ];
-  const username = useUserStore().username;
-  const password = useUserStore().password;
-  SyncFiles(filelist, username, password, useCompetitionStore().teamID)
+  SyncFiles(
+    filelist,
+    useUserStore().username,
+    useUserStore().password,
+    useCompetitionStore().teamID
+  );
 }
 
-SyncFiles_return()
-
-
+SyncFiles_return();
 </script>

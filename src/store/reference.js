@@ -2,11 +2,10 @@ import {
     defineStore
 } from 'pinia';
 import { readJSONFile, writeJSONFile } from "@/utils/index";
-import getReference from "@/api/reference/getReference";
+import { getReference } from "@/api/reference/getReference";
 import { ElMessage } from 'element-plus';
-import { pullProject } from "@/utils/git";
-
-const jsonPath = "E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references\\index.json";
+import { pullProject, pushProject } from "@/utils/git";
+import { useTemplateStore } from './template';
 
 export const useReferenceStore = defineStore('referenceStore', {
     state: () => ({
@@ -14,10 +13,9 @@ export const useReferenceStore = defineStore('referenceStore', {
     }),
     actions: {
         getReferences(callback) {
-            //TODO:get references from gitlab
-            pullProject()
+            pullProject();
             readJSONFile(
-                jsonPath,
+                `${useTemplateStore().projectPath}\\tool_box\\references\\index.json`,
                 (content) => {
                     this.$state.references = JSON.parse(content);
                     if (callback && typeof callback === 'function') {
@@ -30,19 +28,29 @@ export const useReferenceStore = defineStore('referenceStore', {
             let references = this.$state.references;
             getReference({
                 doi,
-                success: function ({ reference }) {
+                success: async function ({ reference }) {
                     references.push(reference);
-                    writeJSONFile("E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\references.json", references, (data) => {
-                        console.log(data);
+                    await pullProject({
+                        success: () => {
+                            writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\references\\${doi.replace("/", "_")}.json`, reference, (data) => {
+                                console.log(data);
+                            });
+                            writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\references\\index.json`, references, (data) => {
+                                console.log(data);
+                            });
+                            pushProject({
+                                commitInformation: `upload references`,
+                                file: [`tool_box\\references\\index.json`, `tool_box\\references\\${doi.replace("/", "_")}.json`]
+                            })
+                            ElMessage({
+                                type: "success",
+                                message: `Import success!`
+                            });
+                            if (callback && typeof callback === 'function') {
+                                callback();
+                            }
+                        }
                     });
-                    ElMessage({
-                        type: "success",
-                        message: `Import success!`
-                    });
-                    console.log(callback, typeof callback);
-                    if (callback && typeof callback === 'function') {
-                        callback();
-                    }
                 },
                 failure: function ({ err }) {
                     console.log(err);
@@ -54,7 +62,7 @@ export const useReferenceStore = defineStore('referenceStore', {
             });
         },
         saveReferences() {
-            writeJSONFile(jsonPath, this.$state.references, (data) => {
+            writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\references\\index.json`, this.$state.references, (data) => {
                 console.log(data);
             });
         }

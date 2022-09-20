@@ -81,11 +81,15 @@
     <el-dialog
       class="editor"
       v-model="useWikiEditorStore().showEditor"
+      :title="useWikiEditorStore().page"
       lock-scroll
       append-to-body
       destroy-on-close
       fullscreen
     >
+      <template #header>
+        {{ useWikiEditorStore().page }}:{{ useWikiEditorStore().block }}
+      </template>
       <TiptapEditor />
     </el-dialog>
   </div>
@@ -97,7 +101,7 @@ import { isGit, gitInit } from "@/utils/git";
 import {
   useGitLabStore,
   useTemplateStore,
-  useConfigStore,
+  // useConfigStore,
   useWikiEditorStore,
 } from "@/store";
 import { getDirTree } from "@/utils/files";
@@ -111,7 +115,6 @@ function loadPages() {
   pages.value = dirs.filter((item) => {
     return item.extname === useTemplateStore().pageSuffix;
   });
-  console.log(pages.value);
 }
 
 function loadTemplates() {
@@ -120,7 +123,6 @@ function loadTemplates() {
 
 onMounted(async () => {
   git.value = await isGit();
-  console.log(useConfigStore().installationPath);
   gitInit();
 });
 </script>

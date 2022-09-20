@@ -2,6 +2,10 @@ import { useTemplateStore, useGitLabStore, useUserStore } from '@/store';
 // import simpleGit from "simple-git";
 const simpleGit = window.require("simple-git");
 
+export async function setGitPath() {
+    await simpleGit(useTemplateStore().projectPath).raw('remote', 'set-url', 'origin', useGitLabStore().gitPath);
+}
+
 export async function gitInit() {
     await simpleGit(useTemplateStore().projectPath).raw('config', 'user.name', `${useUserStore().username}`);
     await simpleGit(useTemplateStore().projectPath).raw('config', 'user.email', `${useUserStore().email}`);
@@ -62,7 +66,7 @@ export async function pullProject(options) {
             // if (changes !== 0 || deletions !== 0 || insertions !== 0) {
             //     simpleGit(useTemplateStore().projectPath).merge().then(() => (success && typeof success === 'function') ? success(res) : console.log('pull success', res)).catch((err) => console.log(err));
             // } else {
-                (success && typeof success === 'function') ? success(res) : console.log('pull success', res);
+            (success && typeof success === 'function') ? success(res) : console.log('pull success', res);
             // }
         }).catch((err) => (failure && typeof failure === 'function') ? failure(err) : console.log('pull failed:', err));
     } else {
@@ -74,8 +78,7 @@ export async function pushProject(options) {
     const { commitInformation, file } = options;
     // const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
     if (isGitRepository(useTemplateStore().projectPath)) {
-        await pullProject()
-        await simpleGit(useTemplateStore().projectPath).add(file).commit(commitInformation).push(['origin', useGitLabStore().currentBranch], (res) => console.log('push success', res));
+        await simpleGit(useTemplateStore().projectPath).add(file).commit(commitInformation).push(['origin', useGitLabStore().currentBranch.trim()], (res) => console.log('push success', res));
     }
 }
 

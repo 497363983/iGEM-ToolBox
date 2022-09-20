@@ -69,7 +69,7 @@ export function getDirName() {
 }
 
 export function SyncFiles(filelist, username, password, teamID) {
-  ipcRenderer.send("SyncFiles", filelist, username, password, teamID);
+  ipcRenderer.send("SyncFiles", { filelist, username, password, teamID });
 
 }
 export function SyncFiles_return() {

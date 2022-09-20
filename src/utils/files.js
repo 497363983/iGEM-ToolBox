@@ -1,4 +1,4 @@
-const { readdirSync, statSync } = window.require("fs");
+const { readdirSync, statSync, readFileSync, writeFile } = window.require("fs");
 const path = window.require("path");
 export function getDirTree(dirPath, depth = 0, except = ["node_modules", "dist"]) {
     let currentDepth = 0;
@@ -51,4 +51,30 @@ export function isLeaf(dirPath) {
         }
     })
     return res
+}
+
+export function getFilesName(dirPath) {
+    let files = readdirSync(dirPath);
+    return files;
+}
+
+// export function checkToolDir(dirPath){
+//     access(dirPath, constants.F_OK, (err){
+//         if(err){
+//             mkdir(dirPath)
+//         }
+//     })
+// }
+
+export async function readFile(dirPath) {
+    const res = readFileSync(dirPath, 'utf8');
+    return res;
+}
+
+export async function writeFileItem(filePath, data, callback) {
+    writeFile(filePath, data, (err) => {
+        if (!err && callback) {
+            callback()
+        }
+    });
 }

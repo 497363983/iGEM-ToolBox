@@ -139,7 +139,6 @@ let currentReference = ref(0);
 useReferenceStore().getReferences();
 
 function showReferenceInformation(row) {
-  console.log(row);
   useReferenceStore().references.forEach((item, index) => {
     if (item === row) {
       currentReference.value = index;
@@ -189,7 +188,6 @@ function refresh() {
 //TODO:rewrite the method of search.
 const filterData = computed(() => {
   return useReferenceStore().references.filter((item) => {
-    console.log(typeof item[SearchKey.value]);
     return (
       !SearchValue.value ||
       (typeof item[SearchKey.value] === "string"
@@ -197,7 +195,6 @@ const filterData = computed(() => {
             .toLowerCase()
             .includes(SearchValue.value.toLowerCase())
         : () => {
-            console.log("ii");
             if (SearchKey.value === "title") {
               return item[SearchKey.value][0]
                 .toLowerCase()

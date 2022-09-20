@@ -3,6 +3,8 @@ import {
 } from 'pinia';
 import { electronStore } from '@/electron-store';
 import { writeJSONFile } from '@/utils';
+import { useTemplateStore } from './template';
+import { pullProject, pushProject } from '@/utils/git';
 
 export const useUserStore = defineStore('userStore', {
     state: () => ({
@@ -15,13 +17,24 @@ export const useUserStore = defineStore('userStore', {
         email: "",
     }),
     actions: {
-        save() {
+        async save() {
             electronStore.set('user', this.$state);
-            writeJSONFile(`E:\\iGEM\\igem2022\\iGEMWorkSpace\\iGEM-ToolBox\\testData\\members\\${this.$state.username}.json`,{
-                username: this.$state.username,
-                realname: this.$state.realname,
-                description: this.$state.description
+            await pullProject({
+                success: () => {
+                    writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\members\\${this.$state.username}.json`, {
+                        username: this.$state.username,
+                        realname: this.$state.realname,
+                        description: this.$state.description
+                    }, (data) => {
+                        console.log(data)
+                        pushProject({
+                            commitInformation: `upload user information`,
+                            file: [`tool_box\\members\\${this.$state.username}.json`]
+                        })
+                    })
+                }
             })
+
         },
         getElectronStore() {
             this.$state = electronStore.get('user');

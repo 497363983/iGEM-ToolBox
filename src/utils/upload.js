@@ -2,35 +2,37 @@ const axios = require('axios');
 const https = require('https');
 const { existsSync, createReadStream } = require('fs');
 const FormData = require('form-data');
-
-export async function SyncFiles(filelist, username, password, teamID, event) {
+/*
+ * @params args: { filelist, username, password, teamID, event }
+ */
+export async function SyncFiles(args) {
     //Fetch cookies
-    let cookie = await get_cookie(username, password, event).catch((error, resolve) => {
-        event.sender.send("SyncFiles:error", error)
+    let cookie = await get_cookie(args.username, args.password, args.event).catch((error, resolve) => {
+        args.event.sender.send("SyncFiles:error", error)
         resolve(null)
     });
     if (cookie == null) {
-        event.sender.send("SyncFiles:error", "error")
+        args.event.sender.send("SyncFiles:error", "error")
         return null;
     }
-    event.sender.send("SyncFiles:return", "fetch cookie successful!")
+    args.event.sender.send("SyncFiles:return", "fetch cookie successful!")
     //URL_list
     let URL_list = []
     //Upload each file
-    for (let i = 0; i < filelist.length; i++) {
+    for (let i = 0; i < args.filelist.length; i++) {
         const formData = new FormData();
-        if (!existsSync(filelist[i]["filepath"])) {
-            event.sender.send("SyncFiles:error", "file '" + filelist[i]["filename"] + "' don't exist")
-            console.log("file '" + filelist[i]["filename"] + "' don't exist")
+        if (!existsSync(args.filelist[i]["filepath"])) {
+            event.sender.send("SyncFiles:error", "file '" + args.filelist[i]["filename"] + "' don't exist")
+            console.log("file '" + args.filelist[i]["filename"] + "' don't exist")
             URL_list.push("Get url failed");
             continue;
         } else {
-            formData.append('file', createReadStream(filelist[i]["filepath"]));
+            formData.append('file', createReadStream(args.filelist[i]["filepath"]));
         }
-        formData.append('directory', filelist[i]["type"]);
-        URL_list.push(await SyncFile(teamID, cookie, formData, event))
+        formData.append('directory', args.filelist[i]["type"]);
+        URL_list.push(await SyncFile(args.teamID, cookie, formData, args.event))
     }
-    event.sender.send("SyncFiles:return", URL_list)
+    args.event.sender.send("SyncFiles:return", URL_list)
     return URL_list;
 }
 
@@ -61,7 +63,7 @@ async function get_cookie(username, password, event) {
             // console.log(cookie)
             resolve(cookie);
         });
-        req.on('error', (error) => {
+        req.on('error', () => {
             resolve(null);
             event.sender.send("SyncFiles:error", "get cookie failed!")
         })
@@ -73,8 +75,9 @@ async function get_cookie(username, password, event) {
 
 //Sync each file after fetch the cookie
 async function SyncFile(teamID, cookie, formData, event) {
+    console.log(teamID, cookie, formData, event)
     const res = await axios({
-        url: `https://shim-s3.igem.org/v1/teams/${teamID}/wiki`,
+        url: `https://shim-s3.igem.org/v1/teams/${teamID.trim()}/wiki`,
         method: 'POST',
         data: formData,
         headers: {
@@ -82,11 +85,11 @@ async function SyncFile(teamID, cookie, formData, event) {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 ',
             'cookie': cookie
         }
-    }).catch((error, resolve) => {
+    }).catch((error) => {
         event.sender.send("SyncFiles:error", error)
-        console.log(err)
+        console.log(error)
     });
-    console.log("uplod status:")
+    console.log("upload status:")
     console.log(res.status)
     return res.data["location"];
 }

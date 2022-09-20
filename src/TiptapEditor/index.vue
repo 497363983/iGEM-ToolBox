@@ -80,7 +80,9 @@
     </div>
     <el-container style="height: calc(100% - 24px)">
       <el-header>
-        <div></div>
+        <div>
+          <el-button @click="upload" type="primary">upload</el-button>
+        </div>
       </el-header>
       <el-container style="height: 90%">
         <el-aside width="25%">
@@ -97,6 +99,15 @@
     </el-container>
     <el-empty v-if="!editor" />
   </div>
+  <el-dialog
+    class="editor"
+    v-model="useWikiEditorStore().uploading"
+    lock-scroll
+    append-to-body
+    destroy-on-close
+  >
+    <el-upload v-model:file-list="useWikiEditorStore().filelist"> </el-upload>
+  </el-dialog>
 </template>
 <style lang="scss" scoped>
 .el-main {
@@ -253,7 +264,8 @@ import SideDirectory from "@/components/SideDirectory.vue";
 import { ref, onMounted, defineProps } from "vue";
 import { LinkMenu, bubble, inputLink } from "./config/bubble";
 import { useWikiEditorStore } from "@/store";
-
+import { pushProject } from "@/utils/git";
+// import { SyncFiles, SyncFiles_return} from "../utils/useIPC";
 defineProps({
   content: String,
   path: String,
@@ -309,6 +321,13 @@ function setLink() {
   }
   LinkMenu.value = !LinkMenu.value;
   editLinkAble.value = false;
+}
+
+function upload() {
+  pushProject({
+    commitInformation: `upload ${useWikiEditorStore().$state.page}`,
+    file: [``],
+  });
 }
 
 // function editLinkAble() {

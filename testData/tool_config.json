@@ -6,5 +6,6 @@
     "pageSuffix": [
         ".html"
     ],
-    "branch": "main"
+    "branch": "main",
+    "pageTemplatePath": "${projectPath}/wiki/pages"
 }
