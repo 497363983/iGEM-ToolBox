@@ -28,7 +28,7 @@ async function test() {
       filename: "test",
       filepath: "E:\\desktop\\图片1.png",
       type: "test",
-    },
+    }
   ];
   SyncFiles(
     filelist,

@@ -78,12 +78,12 @@ async function get_cookie(username, password, event) {
 async function SyncFile(teamID, cookie, formData, event) {
     console.log(teamID, cookie, formData, event)
     const res = await axios({
-        url: `https://shim-s3.igem.org/v1/teams/${teamID.trim()}/wiki`,
+        url: 'https://shim-s3.igem.org/v1/teams/' + teamID.trim() + '/wiki',
         method: 'POST',
         data: formData,
         headers: {
             "Content-Type": "image/png",
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 ',
+            // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 ',
             'cookie': cookie
         }
     }).catch((error) => {
