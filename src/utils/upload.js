@@ -22,7 +22,7 @@ export async function SyncFiles(args) {
     for (let i = 0; i < args.filelist.length; i++) {
         const formData = new FormData();
         if (!existsSync(args.filelist[i]["filepath"])) {
-            event.sender.send("SyncFiles:error", "file '" + args.filelist[i]["filename"] + "' don't exist")
+            args.event.sender.send("SyncFiles:error", "file '" + args.filelist[i]["filename"] + "' don't exist")
             console.log("file '" + args.filelist[i]["filename"] + "' don't exist")
             URL_list.push("Get url failed");
             continue;
