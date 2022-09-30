@@ -8,7 +8,11 @@ import { electronStore } from "@/electron-store";
 export function getData() {
 
 }
-
+/**
+ * 
+ * @param {String} file 
+ * @param {Function} callback 
+ */
 export function readJSONFile(file, callback) {
     ipcRenderer.send("readJSONFile", file);
     ipcRenderer.once("readJSONFile-reply", function (event, data) {
@@ -18,6 +22,12 @@ export function readJSONFile(file, callback) {
     });
 }
 
+/**
+ * 
+ * @param {String} file 
+ * @param {String} data 
+ * @param {Function} callback 
+ */
 export function writeJSONFile(file, data, callback) {
     ipcRenderer.send("writeJSONFile", { file, data: JSON.stringify(data, null, 4) });
     ipcRenderer.once("writeJSONFile-reply", function (event, data) {
@@ -27,6 +37,11 @@ export function writeJSONFile(file, data, callback) {
     });
 }
 
+/**
+ * 
+ * @param {String} str 
+ * @returns 
+ */
 export function Uppercase(str) {
     return str.replace(/\b([\w|']+)\b/g, (word) => {
         return word.replace(word.charAt(0), word.charAt(0).toUpperCase());

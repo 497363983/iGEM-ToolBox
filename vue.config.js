@@ -45,7 +45,7 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       nodeModulesPath: ["./node_modules"],
-      externals: ["simple-git", "form-data", "axios", "fs", "https"],
+      externals: ["simple-git", "form-data", "axios", "fs", "https", "js-beautify"],
       builderOptions: {
         // options placed here will be merged with default configuration and passed to electron-builder
         "appId": "this.is.tasky",

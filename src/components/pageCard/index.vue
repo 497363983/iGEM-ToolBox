@@ -36,6 +36,7 @@ function edit(item) {
   useWikiEditorStore().setPath(props.page.path);
   useWikiEditorStore().block = item.name;
   useWikiEditorStore().page = props.page.name;
+  useWikiEditorStore().readBlock();
   useWikiEditorStore().openEditor(() => {
     loadingEdit.value = false;
   });
@@ -44,7 +45,7 @@ function edit(item) {
 async function getBlock() {
   let content = await readFile(props.page.path);
   //<!-- iGEM-ToolBox:WIKI{{Experiment4}} -->
-  let regx = /(?<=<!-- iGEM-ToolBox:WIKI{{)(.+?)(?=\}} -->)/g;
+  let regx = /(?<=<!-- iGEM-ToolBox:WIKI{{)(.+?)(?=}} (|start)-->)/g;
   let res = content.match(regx);
   if (res) {
     res.map((item) => {

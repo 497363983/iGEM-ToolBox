@@ -9,7 +9,6 @@ import {
   Menu,
   shell,
   dialog
-  // screen
 } from 'electron';
 import {
   SyncFiles
@@ -198,6 +197,12 @@ ipcMain.on('writeJSONFile', function (event, arg) {
 ipcMain.on("getInstallationPath", function (event) {
   const installationPath = path.dirname(app.getPath('exe'));
   event.sender.send('getInstallationPathReply', installationPath)
+})
+
+ipcMain.on("openFileDialog", (event, option) => {
+  dialog.showOpenDialog(option).then(({ canceled, filePaths }) => {
+    event.sender.send("openFileDialogReturn", { canceled, filePaths })
+  })
 })
 
 function setTray() {

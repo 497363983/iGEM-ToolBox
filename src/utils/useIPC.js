@@ -28,10 +28,6 @@ export function minimize() {
   ipcRenderer.send('mainWindow:minimize')
 }
 
-export function setTaskTimer(time, name) {
-  ipcRenderer.send('setTaskTimer', time, encodeURIComponent(name));
-}
-
 export function closeRemind() {
   ipcRenderer.send('remindWindow:close');
 }
@@ -44,6 +40,12 @@ export function setRemindMsg() {
   return remindMsg;
 }
 
+/**
+ * 
+ * @param {String} src 
+ * @param {Object} options 
+ * @param {Function} callback 
+ */
 export function runPythonByMain(src, options, callback) {
 
   ipcRenderer.send('runPython', {
@@ -67,11 +69,18 @@ export function getDirName() {
     arg
   });
 }
-
+/**
+ * 
+ * @param {String} filelist 
+ * @param {String} username 
+ * @param {String} password 
+ * @param {String|Number} teamID 
+ */
 export function SyncFiles(filelist, username, password, teamID) {
   ipcRenderer.send("SyncFiles", { filelist, username, password, teamID });
 
 }
+
 export function SyncFiles_return() {
   //upload successful
   ipcRenderer.on('SyncFiles:return', (event, data) => {
@@ -87,9 +96,26 @@ export function SyncFiles_return() {
   });
 }
 
+
 export function getInstallationPath() {
   ipcRenderer.send("getInstallationPath");
   ipcRenderer.once('getInstallationPathReply', (event, arg) => {
     useConfigStore().installationPath = arg;
   });
+}
+
+
+
+/**
+ * 
+ * @param {import('electron').OpenDialogOptions} option 
+ * @param {Function} callback 
+ */
+export function openFileDialog(option, callback) {
+  ipcRenderer.send("openFileDialog", option);
+  ipcRenderer.once("openFileDialogReturn", (event, { canceled, filePaths }) => {
+    if (callback && typeof callback == 'function') {
+      callback({ canceled, filePaths })
+    }
+  })
 }

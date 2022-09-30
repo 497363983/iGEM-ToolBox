@@ -264,47 +264,52 @@ import SideDirectory from "@/components/SideDirectory.vue";
 import { ref, onMounted, defineProps } from "vue";
 import { LinkMenu, bubble, inputLink } from "./config/bubble";
 import { useWikiEditorStore } from "@/store";
-import { pushProject } from "@/utils/git";
+import { floating } from "./config/floating";
+// import { pushProject } from "@/utils/git";
 // import { SyncFiles, SyncFiles_return} from "../utils/useIPC";
 defineProps({
   content: String,
   path: String,
 });
+
 const editLinkAble = ref(false);
-const floating = [
-  {
-    role: "item",
-    icon: "image",
-    title: "Image",
-    bindElement: {
-      id: "bubble_imageInput",
-      label: "input",
-      type: "file",
-      accept: ".png,.jpg,.gif,.jpeg,.svg",
-      isShow: false,
-      event: {
-        change: (e) => {
-          console.log(e);
-          // getClipboardImageURL();
-          if (e.target.files) {
-            editor
-              .chain()
-              .focus()
-              .setImage({ src: e.target.files[0].path })
-              .run();
-            e.target.value = "";
-          }
-        },
-      },
-    },
-  },
-  {
-    role: "item",
-    icon: "table",
-    title: "Table",
-    action: () => addTable(),
-  },
-];
+// const floating = [
+//   {
+//     role: "item",
+//     icon: "image",
+//     title: "Image",
+//     bindElement: {
+//       id: "bubble_imageInput",
+//       label: "input",
+//       type: "file",
+//       accept: ".png,.jpg,.gif,.jpeg,.svg",
+//       isShow: false,
+//       event: {
+//         change: (e) => {
+//           console.log(e);
+//           // getClipboardImageURL();
+//           if (e.target.files) {
+//             editor
+//               .chain()
+//               .focus()
+//               .setImage({ src: e.target.files[0].path })
+//               .run();
+//             e.target.value = "";
+//           }
+//         },
+//       },
+//     },
+//     onClick: {
+
+//     }
+//   },
+//   {
+//     role: "item",
+//     icon: "table",
+//     title: "Table",
+//     action: () => addTable(),
+//   },
+// ];
 
 function showLinkMenu() {
   return editor.isActive("link") || LinkMenu.value;
@@ -324,10 +329,13 @@ function setLink() {
 }
 
 function upload() {
-  pushProject({
-    commitInformation: `upload ${useWikiEditorStore().$state.page}`,
-    file: [``],
-  });
+  // pushProject({
+  //   commitInformation: `upload ${useWikiEditorStore().$state.page}`,
+  //   file: [``],
+  // });
+  // useWikiEditorStore().saveBlock();
+  useWikiEditorStore().save();
+  console.log("lo", editor.options.content);
 }
 
 // function editLinkAble() {
@@ -357,40 +365,6 @@ function editLink() {
 //   // console.log(this.editor.commands.scrollIntoView())
 // }
 
-function addTable() {
-  editor
-    .chain()
-    .focus()
-    .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
-    .run();
-}
-
-// function handleUpdate() {
-//   const headings = [];
-//   const transaction = editor.state.tr;
-//   editor.state.doc.descendants((node, pos) => {
-//     console.log(editor);
-//     if (node.type.name === "heading") {
-//       const id = `heading-${headings.length + 1}`;
-//       if (node.attrs.id != id) {
-//         transaction.setNodeMarkup(pos, undefined, {
-//           ...node.attrs,
-//           id,
-//         });
-//       }
-//       headings.push({
-//         level: node.attrs.level,
-//         text: node.textContent,
-//         id,
-//       });
-//     }
-//   });
-//   transaction.setMeta("preventUpdate", true);
-//   editor.view.dispatch(transaction);
-//   const json = editor.getJSON();
-//   content.value = [...json.content];
-// }
-
 function hideLinkMenu() {
   LinkMenu.value = false;
   inputLink.value = "";
@@ -398,6 +372,6 @@ function hideLinkMenu() {
 }
 
 onMounted(() => {
-  // editor.on("update", handleUpdate());
+  editor.commands.setContent(useWikiEditorStore().content, false);
 });
 </script>

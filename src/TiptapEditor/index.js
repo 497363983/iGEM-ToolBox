@@ -5,14 +5,15 @@ import { useWikiEditorStore } from "@/store";
 export const editor = new Editor({
     extensions: Extensions,
     injectCSS: false,
-    content: useWikiEditorStore().content,
+    // content: useWikiEditorStore().content,
     onUpdate: ({ editor }) => {
         useWikiEditorStore().content = editor.getHTML();
-        useWikiEditorStore().jsonContent = editor.getJSON();
+        // useWikiEditorStore().jsonContent = editor.getJSON();
+        console.log('update', useWikiEditorStore().content, editor);
+        useWikiEditorStore().saveBlock();
         const transaction = editor.state.tr;
         const headings = [];
         editor.state.doc.descendants((node, pos) => {
-            console.log(editor);
             if (node.type.name === "heading") {
                 const id = `heading-${headings.length + 1}`;
                 if (node.attrs.id != id) {
@@ -33,29 +34,3 @@ export const editor = new Editor({
         console.log(useWikiEditorStore().jsonContent);
     }
 });
-
-// function handleUpdate() {
-//   const headings = [];
-//   const transaction = editor.state.tr;
-//   editor.state.doc.descendants((node, pos) => {
-//     console.log(editor);
-//     if (node.type.name === "heading") {
-//       const id = `heading-${headings.length + 1}`;
-//       if (node.attrs.id != id) {
-//         transaction.setNodeMarkup(pos, undefined, {
-//           ...node.attrs,
-//           id,
-//         });
-//       }
-//       headings.push({
-//         level: node.attrs.level,
-//         text: node.textContent,
-//         id,
-//       });
-//     }
-//   });
-//   transaction.setMeta("preventUpdate", true);
-//   editor.view.dispatch(transaction);
-//   const json = editor.getJSON();
-//   content.value = [...json.content];
-// }

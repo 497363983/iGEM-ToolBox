@@ -1,13 +1,26 @@
-const { readdirSync, statSync, readFileSync, writeFile } = window.require("fs");
+const fs = window.require('fs');
 const path = window.require("path");
-export function getDirTree(dirPath, depth = 0, except = ["node_modules", "dist"]) {
+/**
+ * 
+ * @param {String} dirPath 
+ * @param {Number} depth 
+ * @param {String[]} except 
+ * @returns 
+ */
+export function getDirTree(dirPath, depth = 0, except = ["node_modules", "dist", ".git"]) {
     let currentDepth = 0;
+    /**
+     * 
+     * @param {String} dirPath 
+     * @param {Number} depth 
+     * @returns 
+     */
     function getMap(dirPath, depth) {
         let tree = [];
-        let files = readdirSync(dirPath);
+        let files = fs.readdirSync(dirPath);
         files.map((file) => {
             let subPath = path.resolve(dirPath, file);
-            let state = statSync(subPath);
+            let state = fs.statSync(subPath);
             if (!except.includes(file)) {
                 let item = {
                     path: subPath,
@@ -39,42 +52,88 @@ export function getDirTree(dirPath, depth = 0, except = ["node_modules", "dist"]
 
     return getMap(dirPath, depth);
 }
-
+/**
+ * 
+ * @param {String} dirPath 
+ * @returns 
+ */
 export function isLeaf(dirPath) {
-    let files = readdirSync(dirPath);
+    let files = fs.readdirSync(dirPath);
     let res = true;
     files.map(file => {
         let subPath = path.resolve(dirPath, file);
-        let state = statSync(subPath);
+        let state = fs.statSync(subPath);
         if (state.isDirectory()) {
             res = false
         }
     })
     return res
 }
-
+/**
+ * 
+ * @param {String} dirPath 
+ * @returns 
+ */
 export function getFilesName(dirPath) {
-    let files = readdirSync(dirPath);
+    let files = fs.readdirSync(dirPath);
     return files;
 }
+/**
+ * 
+ * @param {String} dirPath 
+ * @param {Function} callback 
+ * @returns 
+ */
+export function readFile(dirPath, callback) {
+    try {
+        fs.accessSync(dirPath, fs.constants.F_OK);
+        const res = fs.readFileSync(dirPath, 'utf8');
+        if (callback) {
+            callback(null, res);
+        }
+        console.log(res)
+        return res;
+    } catch (err) {
+        console.log(err);
+        if (callback) {
+            callback(err);
+        }
 
-// export function checkToolDir(dirPath){
-//     access(dirPath, constants.F_OK, (err){
-//         if(err){
-//             mkdir(dirPath)
-//         }
-//     })
-// }
-
-export async function readFile(dirPath) {
-    const res = readFileSync(dirPath, 'utf8');
-    return res;
+    }
+}
+/**
+ * 
+ * @param {String} dirPath 
+ * @param {Function} callback 
+ */
+export function checkFile(dirPath, callback) {
+    fs.access(dirPath, fs.constants.F_OK, (err) => {
+        if (err) {
+            fs.mkdir(path.dirname(dirPath), { recursive: true }, (err) => {
+                if (!err && callback) {
+                    callback()
+                }
+            });
+        } else {
+            callback();
+        }
+    })
 }
 
+/**
+ * 
+ * @param {String} filePath 
+ * @param {String} data 
+ * @param {Function} callback 
+ */
 export async function writeFileItem(filePath, data, callback) {
-    writeFile(filePath, data, (err) => {
-        if (!err && callback) {
-            callback()
-        }
-    });
+    checkFile(filePath, () => {
+        fs.writeFileSync(filePath, data, 'utf8', (err) => {
+            if (!err && callback) {
+                callback()
+            } else {
+                console.log(err)
+            }
+        });
+    })
 }

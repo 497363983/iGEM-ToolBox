@@ -48,12 +48,6 @@
           ></span>-->
         </label>
       </section>
-      <!-- <span
-      @change="bindElement.event.change?bindElement.event.change():null"
-      @click="bindElement.event.click?bindElement.event.click():null"
-      v-html="bindElement.html?bindElement.html:''"
-      :style="bindElement.style"
-      ></span>-->
       <input
         v-if="bindElement"
         v-show="bindElement.isShow"

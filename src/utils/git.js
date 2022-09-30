@@ -2,6 +2,10 @@ import { useTemplateStore, useGitLabStore, useUserStore } from '@/store';
 // import simpleGit from "simple-git";
 const simpleGit = window.require("simple-git");
 
+const progress = ({ method, stage, progress }) => {
+    console.log(`git.${method} ${stage} stage ${progress}% complete `)
+}
+
 export async function setGitPath() {
     await simpleGit(useTemplateStore().projectPath).raw('remote', 'set-url', 'origin', useGitLabStore().gitPath);
 }
@@ -73,12 +77,20 @@ export async function pullProject(options) {
         cloneProject();
     }
 }
-
-export async function pushProject(options) {
+/**
+ * 
+ * @param {Object} options 
+ * @param {Function} callback 
+ */
+export async function pushProject(options, callback) {
     const { commitInformation, file } = options;
     // const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
     if (isGitRepository(useTemplateStore().projectPath)) {
-        await simpleGit(useTemplateStore().projectPath).add(file).commit(commitInformation).push(['origin', useGitLabStore().currentBranch.trim()], (res) => console.log('push success', res));
+        await simpleGit(useTemplateStore().projectPath, { progress }).add(file).commit(commitInformation).push(['origin', useGitLabStore().currentBranch.trim()], (res) => {
+            if (callback && typeof callback == 'function') {
+                callback(res)
+            }
+        });
     }
 }
 

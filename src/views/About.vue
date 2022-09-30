@@ -9,7 +9,8 @@
 // import { pullProject } from "@/utils/git";
 import { useUserStore, useCompetitionStore } from "@/store";
 import { SyncFiles, SyncFiles_return } from "../utils/useIPC";
-
+import { editor } from "@/TiptapEditor/index";
+console.log(editor);
 async function test() {
   // const { username, accsessTokens } = useUserStore().$state;
   // const { projectPath } = useTemplateStore().$state;
@@ -26,9 +27,14 @@ async function test() {
   const filelist = [
     {
       filename: "test",
-      filepath: "E:\\desktop\\图片1.png",
+      filepath: "E:\\desktop\\Snipaste_2022-09-13_19-33-20.png",
       type: "test",
-    }
+    },
+    // {
+    //   filename: "test",
+    //   filepath: "E:\\desktop\\图片.png",
+    //   type: "test",
+    // }
   ];
   SyncFiles(
     filelist,
