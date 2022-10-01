@@ -8,7 +8,7 @@ export const editor = new Editor({
     // content: useWikiEditorStore().content,
     onUpdate: ({ editor }) => {
         useWikiEditorStore().content = editor.getHTML();
-        // useWikiEditorStore().jsonContent = editor.getJSON();
+        useWikiEditorStore().jsonContent = editor.getJSON();
         console.log('update', useWikiEditorStore().content, editor);
         useWikiEditorStore().saveBlock();
         const transaction = editor.state.tr;

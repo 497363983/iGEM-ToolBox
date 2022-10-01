@@ -65,11 +65,13 @@ export async function pullProject(options) {
     let success = options?.success;
     let failure = options?.failure;
     if (isGitRepository(useTemplateStore().projectPath)) {
-        simpleGit(useTemplateStore().projectPath).pull().then((res) => {
+        console.log('start pull')
+        simpleGit(useTemplateStore().projectPath, { progress }).pull().then((res) => {
             // const { changes, deletions, insertions } = res.summary;
             // if (changes !== 0 || deletions !== 0 || insertions !== 0) {
             //     simpleGit(useTemplateStore().projectPath).merge().then(() => (success && typeof success === 'function') ? success(res) : console.log('pull success', res)).catch((err) => console.log(err));
             // } else {
+            console.log('pull end', res);
             (success && typeof success === 'function') ? success(res) : console.log('pull success', res);
             // }
         }).catch((err) => (failure && typeof failure === 'function') ? failure(err) : console.log('pull failed:', err));
@@ -86,7 +88,9 @@ export async function pushProject(options, callback) {
     const { commitInformation, file } = options;
     // const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
     if (isGitRepository(useTemplateStore().projectPath)) {
+        console.log('start push')
         await simpleGit(useTemplateStore().projectPath, { progress }).add(file).commit(commitInformation).push(['origin', useGitLabStore().currentBranch.trim()], (res) => {
+            console.log('push end', res)
             if (callback && typeof callback == 'function') {
                 callback(res)
             }

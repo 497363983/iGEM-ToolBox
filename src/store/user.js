@@ -26,8 +26,7 @@ export const useUserStore = defineStore('userStore', {
                         username: this.$state.username,
                         realname: this.$state.realname,
                         description: this.$state.description
-                    }, (data) => {
-                        console.log(data)
+                    }, () => {
                         pushProject({
                             commitInformation: `upload user information`,
                             file: [`tool_box\\members\\${this.$state.username}.json`]

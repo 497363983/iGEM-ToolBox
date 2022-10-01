@@ -57,7 +57,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
             let pagearr = this.$state.path.split('/');
             return pagearr[pagearr.length - 1];
         },
-        save() {
+        async save() {
             let content = `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} start-->\n`;
             content += this.$state.content + '\n';
             content += `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} end-->\n`;
@@ -69,9 +69,10 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 const editBlock = new RegExp(`(<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} (|start)-->)([\\s\\S]*?)(<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} (|end)-->)`);
                 content = fileContent.replace(editBlock, content);
             }
-            pullProject({
+            await pullProject({
                 success: () => {
-                    writeFileItem(this.$state.path, beautify_html(content, { end_with_newline: true }), () => {
+                    console.log('start write')
+                    writeFileItem(this.$state.path, beautify_html(content, { end_with_newline: false }), () => {
                         pushProject({
                             commitInformation: `upload block`,
                             file: [`tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.html`, `wiki\\pages\\${this.$state.page}.html`]

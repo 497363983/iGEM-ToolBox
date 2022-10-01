@@ -91,7 +91,6 @@ export function readFile(dirPath, callback) {
         if (callback) {
             callback(null, res);
         }
-        console.log(res)
         return res;
     } catch (err) {
         console.log(err);
@@ -130,6 +129,7 @@ export async function writeFileItem(filePath, data, callback) {
     checkFile(filePath, () => {
         fs.writeFileSync(filePath, data, 'utf8', (err) => {
             if (!err && callback) {
+                console.log('write file err', err)
                 callback()
             } else {
                 console.log(err)
