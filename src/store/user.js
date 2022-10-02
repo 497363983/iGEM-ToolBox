@@ -4,6 +4,7 @@ import {
 import { electronStore } from '@/electron-store';
 import { writeJSONFile } from '@/utils';
 import { useTemplateStore } from './template';
+import { useCompetitionStore } from './competition';
 import { pullProject, pushProject } from '@/utils/git';
 
 export const useUserStore = defineStore('userStore', {
@@ -25,7 +26,9 @@ export const useUserStore = defineStore('userStore', {
                     writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\members\\${this.$state.username}.json`, {
                         username: this.$state.username,
                         realname: this.$state.realname,
-                        description: this.$state.description
+                        description: this.$state.description,
+                        group: useCompetitionStore().$state.group,
+                        role: useCompetitionStore().$state.role
                     }, () => {
                         pushProject({
                             commitInformation: `upload user information`,
