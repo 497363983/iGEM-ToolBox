@@ -127,7 +127,8 @@ export function checkFile(dirPath, callback) {
  */
 export async function writeFileItem(filePath, data, callback) {
     checkFile(filePath, () => {
-        fs.writeFileSync(filePath, data, 'utf8', (err) => {
+        fs.writeFile(filePath, data, 'utf8', (err) => {
+            console.log(err)
             if (!err && callback) {
                 console.log('write file err', err)
                 callback()
