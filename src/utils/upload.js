@@ -1,3 +1,5 @@
+// import { ElIcon } from 'element-plus';
+
 const axios = require('axios');
 const https = require('https');
 const { existsSync, createReadStream } = require('fs');
@@ -11,10 +13,17 @@ const FormData = require('form-data');
 export async function SyncFiles(args) {
     //Fetch cookies
     const { username, password, event, teamID, filelist } = args;
-    let cookie = await get_cookie(username, password, event).catch((error, resolve) => {
+    let cookie , status = await get_cookie(username, password).catch((error, resolve) => {
         event.sender.send("SyncFiles:error", error)
         resolve(null)
     });
+
+    if (status == 200){
+        event.sender.send("SyncFiles:error", "wrong username or password")
+    }else if(status == 404){
+        event.sender.send("SyncFiles:error", "get cookie failed!")
+    }
+
     if (cookie == null) {
         event.sender.send("SyncFiles:error", "error")
         return null;
@@ -52,7 +61,7 @@ export async function SyncFiles(args) {
  * @param {import('electron/renderer').Event} event 
  * @returns {Promise}
  */
-async function get_cookie(username, password, event) {
+async function get_cookie(username, password) {
     return new Promise((resolve) => {
         const data = 'return_to=https%3A%2F%2Fold.igem.org%2FLogin2&username=' + username + '&password=' + password + '&Login=Login'
         // console.log(data)
@@ -71,16 +80,16 @@ async function get_cookie(username, password, event) {
             // console.log(res)
             console.log(res.statusCode)
             if (res.statusCode == 200) {
-                event.sender.send("SyncFiles:error", "wrong username or password")
-                resolve(null);
+                // event.sender.send("SyncFiles:error", "wrong username or password")
+                resolve(null , 200);
             }
             let cookie = res.rawHeaders[9]
             // console.log(cookie)
-            resolve(cookie);
+            resolve(cookie , 0);
         });
         req.on('error', () => {
-            resolve(null);
-            event.sender.send("SyncFiles:error", "get cookie failed!")
+            resolve(null , 404);
+            // event.sender.send("SyncFiles:error", "get cookie failed!")
         })
         req.write(data)
         req.end()
