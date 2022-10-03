@@ -8,6 +8,7 @@ import { electronStore } from "@/electron-store";
 export function getData() {
 
 }
+
 /**
  * 
  * @param {String} file 
@@ -46,7 +47,6 @@ export function Uppercase(str) {
     return str.replace(/\b([\w|']+)\b/g, (word) => {
         return word.replace(word.charAt(0), word.charAt(0).toUpperCase());
     });
-
 }
 
 export function getElectronStore() {

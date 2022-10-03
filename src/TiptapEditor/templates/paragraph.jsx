@@ -1,1 +1,0 @@
-<p className='custom-paragraph'>{$text}</p>
