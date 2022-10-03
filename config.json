@@ -1,10 +1,13 @@
 {
-    "wikiEditor":{
-        "references":{
-            "cache":{
-                "file": ""
-            }
+    "version": "0.0.1 beta",
+    "wikiEditor": {
+        "cache": {
+            "page": "pages"
         }
-
+    },
+    "references": {
+        "cache": {
+            "file": ""
+        }
     }
 }

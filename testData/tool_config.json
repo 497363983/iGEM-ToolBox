@@ -1,0 +1,11 @@
+{
+    "team": {
+        "ID": "",
+        "name": ""
+    },
+    "pageSuffix": [
+        ".html"
+    ],
+    "branch": "main",
+    "pageTemplatePath": "${projectPath}/wiki/pages"
+}

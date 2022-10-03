@@ -9,6 +9,9 @@ const schema = {
     },
     template: {
         type: 'object'
+    },
+    competition: {
+        type: 'object'
     }
 };
 

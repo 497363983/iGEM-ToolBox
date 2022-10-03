@@ -29,7 +29,7 @@ let data = [
 
 export const columns = [{
         label: "Author",
-        prop: "author",
+        prop: "authors",
         sortable: true
     },
     {

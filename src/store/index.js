@@ -2,10 +2,13 @@ import { createPinia } from "pinia";
 import { useConfigStore } from "./config";
 import { useReferenceStore } from "./reference";
 import { useUserStore } from "./user";
-import {useGitLabStore } from "./gitlab";
-import {useTeamStore} from "./team"
-import {useTemplateStore} from "./template"
+import { useGitLabStore } from "./gitlab";
+import { useTeamStore } from "./team";
+import { useTemplateStore } from "./template";
+import { useWikiEditorStore } from "./wikiEditor";
+import { useCompetitionStore } from "./competition";
+import { useGitStore } from "./git";
 
 const pinia = createPinia();
 
-export { pinia, useConfigStore, useReferenceStore, useUserStore,useGitLabStore,useTeamStore,useTemplateStore };
+export { pinia, useConfigStore, useReferenceStore, useUserStore, useGitLabStore, useTeamStore, useTemplateStore, useWikiEditorStore, useCompetitionStore, useGitStore };

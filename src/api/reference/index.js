@@ -1,4 +1,4 @@
-import getReference from "./getReference";
+import { getReference } from "./getReference";
 
 export {
     getReference

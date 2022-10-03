@@ -1,13 +1,148 @@
 <template>
-    <div id="wiki" style="height:100%">
-        <TiptapEditor/>
-    </div>
+  <div id="wiki" style="height: 100%">
+    <el-container style="height: 100%">
+      <el-main>
+        <el-row :gutter="12">
+          <el-col :span="12">
+            <el-card>
+              <el-container>
+                <el-main>
+                  <el-row>
+                    <el-col :span="4">
+                      <svgIcon
+                        style="font-size: 25px"
+                        iconClass="git"
+                      ></svgIcon>
+                    </el-col>
+                    <el-col :span="20">
+                      <el-row v-if="git">
+                        <strong>version: </strong>
+                        {{ useGitLabStore().git.version }}
+                      </el-row>
+                      <el-row v-else>
+                        <el-col>
+                          <el-button type="primary">Download</el-button>
+                        </el-col>
+                      </el-row>
+                    </el-col>
+                  </el-row>
+                </el-main>
+              </el-container>
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-divider />
+        <el-row>
+          <el-col :span="24">
+            <el-tabs
+              style="margin-top: 10px; height: 60vh"
+              v-model="currentTag"
+              tab-position="left"
+            >
+              <el-tab-pane style="height: 100%" label="Pages" name="pages">
+                <div
+                  class="infinite-list-wrapper"
+                  style="overflow: auto; height: 100%"
+                >
+                  <ul
+                    v-infinite-scroll="loadPages"
+                    class="pages-list infinite-list"
+                  >
+                    <li v-for="(page, index) in pages" :key="index">
+                      <pageCard :page="page"></pageCard>
+                    </li>
+                  </ul>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane
+                style="height: 100%"
+                label="Templates"
+                name="templates"
+              >
+                <div
+                  class="infinite-list-wrapper"
+                  style="overflow: auto; height: 100%"
+                >
+                  <ul
+                    v-infinite-scroll="loadTemplates"
+                    class="pages-list infinite-list"
+                  >
+                    <li v-for="(template, index) in templates" :key="index">
+                      <pageCard :page="template"></pageCard>
+                    </li>
+                  </ul>
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+          </el-col>
+        </el-row>
+      </el-main>
+    </el-container>
+    <el-dialog
+      class="editor"
+      v-model="useWikiEditorStore().showEditor"
+      :title="useWikiEditorStore().page"
+      lock-scroll
+      append-to-body
+      destroy-on-close
+      fullscreen
+    >
+      <template #header>
+        {{ useWikiEditorStore().page }}:{{ useWikiEditorStore().block }}
+      </template>
+      <TiptapEditor />
+    </el-dialog>
+  </div>
 </template>
-<script>
-import TiptapEditor from "@/TiptapEditor";
-export default {
-  components: {
-    TiptapEditor
-  }
-};
+<script setup>
+import TiptapEditor from "@/TiptapEditor/index.vue";
+import { ref, onMounted } from "vue";
+import { isGit, gitInit } from "@/utils/git";
+import {
+  useGitLabStore,
+  useTemplateStore,
+  // useConfigStore,
+  useWikiEditorStore,
+} from "@/store";
+import { getDirTree } from "@/utils/files";
+import pageCard from "@/components/pageCard";
+const git = ref(false);
+const currentTag = ref("pages");
+const pages = ref([]);
+const templates = ref([]);
+function loadPages() {
+  let dirs = getDirTree(useTemplateStore().pageTemplatePath);
+  pages.value = dirs.filter((item) => {
+    return item.extname === useTemplateStore().pageSuffix;
+  });
+}
+
+function loadTemplates() {
+  console.log("kk");
+}
+
+onMounted(async () => {
+  git.value = await isGit();
+  gitInit();
+});
 </script>
+
+<style lang="scss" scoped>
+.pages-list {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+</style>
+<style lang="scss">
+.el-tabs--left .el-tabs__content {
+  height: 100%;
+  display: block;
+}
+.editor {
+  .el-dialog__body {
+    height: 85vh;
+  }
+}
+</style>
