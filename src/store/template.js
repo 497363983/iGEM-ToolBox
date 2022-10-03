@@ -9,7 +9,7 @@ export const useTemplateStore = defineStore('templateStore', {
         pageTemplatePath: `${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`,
         pageSuffix: `.html`,
         projectPath: ``,
-        componentsPath: ``
+        componentsPath: null
     }),
     actions: {
         save() {
