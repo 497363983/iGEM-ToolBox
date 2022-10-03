@@ -7,7 +7,8 @@ import { useTeamStore } from "./team";
 import { useTemplateStore } from "./template";
 import { useWikiEditorStore } from "./wikiEditor";
 import { useCompetitionStore } from "./competition";
+import { useGitStore } from "./git";
 
 const pinia = createPinia();
 
-export { pinia, useConfigStore, useReferenceStore, useUserStore, useGitLabStore, useTeamStore, useTemplateStore, useWikiEditorStore, useCompetitionStore };
+export { pinia, useConfigStore, useReferenceStore, useUserStore, useGitLabStore, useTeamStore, useTemplateStore, useWikiEditorStore, useCompetitionStore, useGitStore };

@@ -59,6 +59,7 @@
                 <span>Setting</span>
               </template>
             </el-menu-item>
+            <div class="user-menu"></div>
           </el-menu>
         </el-aside>
         <el-main>
@@ -66,6 +67,41 @@
         </el-main>
       </el-container>
     </div>
+    <el-dialog
+      v-model="useUserStore().isTrue"
+      full-screen
+      lock-scroll
+      append-to-body
+      destroy-on-close
+      fullscreen
+      :show-close="false"
+    >
+      <el-form label-width="100px">
+        <el-form-item label="Username">
+          <el-input
+            v-model="useUserStore().username"
+            placeholder="Please enter username"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="Password">
+          <el-input
+            v-model="useUserStore().password"
+            placeholder="Please enter password"
+            type="password"
+            show-password
+          ></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="Team ID">
+          <el-input
+            v-model="useCompetitionStore().teamID"
+            placeholder="Please enter team ID"
+          ></el-input>
+        </el-form-item> -->
+        <el-form-item>
+          <el-button @click="getCookie" type="primary">Login</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </el-config-provider>
 </template>
 <style lang="scss">
@@ -124,22 +160,42 @@ body {
 </style>
 <script setup>
 import "../../icons";
-import { useConfigStore, useGitLabStore, useUserStore } from "@/store";
+import {
+  useConfigStore,
+  useGitLabStore,
+  useUserStore,
+  // useCompetitionStore,
+} from "@/store";
 import { computed, onMounted } from "vue";
 import { getElectronStore } from "@/utils";
 import { getBranch } from "@/utils/git";
 import { getInstallationPath } from "@/utils/useIPC";
+import { get_cookie } from "@/utils/upload";
 
 useUserStore().$subscribe((mutation, state) => {
-  useUserStore().save()
-  console.log(mutation, state)
+  useUserStore().save();
+  console.log(mutation, state);
 });
+
+function getCookie() {
+  get_cookie()
+    .then((res) => {
+      if (res) {
+        useUserStore().isTrue = true;
+      } else {
+        useUserStore().isTrue = false;
+      }
+    })
+    .catch((err) => console.log(err));
+}
 
 onMounted(async () => {
   getElectronStore();
   getBranch();
   useGitLabStore().getGit();
   getInstallationPath();
+  console.log(useUserStore().isTrue);
+  getCookie();
 });
 
 const language = computed(() => {

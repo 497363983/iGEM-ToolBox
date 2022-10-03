@@ -87,7 +87,6 @@ async function get_cookie(username, password, event) {
     });
 }
 
-
 /**
  * @description Sync each file after fetch the cookie
  * @param {String} teamID 

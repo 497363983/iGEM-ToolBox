@@ -1,9 +1,12 @@
-import { useTemplateStore, useGitLabStore, useUserStore } from '@/store';
+import { useTemplateStore, useGitLabStore, useUserStore, useGitStore } from '@/store';
 // import simpleGit from "simple-git";
 const simpleGit = window.require("simple-git");
 
 const progress = ({ method, stage, progress }) => {
     console.log(`git.${method} ${stage} stage ${progress}% complete `)
+    useGitStore().method = method;
+    useGitStore().progress = progress;
+    useGitStore().stage = stage;
 }
 
 export async function setGitPath() {
@@ -35,7 +38,10 @@ export async function getAllBranch() {
 export async function getBranch() {
     return await simpleGit(useTemplateStore().projectPath).raw('symbolic-ref', '--short', '-q', 'HEAD');
 }
-
+/**
+ * 
+ * @param {String} branch 
+ */
 export async function setBranch(branch) {
     if (branch.includes("remotes/origin")) {
         let remoteBranch = branch.replace("remotes/", "");
@@ -66,7 +72,7 @@ export async function pullProject(options) {
     let failure = options?.failure;
     if (isGitRepository(useTemplateStore().projectPath)) {
         console.log('start pull')
-        simpleGit(useTemplateStore().projectPath, { progress }).pull().then((res) => {
+        simpleGit(useTemplateStore().projectPath).pull().then((res) => {
             // const { changes, deletions, insertions } = res.summary;
             // if (changes !== 0 || deletions !== 0 || insertions !== 0) {
             //     simpleGit(useTemplateStore().projectPath).merge().then(() => (success && typeof success === 'function') ? success(res) : console.log('pull success', res)).catch((err) => console.log(err));
