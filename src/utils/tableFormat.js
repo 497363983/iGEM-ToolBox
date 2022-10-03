@@ -19,7 +19,7 @@ export function transTableFormat(tablejson){
         tab.push(tabrow)
     }
 
-    console.log(str(tab))
+    console.log(tab)
     return tab;
 }
 
