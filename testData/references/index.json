@@ -173,9 +173,7 @@
         "language": "en",
         "issn": "0099-2240",
         "issue": "17",
-        "title": [
-            "Cre/\n            <i>lox</i>\n            System and PCR-Based Genome Engineering in\n            <i>Bacillus subtilis</i>"
-        ],
+        "title": "Cre/<i>lox</i> System and PCR-Based Genome Engineering in <i>Bacillus subtilis</i>",
         "type": "journal-article",
         "publisher": "American Society for Microbiology",
         "volume": "74",
@@ -560,6 +558,60 @@
         "page": "002203452110006",
         "subject": [
             "General Dentistry"
+        ]
+    },
+    {
+        "doi": "10.21775/cimb.032.201",
+        "url": "http://dx.doi.org/10.21775/cimb.032.201",
+        "authors": [
+            {
+                "given": "Yue",
+                "family": "Zu",
+                "sequence": "first",
+                "affiliation": []
+            },
+            {
+                "given": "Wei",
+                "family": "Li",
+                "sequence": "additional",
+                "affiliation": []
+            },
+            {
+                "given": "Qi",
+                "family": "Wang",
+                "sequence": "additional",
+                "affiliation": []
+            },
+            {
+                "given": "Jiahao",
+                "family": "Chen",
+                "sequence": "additional",
+                "affiliation": []
+            },
+            {
+                "given": "Qiang",
+                "family": "Guo",
+                "sequence": "additional",
+                "affiliation": []
+            }
+        ],
+        "year": 2019,
+        "date": [
+            2019
+        ],
+        "language": "en",
+        "issn": "1467-3037",
+        "title": [
+            "ComDE Two-component Signal Transduction Systems in Oral Streptococci: Structure and Function"
+        ],
+        "type": "journal-article",
+        "publisher": "MDPI AG",
+        "page": "201-258",
+        "subject": [
+            "Microbiology (medical)",
+            "Molecular Biology",
+            "General Medicine",
+            "Microbiology"
         ]
     }
 ]

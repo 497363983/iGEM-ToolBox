@@ -7,11 +7,16 @@ import {
   ipcMain,
   Tray,
   Menu,
-  // screen
+  shell,
+  dialog
 } from 'electron';
+import {
+  SyncFiles
+} from './utils/upload';
 import runPython from './utils/runPython';
-const fs = require('fs');
+// import { concat } from 'core-js/core/array';
 const Store = require('electron-store');
+const fs = require('fs');
 // const simpleGit = require('simple-git');
 
 Store.initRenderer();
@@ -22,7 +27,7 @@ Store.initRenderer();
 const path = require('path');
 const iconPath = path.join(__static, 'icon.png');
 // const {
-//   PythonShell
+//   PythonShell  
 // } = require('python-shell');
 let mainWindow, tray;
 // Scheme must be registered before the app is ready
@@ -58,6 +63,13 @@ let mainWindow, tray;
 //   win.loadURL('app://./main.html')
 // }
 // }
+
+app.on('web-contents-created', (e, webContents) => {
+  webContents.on('new-window', (event, url) => {
+    event.preventDefault();
+    shell.openExternal(url);
+  });
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -100,7 +112,7 @@ app.on('ready', async () => {
     await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '/index.html');
   } else {
     createProtocol('app');
-    // Load the index.html when not in development
+    // Load the index.html when not in development 
     mainWindow.loadURL(`file://${__dirname}/index.html`);
   }
   if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
@@ -114,48 +126,88 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('mainWindow:close', (e) => {
+ipcMain.on('mainWindow:close', () => {
   mainWindow.hide();
 });
-ipcMain.on('mainWindow:maximize', (e) => {
+ipcMain.on('mainWindow:maximize', () => {
   mainWindow.maximize();
 });
-ipcMain.on('mainWindow:unmaximize', (e) => {
+ipcMain.on('mainWindow:unmaximize', () => {
   mainWindow.unmaximize();
 });
-ipcMain.on('mainWindow:minimize', (e) => {
+ipcMain.on('mainWindow:minimize', () => {
   mainWindow.minimize();
 });
-
+ipcMain.on('SyncFiles', (event, { filelist, username, password, teamID }) => {
+  SyncFiles({ filelist, username, password, teamID, event }).catch((error) => {
+    event.sender.send("SyncFiles:error", error)
+  })
+});
 ipcMain.on('readJSONFile', function (event, arg) {
-  // arg是从渲染进程返回来的数据
-  console.log(arg);
-
-  // 这里是传给渲染进程的数据
-  fs.readFile(arg, "utf8", (err, data) => {
-    if (err) {
-      event.sender.send('readJSONFile-reply', err);
+  fs.access(arg, fs.constants.F_OK, (err) => {
+    if (!err) {
+      fs.readFile(arg, "utf8", (err, data) => {
+        if (err) {
+          event.sender.send('readJSONFile-reply', err);
+        } else {
+          event.sender.send('readJSONFile-reply', data);
+        }
+      });
     } else {
-      event.sender.send('readJSONFile-reply', data);
+      // fs.mkdir(path.dirname(arg),{recursive: true}, (err) => {
+      // if (err) {
+      //   throw (err)
+      // } else {
+      event.sender.send('readJSONFile-reply', '[]');
+      // }
+      // })
     }
+  })
 
-  });
 });
 
 ipcMain.on('writeJSONFile', function (event, arg) {
-  fs.writeFile(arg.file, arg.data, (err, data) => {
-    if (err) {
-      event.sender.send('writeJSONFile-reply', err);
+  fs.access(path.dirname(arg.file), fs.constants.F_OK, (err) => {
+    if (!err) {
+      fs.writeFile(arg.file, arg.data, (err, data) => {
+        if (err) {
+          event.sender.send('writeJSONFile-reply', err);
+        } else {
+          event.sender.send('writeJSONFile-reply', data);
+        }
+      });
     } else {
-      event.sender.send('writeJSONFile-reply', data);
+      fs.mkdir(path.dirname(arg.file), { recursive: true }, (err) => {
+        if (err) {
+          throw (err)
+        } else {
+          fs.writeFile(arg.file, arg.data, (err, data) => {
+            if (err) {
+              event.sender.send('writeJSONFile-reply', err);
+            } else {
+              event.sender.send('writeJSONFile-reply', data);
+            }
+          });
+        }
+      })
     }
-
-  });
+  })
 });
+
+ipcMain.on("getInstallationPath", function (event) {
+  const installationPath = path.dirname(app.getPath('exe'));
+  event.sender.send('getInstallationPathReply', installationPath)
+})
+
+ipcMain.on("openFileDialog", (event, option) => {
+  dialog.showOpenDialog(option).then(({ canceled, filePaths }) => {
+    event.sender.send("openFileDialogReturn", { canceled, filePaths })
+  })
+})
 
 function setTray() {
   tray = new Tray(iconPath);
-  tray.setToolTip('IWS');
+  tray.setToolTip('iGEM-Toolbox');
   tray.on('click', () => {
     if (mainWindow.isVisible()) {
       mainWindow.hide();
@@ -231,3 +283,5 @@ ipcMain.on('runPython', (event, arg) => {
 //     throw e;
 //   }
 // });
+//
+//

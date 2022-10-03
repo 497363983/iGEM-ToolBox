@@ -1,0 +1,1 @@
+<h{$level} class="heading">{$text}</h{$level}>
