@@ -26,34 +26,28 @@ export const empty_tags = [
     'wbr'
 ];
 
+/**
+ * 
+ * @param {String} str 
+ * @returns 
+ */
 export const escapeHtml = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
 
 
 export function DOMcreateElement(
-    tag,
+    type,
     attrs,
     ...children
 ) {
     attrs = attrs || {};
     const stack = [...children];
 
-    // Support for components(ish)
-    if (typeof tag === "function") {
-        attrs.children = stack;
-        return tag(attrs);
-    }
-
-
-    const elm = document.createElement(tag);
+    const elm = document.createElement(type);
 
     // Add attributes
     for (let [name, val] of Object.entries(attrs)) {
         name = escapeHtml(name);
-        if (name.startsWith("on") && name.toLowerCase() in window) {
-            elm.addEventListener(name.toLowerCase().substr(2), val);
-        } else if (name === "ref") {
-            val(elm);
-        } else if (name === "style") {
+        if (name === "style") {
             Object.assign(elm.style, val);
         } else if (val === true) {
             elm.setAttribute(name, name);
@@ -82,10 +76,3 @@ export function DOMcreateElement(
 
     return elm;
 }
-
-export const DOMcreateFragment = (
-    attrs,
-    ...children
-) => {
-    return children;
-};
