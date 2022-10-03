@@ -7,8 +7,26 @@ export const entityMap = {
     "/": "#x2F",
 };
 
-export const escapeHtml = (str) =>
-    String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
+export const empty_tags = [
+    'area',
+    'base',
+    'br',
+    'col',
+    'command',
+    'embed',
+    'hr',
+    'img',
+    'input',
+    'keygen',
+    'link',
+    'meta',
+    'param',
+    'source',
+    'track',
+    'wbr'
+];
+
+export const escapeHtml = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
 
 
 export function DOMcreateElement(
