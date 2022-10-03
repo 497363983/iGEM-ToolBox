@@ -1,11 +1,13 @@
 import {
     defineStore
 } from 'pinia';
+import { h } from "vue";
 import { pullProject, pushProject } from '@/utils/git';
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElNotification, ElProgress } from 'element-plus';
 import { readFile, writeFileItem } from '@/utils/files';
 import { useTemplateStore } from './template';
 import { useUserStore } from './user';
+import { useGitStore } from './git';
 import path from 'path';
 const beautify_html = require('js-beautify').html;
 
@@ -24,7 +26,8 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 openOnClick: true,
                 linkOnPaste: true
             }
-        }
+        },
+
     }),
     getters: {
         getBlockPath: (state) => (extname = 'html') => path.join(useTemplateStore().projectPath, `tool_box/${useUserStore().username}/pages/${state.page}/block/${state.block}.${extname}`)
@@ -58,6 +61,13 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
             return pagearr[pagearr.length - 1];
         },
         async save() {
+            ElNotification({
+                title: useGitStore().method,
+                message: h(ElProgress, {
+                    percentage: useGitStore().progress
+                }),
+                duration: 0
+            })
             let content = `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} start-->\n`;
             content += this.$state.content + '\n';
             content += `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} end-->\n`;
@@ -75,7 +85,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                     writeFileItem(this.$state.path, beautify_html(content, { end_with_newline: false }), () => {
                         pushProject({
                             commitInformation: `upload block`,
-                            file: [`tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.html`, `wiki\\pages\\${this.$state.page}.html`]
+                            file: [`tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.html`, `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.json`, `wiki\\pages\\${this.$state.page}.html`]
                         }, (res) => {
                             console.log('push', res)
                         });
@@ -87,7 +97,8 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
             // pullProject({
             //     success: () => {
             writeFileItem(this.getBlockPath(), this.$state.content)
-            console.log(this.getBlockPath(), this.$state.content)
+            writeFileItem(this.getBlockPath('json'), JSON.stringify(this.$state.jsonContent))
+            console.log(this.getBlockPath('json'), this.$state.content, this.$state.jsonContent)
             //     }
             // })
         },
