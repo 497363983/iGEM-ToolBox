@@ -9,7 +9,9 @@ import { useTemplateStore } from './template';
 import { useUserStore } from './user';
 import { useGitStore } from './git';
 import path from 'path';
+import { DOMcreateElement } from '@/TiptapEditor/utils/useTemplate';
 const beautify_html = require('js-beautify').html;
+
 
 export const useWikiEditorStore = defineStore('wikiEditorStore', {
     state: () => ({
@@ -68,8 +70,9 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 }),
                 duration: 0
             })
+            console.log('json', this.$state.jsonContent)
             let content = `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} start-->\n`;
-            content += this.$state.content + '\n';
+            content += DOMcreateElement(this.$state.jsonContent) + '\n';
             content += `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} end-->\n`;
             let fileContent = readFile(this.$state.path);
             const testBlock = new RegExp(`<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} -->`);
@@ -108,6 +111,12 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                     writeFileItem(this.getBlockPath(), '');
                 }
             });
+
+            this.$state.jsonContent = JSON.parse(readFile(this.getBlockPath('json'), (err) => {
+                if (err) {
+                    writeFileItem(this.getBlockPath(), {});
+                }
+            }))
             console.log('content', this.$state.content)
         }
     }

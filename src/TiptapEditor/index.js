@@ -9,7 +9,7 @@ export const editor = new Editor({
     onUpdate: ({ editor }) => {
         useWikiEditorStore().content = editor.getHTML();
         useWikiEditorStore().jsonContent = editor.getJSON();
-        console.log('update', useWikiEditorStore().content, editor);
+        console.log('update', useWikiEditorStore().jsonContent, editor);
         useWikiEditorStore().saveBlock();
         const transaction = editor.state.tr;
         const headings = [];

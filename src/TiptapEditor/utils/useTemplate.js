@@ -57,42 +57,50 @@ export function getTemplates() {
 export function DOMcreateElement(DOM) {
     const { type, content = null, attrs = {}, mark = null, text = '' } = DOM;
     if (content) {
-        if (type === "table") {
-            let $data = transTableFormat(DOM);
-            let $content = '';
-            content.forEach(item => {
-                $content += DOMcreateElement(item);
-            })
-            const props = { ...attrs, content: $content, data: JSON.stringify($data).replace(/"/g, '\'') }
-            return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
-                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
-            })
-        } else if (["tableCell", "tableHeader"].includes(type)) {
-            let $content = '';
-            content.forEach(item => {
-                if (item.type === "paragraph") {
-                    if (item.content) {
-                        console.log($content);
-                        item.content.forEach(cell => {
-                            $content += DOMcreateElement(cell);
-                        })
-                    }
-                } else {
+        if (typeof content === "object") {
+            console.log(type, DOM)
+            if (type === "table") {
+                let $data = transTableFormat(DOM);
+                let $content = '';
+                content.forEach(item => {
                     $content += DOMcreateElement(item);
-                }
-            })
-            const props = { ...attrs, content: $content }
+                })
+                const props = { ...attrs, content: $content, data: JSON.stringify($data).replace(/"/g, '\'') }
+                return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                    return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
+                })
+            } else if (["tableCell", "tableHeader"].includes(type)) {
+                let $content = '';
+                content.forEach(item => {
+                    if (item.type === "paragraph") {
+                        if (item.content) {
+                            console.log($content);
+                            item.content.forEach(cell => {
+                                $content += DOMcreateElement(cell);
+                            })
+                        }
+                    } else {
+                        $content += DOMcreateElement(item);
+                    }
+                })
+                const props = { ...attrs, content: $content }
+                return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                    return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
+                })
+            } else {
+                let $content = '';
+                content.forEach(item => {
+                    $content += DOMcreateElement(item);
+                })
+                const props = { ...attrs, content: $content }
+                return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                    return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
+                })
+            }
+        } else if (typeof content === 'string') {
+            const props = { ...attrs, content: content }
             return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
-                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
-            })
-        } else {
-            let $content = '';
-            content.forEach(item => {
-                $content += DOMcreateElement(item);
-            })
-            const props = { ...attrs, content: $content }
-            return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
-                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
+                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
             })
         }
 
@@ -101,7 +109,7 @@ export function DOMcreateElement(DOM) {
             if (mark) {
                 const props = { ...attrs, content: text }
                 return templates[mark].replace(/{\$([\s\S]*?)}/g, (s) => {
-                    return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
+                    return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
                 })
             } else {
                 return text
@@ -109,7 +117,7 @@ export function DOMcreateElement(DOM) {
         } else {
             const props = { ...attrs, content: '' }
             return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
-                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
+                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
             })
         }
     }
