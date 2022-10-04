@@ -1,6 +1,7 @@
 import { useTemplateStore } from "@/store";
 import templates from '../templates/index.json';
 import { getDirTree, readFile } from "@/utils/files";
+import { transTableFormat } from "@/utils/tableFormat";
 const path = require('path');
 
 export const entityMap = {
@@ -48,26 +49,68 @@ export function getTemplates() {
     }
 }
 
-
+/**
+ * 
+ * @param {Object} DOM 
+ * @returns 
+ */
 export function DOMcreateElement(DOM) {
     const { type, content = null, attrs = {}, mark = null, text = '' } = DOM;
     if (content) {
-        let $content = '';
-        content.forEach(item => {
-            $content += DOMcreateElement(item)
-        })
-        const props = { ...attrs, content: $content }
-        return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
-            return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
-        })
-    } else if (type === 'text') {
-        if (mark) {
-            const props = { ...attrs, content: text }
-            return templates[mark].replace(/{\$([\s\S]*?)}/g, (s) => {
+        if (type === "table") {
+            let $data = transTableFormat(DOM);
+            let $content = '';
+            content.forEach(item => {
+                $content += DOMcreateElement(item);
+            })
+            const props = { ...attrs, content: $content, data: JSON.stringify($data).replace(/"/g, '\'') }
+            return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
+            })
+        } else if (["tableCell", "tableHeader"].includes(type)) {
+            let $content = '';
+            content.forEach(item => {
+                if (item.type === "paragraph") {
+                    if (item.content) {
+                        console.log($content);
+                        item.content.forEach(cell => {
+                            $content += DOMcreateElement(cell);
+                        })
+                    }
+                } else {
+                    $content += DOMcreateElement(item);
+                }
+            })
+            const props = { ...attrs, content: $content }
+            return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
                 return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
             })
         } else {
-            return text
+            let $content = '';
+            content.forEach(item => {
+                $content += DOMcreateElement(item);
+            })
+            const props = { ...attrs, content: $content }
+            return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
+            })
+        }
+
+    } else {
+        if (type === 'text') {
+            if (mark) {
+                const props = { ...attrs, content: text }
+                return templates[mark].replace(/{\$([\s\S]*?)}/g, (s) => {
+                    return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
+                })
+            } else {
+                return text
+            }
+        } else {
+            const props = { ...attrs, content: '' }
+            return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]]
+            })
         }
     }
 }

@@ -25,7 +25,7 @@ async function test() {
   //     console.log("hh", res);
   //   },
   // });
-  transTableFormat(Experiment1)
+  // transTableFormat(Experiment1)
   // const filelist = [
   //   {
   //     filename: "test",
@@ -102,6 +102,188 @@ async function test() {
         attrs: {
           textAlign: "left",
         },
+      },
+      {
+        type: "table",
+        content: [
+          {
+            type: "tableRow",
+            content: [
+              {
+                type: "tableHeader",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                    content: [
+                      {
+                        type: "text",
+                        text: "；；；",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: "tableHeader",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                  },
+                ],
+              },
+              {
+                type: "tableHeader",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "tableRow",
+            content: [
+              {
+                type: "tableCell",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                    content: [
+                      {
+                        type: "text",
+                        text: "lll",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: "tableCell",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                  },
+                ],
+              },
+              {
+                type: "tableCell",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "tableRow",
+            content: [
+              {
+                type: "tableCell",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                    content: [
+                      {
+                        type: "text",
+                        text: "ll",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: "tableCell",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                  },
+                ],
+              },
+              {
+                type: "tableCell",
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null,
+                },
+                content: [
+                  {
+                    type: "paragraph",
+                    attrs: {
+                      textAlign: "left",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
         type: "paragraph",
