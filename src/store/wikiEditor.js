@@ -2,6 +2,7 @@ import {
     defineStore
 } from 'pinia';
 import { h } from "vue";
+import { readJSONFile } from '@/utils';
 import { pullProject, pushProject } from '@/utils/git';
 import { ElMessage, ElNotification, ElProgress } from 'element-plus';
 import { readFile, writeFileItem } from '@/utils/files';
@@ -113,11 +114,15 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 }
             });
 
-            this.$state.jsonContent = JSON.parse(readFile(this.getBlockPath('json'), (err) => {
-                if (err) {
-                    writeFileItem(this.getBlockPath(), {});
-                }
-            }))
+            readJSONFile(this.getBlockPath('json'),(data)=>{
+                this.$state.jsonContent = data
+            })
+
+            // this.$state.jsonContent = JSON.parse(readFile(this.getBlockPath('json'), (err) => {
+            //     if (err) {
+            //         writeFileItem(this.getBlockPath(), {});
+            //     }
+            // }))
             console.log('content', this.$state.content)
         }
     }

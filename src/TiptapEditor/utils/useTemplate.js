@@ -43,7 +43,7 @@ export function getTemplates() {
     if (useTemplateStore().componentsPath && useTemplateStore().componentsPath.trim() !== '') {
         const templateFiles = getDirTree(useTemplateStore().componentsPath);
         templateFiles.forEach(file => {
-            const template = readFile(path.join(useTemplateStore().componentsPath, file));
+            const template = readFile(path.join(useTemplateStore().componentsPath, file.name));
             templates[file.substring(0, file.indexOf('.'))] = template;
         })
     }

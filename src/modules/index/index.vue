@@ -98,7 +98,13 @@
           ></el-input>
         </el-form-item> -->
         <el-form-item>
-          <el-button @click="getCookie" type="primary">Login</el-button>
+          <el-button
+            @click="
+              checkCookie(useUserStore().username, useUserStore().password)
+            "
+            type="primary"
+            >Verify</el-button
+          >
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -169,26 +175,12 @@ import {
 import { computed, onMounted } from "vue";
 import { getElectronStore } from "@/utils";
 import { getBranch } from "@/utils/git";
-import { getInstallationPath } from "@/utils/useIPC";
-import { get_cookie } from "@/utils/upload";
+import { getInstallationPath, checkCookie } from "@/utils/useIPC";
 
 useUserStore().$subscribe((mutation, state) => {
   useUserStore().save();
   console.log(mutation, state);
 });
-
-function getCookie() {
-  get_cookie(useUserStore().username, useUserStore().password)
-    .then((res) => {
-      console.log("cookie", res);
-      if (res) {
-        useUserStore().isTrue = true;
-      } else {
-        useUserStore().isTrue = false;
-      }
-    })
-    .catch((err) => console.log(err));
-}
 
 onMounted(async () => {
   getElectronStore();
@@ -196,7 +188,7 @@ onMounted(async () => {
   useGitLabStore().getGit();
   getInstallationPath();
   console.log(useUserStore().isTrue);
-  getCookie();
+  checkCookie(useUserStore().username, useUserStore().password);
 });
 
 const language = computed(() => {
