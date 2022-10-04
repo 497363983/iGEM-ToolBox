@@ -47,6 +47,7 @@ export function getTemplates() {
             templates[file.substring(0, file.indexOf('.'))] = template;
         })
     }
+    console.log(templates)
 }
 
 /**
