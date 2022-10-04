@@ -11,6 +11,9 @@
 // // import { SyncFiles, SyncFiles_return } from "../utils/useIPC";
 // import { editor } from "@/TiptapEditor/index";
 import { DOMcreateElement } from "@/TiptapEditor/utils/useTemplate";
+import { transTableFormat } from "../utils/tableFormat";
+import Experiment1  from '../utils/Experiment1.json';
+
 // console.log(editor);
 async function test() {
   // const { username, accsessTokens } = useUserStore().$state;
@@ -25,7 +28,7 @@ async function test() {
   //     console.log("hh", res);
   //   },
   // });
-  // transTableFormat(Experiment1)
+  transTableFormat(Experiment1)
   // const filelist = [
   //   {
   //     filename: "test",
