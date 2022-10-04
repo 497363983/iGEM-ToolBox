@@ -7,10 +7,11 @@
 
 <script setup>
 // import { pullProject } from "@/utils/git";
-import { useUserStore, useCompetitionStore } from "@/store";
-import { SyncFiles, SyncFiles_return } from "../utils/useIPC";
-import { editor } from "@/TiptapEditor/index";
-console.log(editor);
+// import { useUserStore, useCompetitionStore } from "@/store";
+// // import { SyncFiles, SyncFiles_return } from "../utils/useIPC";
+// import { editor } from "@/TiptapEditor/index";
+import { DOMcreateElement } from "@/TiptapEditor/utils/useTemplate";
+// console.log(editor);
 async function test() {
   // const { username, accsessTokens } = useUserStore().$state;
   // const { projectPath } = useTemplateStore().$state;
@@ -24,25 +25,233 @@ async function test() {
   //     console.log("hh", res);
   //   },
   // });
-  const filelist = [
-    {
-      filename: "test",
-      filepath: "E:\\desktop\\Snipaste_2022-09-13_19-33-20.png",
-      type: "test",
-    },
-    // {
-    //   filename: "test",
-    //   filepath: "E:\\desktop\\图片.png",
-    //   type: "test",
-    // }
-  ];
-  SyncFiles(
-    filelist,
-    useUserStore().username,
-    useUserStore().password,
-    useCompetitionStore().teamID
-  );
+  // const filelist = [
+  //   {
+  //     filename: "test",
+  //     filepath: "E:\\desktop\\Snipaste_2022-09-13_19-33-20.png",
+  //     type: "test",
+  //   },
+  //   // {
+  //   //   filename: "test",
+  //   //   filepath: "E:\\desktop\\图片.png",
+  //   //   type: "test",
+  //   // }
+  // ];
+  // SyncFiles(
+  //   filelist,
+  //   useUserStore().username,
+  //   useUserStore().password,
+  //   useCompetitionStore().teamID
+  // );
+
+  const str = {
+    type: "doc",
+    content: [
+      {
+        type: "heading",
+        attrs: {
+          textAlign: "left",
+          level: 3,
+        },
+        content: [
+          {
+            type: "text",
+            text: "llll",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+        content: [
+          {
+            type: "text",
+            marks: [
+              {
+                type: "strike",
+              },
+            ],
+            text: "ksf",
+          },
+          {
+            type: "text",
+            text: "v",
+          },
+          {
+            type: "text",
+            marks: [
+              {
+                type: "bold",
+              },
+            ],
+            text: "jkd",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+        content: [
+          {
+            type: "text",
+            text: "lll",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "blockquote",
+        content: [
+          {
+            type: "paragraph",
+            attrs: {
+              textAlign: "left",
+            },
+            content: [
+              {
+                type: "text",
+                text: "lllllllllll",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+        content: [
+          {
+            type: "text",
+            marks: [
+              {
+                type: "italic",
+              },
+            ],
+            text: "jfjgjhjhvj",
+          },
+          {
+            type: "text",
+            text: "hv",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+        content: [
+          {
+            type: "text",
+            text: "lllllll",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+      {
+        type: "paragraph",
+        attrs: {
+          textAlign: "left",
+        },
+      },
+    ],
+  };
+  console.log("jj", DOMcreateElement(str));
 }
 
-SyncFiles_return();
+// SyncFiles_return();
 </script>
