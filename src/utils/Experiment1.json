@@ -1,458 +1,214 @@
 {
-    "type": "table",
-    "from": 195,
-    "to": 402,
-    "content": [
+  "type": "table",
+  "content": [
       {
-        "type": "tableRow",
-        "from": 196,
-        "to": 225,
-        "content": [
-          {
-            "type": "tableHeader",
-            "from": 197,
-            "to": 205,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null
-            },
-            "content": [
+          "type": "tableRow",
+          "content": [
               {
-                "type": "paragraph",
-                "from": 198,
-                "to": 204,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 199,
-                    "to": 203,
-                    "text": "Name"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableHeader",
-            "from": 205,
-            "to": 220,
-            "attrs": {
-              "colspan": 3,
-              "rowspan": 1,
-              "colwidth": null
-            },
-            "content": [
+                  "type": "tableHeader",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          25
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "paragraph",
+                          "attrs": {
+                              "textAlign": "left"
+                          }
+                      }
+                  ]
+              },
               {
-                "type": "paragraph",
-                "from": 206,
-                "to": 219,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 207,
-                    "to": 218,
-                    "text": "Description"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableHeader",
-            "from": 220,
-            "to": 224,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null
-            },
-            "content": [
+                  "type": "tableHeader",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          115
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "paragraph",
+                          "attrs": {
+                              "textAlign": "left"
+                          },
+                          "content": [
+                              {
+                                  "type": "text",
+                                  "text": "qwertyui"
+                              }
+                          ]
+                      }
+                  ]
+              },
               {
-                "type": "paragraph",
-                "from": 221,
-                "to": 223
+                  "type": "tableHeader",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          180
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "paragraph",
+                          "attrs": {
+                              "textAlign": "left"
+                          },
+                          "content": [
+                              {
+                                  "type": "text",
+                                  "text": "qww"
+                              }
+                          ]
+                      }
+                  ]
               }
-            ]
-          }
-        ]
+          ]
       },
       {
-        "type": "tableRow",
-        "from": 225,
-        "to": 285,
-        "content": [
-          {
-            "type": "tableCell",
-            "from": 226,
-            "to": 242,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
+          "type": "tableRow",
+          "content": [
               {
-                "type": "paragraph",
-                "from": 227,
-                "to": 241,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 228,
-                    "to": 240,
-                    "text": "Cyndi Lauper"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 242,
-            "to": 252,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
+                  "type": "tableCell",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          25
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "paragraph",
+                          "attrs": {
+                              "textAlign": "left"
+                          }
+                      }
+                  ]
+              },
               {
-                "type": "paragraph",
-                "from": 243,
-                "to": 251,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 244,
-                    "to": 250,
-                    "text": "singer"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 252,
-            "to": 266,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
+                  "type": "tableCell",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          115
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "paragraph",
+                          "attrs": {
+                              "textAlign": "left"
+                          }
+                      }
+                  ]
+              },
               {
-                "type": "paragraph",
-                "from": 253,
-                "to": 265,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 254,
-                    "to": 264,
-                    "text": "songwriter"
-                  }
-                ]
+                  "type": "tableCell",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          180
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "paragraph",
+                          "attrs": {
+                              "textAlign": "left"
+                          },
+                          "content": [
+                              {
+                                  "type": "text",
+                                  "text": "qww"
+                              }
+                          ]
+                      }
+                  ]
               }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 266,
-            "to": 277,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
-              {
-                "type": "paragraph",
-                "from": 267,
-                "to": 276,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 268,
-                    "to": 275,
-                    "text": "actress"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 277,
-            "to": 284,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
-              {
-                "type": "paragraph",
-                "from": 278,
-                "to": 283,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 279,
-                    "to": 282,
-                    "text": "sdf"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+          ]
       },
       {
-        "type": "tableRow",
-        "from": 285,
-        "to": 346,
-        "content": [
-          {
-            "type": "tableCell",
-            "from": 286,
-            "to": 301,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
+          "type": "tableRow",
+          "content": [
               {
-                "type": "paragraph",
-                "from": 287,
-                "to": 300,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 288,
-                    "to": 299,
-                    "text": "Marie Curie"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 301,
-            "to": 314,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
+                  "type": "tableCell",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          25
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "paragraph",
+                          "attrs": {
+                              "textAlign": "left"
+                          }
+                      }
+                  ]
+              },
               {
-                "type": "paragraph",
-                "from": 302,
-                "to": 313,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 303,
-                    "to": 312,
-                    "text": "scientist"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 314,
-            "to": 325,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
+                  "type": "tableCell",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          115
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "heading",
+                          "attrs": {
+                              "textAlign": "left",
+                              "level": 1
+                          },
+                          "content": [
+                              {
+                                  "type": "text",
+                                  "text": "qww"
+                              }
+                          ]
+                      }
+                  ]
+              },
               {
-                "type": "paragraph",
-                "from": 315,
-                "to": 324,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 316,
-                    "to": 323,
-                    "text": "chemist"
-                  }
-                ]
+                  "type": "tableCell",
+                  "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": [
+                          180
+                      ]
+                  },
+                  "content": [
+                      {
+                          "type": "heading",
+                          "attrs": {
+                              "textAlign": "left",
+                              "level": 2
+                          },
+                          "content": [
+                              {
+                                  "type": "text",
+                                  "text": "qwer"
+                              }
+                          ]
+                      }
+                  ]
               }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 325,
-            "to": 338,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
-              {
-                "type": "paragraph",
-                "from": 326,
-                "to": 337,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 327,
-                    "to": 336,
-                    "text": "physicist"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 338,
-            "to": 345,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
-              {
-                "type": "paragraph",
-                "from": 339,
-                "to": 344,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 340,
-                    "to": 343,
-                    "text": "dfg"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "tableRow",
-        "from": 346,
-        "to": 401,
-        "content": [
-          {
-            "type": "tableCell",
-            "from": 347,
-            "to": 364,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
-              {
-                "type": "paragraph",
-                "from": 348,
-                "to": 363,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 349,
-                    "to": 362,
-                    "text": "Indira Gandhi"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 364,
-            "to": 382,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
-              {
-                "type": "paragraph",
-                "from": 365,
-                "to": 381,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 366,
-                    "to": 380,
-                    "text": "prime minister"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 382,
-            "to": 396,
-            "attrs": {
-              "colspan": 2,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
-              {
-                "type": "paragraph",
-                "from": 383,
-                "to": 395,
-                "content": [
-                  {
-                    "type": "text",
-                    "from": 384,
-                    "to": 394,
-                    "text": "politician"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "tableCell",
-            "from": 396,
-            "to": 400,
-            "attrs": {
-              "colspan": 1,
-              "rowspan": 1,
-              "colwidth": null,
-              "backgroundColor": null
-            },
-            "content": [
-              {
-                "type": "paragraph",
-                "from": 397,
-                "to": 399
-              }
-            ]
-          }
-        ]
+          ]
       }
-    ]
+  ]
 }
