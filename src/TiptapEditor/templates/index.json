@@ -1,1 +1,1 @@
-{"heading":"<h{$level} class=\"heading\">{$text}</h{$level}>","paragraph":"<p class='custom-paragraph'>{$text}</p>"}
+{"heading":"<h{$level} class=\"heading\">{$content}</h{$level}>","paragraph":"<p class='custom-paragraph'>{$content}</p>"}

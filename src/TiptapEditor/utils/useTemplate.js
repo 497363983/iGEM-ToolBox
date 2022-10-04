@@ -1,7 +1,6 @@
 import { useTemplateStore } from "@/store";
-import { readFile, getDirTree } from "../../utils/files";
-import templates from "../templates";
-const path = require('path');
+import templates from '../templates/index.json';
+import { getDirTree, readFile } from "@/utils/files";
 
 export const entityMap = {
     "&": "amp",
@@ -33,59 +32,22 @@ export const empty_tags = [
 
 /**
  * 
- * @param {String} str
- * @returns
+ * @param {String} str 
+ * @returns 
  */
 export const escapeHtml = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
 
-export const getTemplate = () => {
-    if (useTemplateStore().componentsPath && useTemplateStore().componentsPath !== '') {
-        const templateFiles = getDirTree(useTemplateStore().componentsPath);
-        templateFiles.forEach(item => {
-            templates[item.substring(0, item.indexOf('.'))] = readFile(path.join(useTemplateStore().componentsPath, item));
-        });
+export function getTemplates() {
+    if (useTemplateStore().componentsPath && useTemplateStore().componentsPath.trim() !== '') {
+
     }
 }
 
-export function DOMcreateElement(
-    type,
-    attrs,
-    ...children
-) {
-    attrs = attrs || {};
-    const stack = [...children];
 
-    const elm = document.createElement(type);
+export function DOMcreateElement(type, attrs, content = null) {
+    
+}
 
-    // Add attributes
-    for (let [name, val] of Object.entries(attrs)) {
-        name = escapeHtml(name);
-        if (name === "style") {
-            Object.assign(elm.style, val);
-        } else if (val === true) {
-            elm.setAttribute(name, name);
-        } else if (val !== false && val != null) {
-            elm.setAttribute(name, escapeHtml(val));
-        } else if (val === false) {
-            elm.removeAttribute(name);
-        }
-    }
-
-    // Append children
-    while (stack.length) {
-        const child = stack.shift();
-
-        // Is child a leaf?
-        if (!Array.isArray(child)) {
-            elm.appendChild(
-                (child).nodeType === null
-                    ? document.createTextNode(child.toString())
-                    : child
-            );
-        } else {
-            stack.push(...child);
-        }
-    }
-
-    return elm;
+export function hasContent() {
+    return
 }
