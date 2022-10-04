@@ -25,6 +25,7 @@ async function test() {
   //     console.log("hh", res);
   //   },
   // });
+  transTableFormat(Experiment1)
   // const filelist = [
   //   {
   //     filename: "test",
