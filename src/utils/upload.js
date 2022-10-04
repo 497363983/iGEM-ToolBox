@@ -58,7 +58,6 @@ export async function SyncFiles(args) {
  * @description Fetch cookie
  * @param {String} username 
  * @param {String} password 
- * @param {import('electron/renderer').Event} event 
  * @returns {Promise}
  */
 async function get_cookie(username, password) {
