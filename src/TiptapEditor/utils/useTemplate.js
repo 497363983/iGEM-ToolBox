@@ -1,3 +1,8 @@
+import { useTemplateStore } from "@/store";
+import { readFile, getDirTree } from "../../utils/files";
+import templates from "../templates";
+const path = require('path');
+
 export const entityMap = {
     "&": "amp",
     "<": "lt",
@@ -7,9 +12,40 @@ export const entityMap = {
     "/": "#x2F",
 };
 
-export const escapeHtml = (str) =>
-    String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
+export const empty_tags = [
+    'area',
+    'base',
+    'br',
+    'col',
+    'command',
+    'embed',
+    'hr',
+    'img',
+    'input',
+    'keygen',
+    'link',
+    'meta',
+    'param',
+    'source',
+    'track',
+    'wbr'
+];
 
+/**
+ * 
+ * @param {String} str
+ * @returns
+ */
+export const escapeHtml = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
+
+export const getTemplate = () => {
+    if (useTemplateStore().componentsPath && useTemplateStore().componentsPath !== '') {
+        const templateFiles = getDirTree(useTemplateStore().componentsPath);
+        templateFiles.forEach(item => {
+            templates[item.substring(0, item.indexOf('.'))] = readFile(path.join(useTemplateStore().componentsPath, item));
+        });
+    }
+}
 
 export function DOMcreateElement(
     tag,
@@ -53,7 +89,7 @@ export function DOMcreateElement(
         // Is child a leaf?
         if (!Array.isArray(child)) {
             elm.appendChild(
-                (child).nodeType == null
+                (child).nodeType === null
                     ? document.createTextNode(child.toString())
                     : child
             );
