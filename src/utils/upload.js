@@ -58,10 +58,9 @@ export async function SyncFiles(args) {
  * @description Fetch cookie
  * @param {String} username 
  * @param {String} password 
- * @param {import('electron/renderer').Event} event 
  * @returns {Promise}
  */
-async function get_cookie(username, password) {
+export async function get_cookie(username, password) {
     return new Promise((resolve) => {
         const data = 'return_to=https%3A%2F%2Fold.igem.org%2FLogin2&username=' + username + '&password=' + password + '&Login=Login'
         // console.log(data)

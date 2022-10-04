@@ -178,8 +178,9 @@ useUserStore().$subscribe((mutation, state) => {
 });
 
 function getCookie() {
-  get_cookie()
+  get_cookie(useUserStore().username, useUserStore().password)
     .then((res) => {
+      console.log("cookie", res);
       if (res) {
         useUserStore().isTrue = true;
       } else {
