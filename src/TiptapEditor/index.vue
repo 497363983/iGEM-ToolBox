@@ -109,7 +109,7 @@
     <el-upload v-model:file-list="useWikiEditorStore().filelist"> </el-upload>
   </el-dialog>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 .el-main {
   // margin: 0;
   // padding: 0;
