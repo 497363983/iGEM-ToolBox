@@ -9,7 +9,7 @@ import { useTemplateStore } from './template';
 import { useUserStore } from './user';
 import { useGitStore } from './git';
 import path from 'path';
-import { DOMcreateElement } from '@/TiptapEditor/utils/useTemplate';
+import { DOMcreateElement, getTemplates } from '@/TiptapEditor/utils/useTemplate';
 const beautify_html = require('js-beautify').html;
 
 
@@ -70,6 +70,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 }),
                 duration: 0
             })
+            getTemplates();
             console.log('json', this.$state.jsonContent)
             let content = `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} start-->\n`;
             content += DOMcreateElement(this.$state.jsonContent) + '\n';

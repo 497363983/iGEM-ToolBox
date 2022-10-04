@@ -40,7 +40,7 @@
           <el-form
             ref="form"
             label-position="left"
-            label-width="100px"
+            label-width="120px"
             style="width: 90%"
           >
             <div class="title_wrapper">
@@ -249,6 +249,12 @@
               <el-input
                 @change="react(`project path`, useTemplateStore().save())"
                 v-model="useTemplateStore().projectPath"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="ComponentsPath">
+              <el-input
+                @change="react(`component path`, useTemplateStore().save())"
+                v-model="useTemplateStore().componentsPath"
               ></el-input>
             </el-form-item>
           </el-form>
