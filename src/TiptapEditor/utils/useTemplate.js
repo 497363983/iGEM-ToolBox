@@ -63,7 +63,7 @@ export function DOMcreateElement(DOM) {
     if (content) {
         if (typeof content === "object") {
             if (type === "table") {
-                let $data = JSON.stringify(transTableFormat(DOM));
+                let $data = transTableFormat(DOM);
                 let $content = '';
                 content.forEach(item => {
                     $content += DOMcreateElement(item);
