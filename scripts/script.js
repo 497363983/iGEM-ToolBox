@@ -4,6 +4,22 @@ const path = require('path');
 const defaultTemplatPath = path.join(path.dirname(__dirname), 'src/TiptapEditor/templates');
 
 let templates = {};
+// const entityMap = {
+//     "&": "amp",
+//     "<": "lt",
+//     ">": "gt",
+//     '"': "quot",
+//     "'": "#39",
+//     "/": "#x2F",
+// };
+
+
+/**
+ * 
+ * @param {String} str 
+ * @returns 
+ */
+// const escapeHtml = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
 
 async function getTemplates(dirPath) {
     const files = fs.readdirSync(dirPath, 'utf-8');
@@ -13,6 +29,7 @@ async function getTemplates(dirPath) {
         if (status.isDirectory()) {
             getTemplates(filePath);
         } else if (status.isFile() && path.basename(filePath) === 'index.html') {
+            // templates[path.basename(path.dirname(filePath))] = escapeHtml(fs.readFileSync(filePath, 'utf-8'));
             templates[path.basename(path.dirname(filePath))] = fs.readFileSync(filePath, 'utf-8');
         }
     })
