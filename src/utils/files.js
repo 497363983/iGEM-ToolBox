@@ -142,3 +142,7 @@ export async function writeFileItem(filePath, data, callback) {
         });
     })
 }
+
+export function joinPath(...arr) {
+    return path.join(...arr)
+}

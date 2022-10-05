@@ -90,7 +90,11 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                     writeFileItem(this.$state.path, beautify_html(content, { end_with_newline: false }), () => {
                         pushProject({
                             commitInformation: `upload block`,
-                            file: [`tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.html`, `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.json`, `wiki\\pages\\${this.$state.page}.html`]
+                            file: [
+                                `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.html`,
+                                `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.json`,
+                                `${useTemplateStore().pageTemplatePath}\\${this.$state.page}.${useTemplateStore().pageSuffix}`
+                            ]
                         }, (res) => {
                             console.log('push', res)
                         });
@@ -114,8 +118,8 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 }
             });
 
-            readJSONFile(this.getBlockPath('json'),(data)=>{
-                this.$state.jsonContent = data
+            readJSONFile(this.getBlockPath('json'), (data) => {
+                this.$state.jsonContent = JSON.parse(data)
             })
 
             // this.$state.jsonContent = JSON.parse(readFile(this.getBlockPath('json'), (err) => {

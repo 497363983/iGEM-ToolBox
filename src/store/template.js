@@ -7,7 +7,7 @@ import { electronStore } from '@/electron-store';
 export const useTemplateStore = defineStore('templateStore', {
     state: () => ({
         pageTemplatePath: `${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`,
-        pageSuffix: `.html`,
+        pageSuffix: `html`,
         projectPath: ``,
         componentsPath: null
     }),
