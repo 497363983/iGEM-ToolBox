@@ -12,6 +12,7 @@ export const entityMap = {
     "/": "#x2F",
 };
 
+
 export const empty_tags = [
     'area',
     'base',
@@ -38,6 +39,9 @@ export const empty_tags = [
  */
 export const escapeHtml = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
 
+
+export const escapeChar = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `\\${s}`);
+
 export function getTemplates() {
     if (useTemplateStore().componentsPath && useTemplateStore().componentsPath.trim() !== '') {
         const templateFiles = getDirTree(useTemplateStore().componentsPath);
@@ -55,12 +59,11 @@ export function getTemplates() {
  * @returns 
  */
 export function DOMcreateElement(DOM) {
-    const { type, content = null, attrs = {}, mark = null, text = '' } = DOM;
+    const { type, content = null, attrs = {}, marks = null, text = '' } = DOM;
     if (content) {
         if (typeof content === "object") {
-            console.log(type, DOM)
             if (type === "table") {
-                let $data = transTableFormat(DOM);
+                let $data = JSON.stringify(transTableFormat(DOM));
                 let $content = '';
                 content.forEach(item => {
                     $content += DOMcreateElement(item);
@@ -103,19 +106,28 @@ export function DOMcreateElement(DOM) {
                 return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
             })
         }
-
     } else {
         if (type === 'text') {
-            if (mark) {
-                const props = { ...attrs, content: text }
-                return templates[mark].replace(/{\$([\s\S]*?)}/g, (s) => {
-                    return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
+            if (marks) {
+                let mark_content = "{$content}";
+                marks.forEach(mark => {
+                    const { mark_attrs = {}, type } = mark;
+                    const props = { ...mark_attrs };
+                    console.log('marks', mark_content)
+                    mark_content = mark_content.replace(/{\$content}/g, templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                        console.log('k', s)
+                        return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
+                    }))
+                    console.log('mark', mark_content)
                 })
+
+                mark_content = mark_content.replace('{$content}', text);
+                return mark_content;
             } else {
                 return text
             }
         } else {
-            const props = { ...attrs, content: '' }
+            const props = { ...attrs }
             return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
                 return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
             })
