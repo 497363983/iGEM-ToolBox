@@ -11,7 +11,8 @@ import {
   dialog
 } from 'electron';
 import {
-  SyncFiles
+  SyncFiles,
+  get_cookie
 } from './utils/upload';
 import runPython from './utils/runPython';
 // import { concat } from 'core-js/core/array';
@@ -203,6 +204,17 @@ ipcMain.on("openFileDialog", (event, option) => {
   dialog.showOpenDialog(option).then(({ canceled, filePaths }) => {
     event.sender.send("openFileDialogReturn", { canceled, filePaths })
   })
+})
+
+ipcMain.on("checkCookie", (event, { username, password }) => {
+  get_cookie(username, password).then((res) => {
+    if (res) {
+      event.sender.send("checkCookieReturn", true)
+    } else {
+      event.sender.send("checkCookieReturn", false)
+    }
+  })
+
 })
 
 function setTray() {
