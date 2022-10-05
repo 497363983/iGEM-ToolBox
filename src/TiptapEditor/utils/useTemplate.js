@@ -2,7 +2,6 @@ import { useTemplateStore } from "@/store";
 import templates from '../templates/index.json';
 import { getDirTree, readFile } from "@/utils/files";
 import { transTableFormat } from "@/utils/tableFormat";
-const path = require('path');
 
 export const entityMap = {
     "&": "amp",
@@ -43,8 +42,8 @@ export function getTemplates() {
     if (useTemplateStore().componentsPath && useTemplateStore().componentsPath.trim() !== '') {
         const templateFiles = getDirTree(useTemplateStore().componentsPath);
         templateFiles.forEach(file => {
-            const template = readFile(path.join(useTemplateStore().componentsPath, file.name));
-            templates[file.substring(0, file.indexOf('.'))] = template;
+            const template = readFile(file.path);
+            templates[file.name] = template;
         })
     }
     console.log(templates)
