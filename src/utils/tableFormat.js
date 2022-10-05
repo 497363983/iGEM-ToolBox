@@ -1,4 +1,4 @@
-import { DOMcreateElement } from "@/TiptapEditor/utils/useTemplate";
+import { DOMcreateElement ,escapeHtml } from "@/TiptapEditor/utils/useTemplate";
 
 /**
  * 
@@ -20,7 +20,7 @@ export function transTableFormat(tablejson) {
                 }
             }else{
                 tablejson["content"][row]["content"][cell]["content"].forEach((each) =>{
-                    content += DOMcreateElement(each)
+                    content += escapeHtml(DOMcreateElement(each))
                 })
             }
             if (tablejson["content"][row]["content"][cell]["content"][0]["content"]) {
