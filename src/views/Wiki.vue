@@ -104,16 +104,21 @@ import {
   // useConfigStore,
   useWikiEditorStore,
 } from "@/store";
-import { getDirTree } from "@/utils/files";
+import { getDirTree, joinPath } from "@/utils/files";
 import pageCard from "@/components/pageCard";
 const git = ref(false);
 const currentTag = ref("pages");
 const pages = ref([]);
 const templates = ref([]);
 function loadPages() {
-  let dirs = getDirTree(useTemplateStore().pageTemplatePath);
+  let dirs = getDirTree(
+    joinPath(
+      useTemplateStore().projectPath,
+      useTemplateStore().pageTemplatePath
+    )
+  );
   pages.value = dirs.filter((item) => {
-    return item.extname === useTemplateStore().pageSuffix;
+    return item.extname.replace(".", "") === useTemplateStore().pageSuffix;
   });
 }
 
