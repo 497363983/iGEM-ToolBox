@@ -16,7 +16,7 @@ export const charMap = {
     "&": "\\&",
     "<": "\\<",
     ">": "\\>",
-    '"': "\\\"",
+    '"': "\\",
     "'": "\\'",
     "/": "\\/",
 };
@@ -119,7 +119,9 @@ export function DOMcreateElement(DOM) {
         if (type === 'text') {
             if (marks) {
                 let mark_content = "{$content}";
-                marks.forEach(mark => {
+
+                // marks.forEach(mark => {
+                for (let mark in marks) {
                     const { mark_attrs = {}, type } = mark;
                     const props = { ...mark_attrs };
                     console.log('marks', mark_content)
@@ -128,7 +130,9 @@ export function DOMcreateElement(DOM) {
                         return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
                     }))
                     console.log('mark', mark_content)
-                })
+                }
+
+                // })
 
                 mark_content = mark_content.replace('{$content}', text);
                 return mark_content;
