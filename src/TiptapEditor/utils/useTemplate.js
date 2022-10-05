@@ -12,6 +12,15 @@ export const entityMap = {
     "/": "#x2F",
 };
 
+export const charMap = {
+    "&": "\\&",
+    "<": "\\<",
+    ">": "\\>",
+    '"': "\\\"",
+    "'": "\\'",
+    "/": "\\/",
+};
+
 
 export const empty_tags = [
     'area',
@@ -40,7 +49,7 @@ export const empty_tags = [
 export const escapeHtml = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `&${entityMap[s]};`);
 
 
-export const escapeChar = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `\\${s}`);
+export const escapeChar = (str) => String(str).replace(/[&<>"'/\\]/g, (s) => `${charMap[s]}`);
 
 export function getTemplates() {
     if (useTemplateStore().componentsPath && useTemplateStore().componentsPath.trim() !== '') {
