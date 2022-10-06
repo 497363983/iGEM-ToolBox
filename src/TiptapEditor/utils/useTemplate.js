@@ -70,6 +70,7 @@ export function getTemplates() {
 export function DOMcreateElement(DOM) {
     const { type, content = null, attrs = {}, marks = null, text = '' } = DOM;
     if (content) {
+        console.log('lll', content)
         if (typeof content === "object") {
             if (type === "table") {
                 let $data = transTableFormat(DOM);
@@ -95,15 +96,21 @@ export function DOMcreateElement(DOM) {
                         $content += DOMcreateElement(item);
                     }
                 })
+                console.log('content table', $content)
                 const props = { ...attrs, content: $content }
                 return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
                     return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
                 })
             } else {
                 let $content = '';
-                content.forEach(item => {
+                // content.forEach(item => {
+                for (let item of content) {
+                    console.log(item)
                     $content += DOMcreateElement(item);
-                })
+                }
+
+                // })
+                console.log('content', $content)
                 const props = { ...attrs, content: $content }
                 return templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
                     return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
@@ -119,8 +126,6 @@ export function DOMcreateElement(DOM) {
         if (type === 'text') {
             if (marks) {
                 let mark_content = "{$content}";
-
-                // marks.forEach(mark => {
                 for (let mark in marks) {
                     const { mark_attrs = {}, type } = mark;
                     const props = { ...mark_attrs };
@@ -131,9 +136,6 @@ export function DOMcreateElement(DOM) {
                     }))
                     console.log('mark', mark_content)
                 }
-
-                // })
-
                 mark_content = mark_content.replace('{$content}', text);
                 return mark_content;
             } else {

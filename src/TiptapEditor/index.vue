@@ -86,9 +86,9 @@
       </el-header>
       <el-container style="height: 90%">
         <el-aside width="25%">
-          <side-directory
+          <!-- <side-directory
             :content="useWikiEditorStore().jsonContent.content"
-          ></side-directory>
+          ></side-directory> -->
         </el-aside>
         <el-main>
           <el-scrollbar height="100%">
@@ -262,7 +262,7 @@
 import { editor } from "./index";
 import { EditorContent, FloatingMenu, BubbleMenu } from "@tiptap/vue-3";
 import MenuItem from "@/components/MenuItem.vue";
-import SideDirectory from "@/components/SideDirectory.vue";
+// import SideDirectory from "@/components/SideDirectory.vue";
 import { ref, onMounted, defineProps } from "vue";
 import { LinkMenu, bubble, inputLink } from "./config/bubble";
 import { useWikiEditorStore } from "@/store";

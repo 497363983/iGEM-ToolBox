@@ -120,7 +120,9 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
 
             readJSONFile(this.getBlockPath('json'), (data) => {
                 this.$state.jsonContent = JSON.parse(data)
+                console.log(this.$state.jsonContent)
             })
+
 
             // this.$state.jsonContent = JSON.parse(readFile(this.getBlockPath('json'), (err) => {
             //     if (err) {

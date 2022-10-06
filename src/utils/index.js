@@ -55,3 +55,8 @@ export function getElectronStore() {
     useTemplateStore().$state = electronStore.get('template');
     useCompetitionStore().$state = electronStore.get('competition');
 }
+
+
+export function readConfig() {
+    
+}
