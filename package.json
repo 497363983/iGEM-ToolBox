@@ -15,7 +15,7 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "templates": "node scripts\\script.js"
+    "templates": "node scripts\\templates.js"
   },
   "main": "background.js",
   "dependencies": {
