@@ -76,7 +76,7 @@ export async function get_cookie(username, password) {
         }
         const req = https.request(options, (res) => {
             console.log("get cookie status:")
-            // console.log(res)
+            console.log(res)
             console.log(res.statusCode)
             if (res.statusCode == 200) {
                 // event.sender.send("SyncFiles:error", "wrong username or password")
