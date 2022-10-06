@@ -106,7 +106,7 @@
     append-to-body
     destroy-on-close
   >
-    <el-upload v-model:file-list="useWikiEditorStore().filelist"> </el-upload>
+    <el-upload v-model:file-list="useWikiEditorStore().filelist"></el-upload>
   </el-dialog>
 </template>
 <style lang="scss" scoped>

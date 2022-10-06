@@ -126,11 +126,11 @@ export function DOMcreateElement(DOM) {
         if (type === 'text') {
             if (marks) {
                 let mark_content = "{$content}";
-                for (let mark in marks) {
+                for (let mark of marks) {
                     const { mark_attrs = {}, type } = mark;
                     const props = { ...mark_attrs };
-                    console.log('marks', mark_content)
-                    mark_content = mark_content.replace(/{\$content}/g, templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                    console.log('marks', mark_content, type, mark)
+                    mark_content = mark_content.replace("{$content}", templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
                         console.log('k', s)
                         return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
                     }))

@@ -11,9 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "markdown-it-mermaid": "^0.2.5",
+    "@wekanteam/markdown-it-mermaid": "^0.5.8",
+    "katex": "^0.16.2",
     "markdown-it-texmath": "^1.0.0",
     "vitepress": "^1.0.0-alpha.19",
     "vue": "^3.2.40"
+  },
+  "devDependencies": {
+    "mermaid": "^9.1.7",
+    "vitepress-plugin-mermaid": "^2.0.8"
   }
 }

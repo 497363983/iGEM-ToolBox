@@ -24,4 +24,5 @@ graph LR
     page3 --upload-->server
     omitpage --upload-->server
 ```
-$ \sigma $
+
+$\sigma$
