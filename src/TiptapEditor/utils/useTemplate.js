@@ -126,18 +126,22 @@ export function DOMcreateElement(DOM) {
         if (type === 'text') {
             if (marks) {
                 let mark_content = "{$content}";
-                console.log('lllllllllkkkkkk',marks)
-                for (let mark of marks) {
+                marks.forEach((mark, index) => {
                     const { mark_attrs = {}, type } = mark;
-                    const props = { ...mark_attrs };
-                    console.log('marks', mark_content, type, mark)
-                    mark_content = mark_content.replace(/{\$content}/g, templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
-                        console.log('k', s)
-                        return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
-                    }))
-                }
-                console.log('markllllllllllllll', mark_content)
-                mark_content = mark_content.replace(/{\$content}/g, text);
+                    if (index === marks.length - 1) {
+                        const props = { ...mark_attrs, content: text };
+                        mark_content = mark_content.replace(/{\$content}/g, templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                            console.log('k', s)
+                            return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
+                        }))
+                    } else {
+                        const props = { ...mark_attrs };
+                        mark_content = mark_content.replace(/{\$content}/g, templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                            console.log('k', s)
+                            return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
+                        }))
+                    }
+                })
                 console.log('markllllllllllllllssss', mark_content)
                 return mark_content;
             } else {
