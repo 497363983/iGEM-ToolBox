@@ -1,4 +1,4 @@
-import { DOMcreateElement ,escapeHtml } from "@/TiptapEditor/utils/useTemplate";
+import { DOMcreateElement ,escapeChar } from "@/TiptapEditor/utils/useTemplate";
 
 /**
  * 
@@ -13,14 +13,18 @@ export function transTableFormat(tablejson) {
             let tabcell = []
             let content = ""
             if(tablejson["content"][row]["content"][cell]["content"].length == 1){
+                // console.log(tablejson["content"][row]["content"][cell]["content"][0]["content"][0])
+                // console.log(DOMcreateElement(tablejson["content"][row]["content"][cell]["content"][0]))
                 if(tablejson["content"][row]["content"][cell]["content"][0]["content"]){
-                    content = tablejson["content"][row]["content"][cell]["content"][0]["content"][0]["text"]
+                    content = escapeChar(tablejson["content"][row]["content"][cell]["content"][0]["content"][0]["text"])
                 }else{
                     content=""
                 }
             }else{
                 tablejson["content"][row]["content"][cell]["content"].forEach((each) =>{
-                    content += escapeHtml(DOMcreateElement(each))
+                    console.log(each)
+                    content += escapeChar(DOMcreateElement(each))
+                    console.log(content)
                 })
             }
             if (tablejson["content"][row]["content"][cell]["content"][0]["content"]) {
