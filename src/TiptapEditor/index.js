@@ -11,6 +11,7 @@ export const editor = new Editor({
         useWikiEditorStore().jsonContent = editor.getJSON();
         console.log('update', useWikiEditorStore().jsonContent, editor);
         useWikiEditorStore().saveBlock();
+
         const transaction = editor.state.tr;
         const headings = [];
         editor.state.doc.descendants((node, pos) => {
