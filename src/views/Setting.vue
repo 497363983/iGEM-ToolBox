@@ -66,14 +66,14 @@
                   v-model="useUserStore().email"
                 ></el-input>
               </el-form-item>
-              <el-form-item label="Password">
+              <!-- <el-form-item label="Password">
                 <el-input
                   @change="react(`password`, useUserStore().save())"
                   type="password"
                   v-model="useUserStore().password"
                   show-password
                 ></el-input>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="AccessToken">
                 <el-input
                   type="password"

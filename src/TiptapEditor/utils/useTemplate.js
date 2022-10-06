@@ -127,17 +127,16 @@ export function DOMcreateElement(DOM) {
             if (marks) {
                 let mark_content = "{$content}";
                 marks.forEach((mark, index) => {
-                    const { mark_attrs = {}, type } = mark;
+                    const { attrs: mark_attrs, type } = mark;
                     if (index === marks.length - 1) {
                         const props = { ...mark_attrs, content: text };
                         mark_content = mark_content.replace(/{\$content}/g, templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
-                            console.log('k', s)
+                            console.log('sss', s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0], props, mark_attrs)
                             return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
                         }))
                     } else {
                         const props = { ...mark_attrs };
                         mark_content = mark_content.replace(/{\$content}/g, templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
-                            console.log('k', s)
                             return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
                         }))
                     }
