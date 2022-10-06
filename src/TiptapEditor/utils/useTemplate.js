@@ -16,7 +16,7 @@ export const charMap = {
     "&": "\\&",
     "<": "\\<",
     ">": "\\>",
-    '"': "\\",
+    '"': "\\\"",
     "'": "\\'",
     "/": "\\/",
 };
@@ -126,17 +126,19 @@ export function DOMcreateElement(DOM) {
         if (type === 'text') {
             if (marks) {
                 let mark_content = "{$content}";
+                console.log('lllllllllkkkkkk',marks)
                 for (let mark of marks) {
                     const { mark_attrs = {}, type } = mark;
                     const props = { ...mark_attrs };
                     console.log('marks', mark_content, type, mark)
-                    mark_content = mark_content.replace("{$content}", templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
+                    mark_content = mark_content.replace(/{\$content}/g, templates[type].replace(/{\$([\s\S]*?)}/g, (s) => {
                         console.log('k', s)
                         return props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] ? props[s.match(/(?<={\$)([\s\S]*?)(?=})/g)[0]] : ''
                     }))
-                    console.log('mark', mark_content)
                 }
-                mark_content = mark_content.replace('{$content}', text);
+                console.log('markllllllllllllll', mark_content)
+                mark_content = mark_content.replace(/{\$content}/g, text);
+                console.log('markllllllllllllllssss', mark_content)
                 return mark_content;
             } else {
                 return text
