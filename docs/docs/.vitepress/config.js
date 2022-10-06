@@ -1,11 +1,15 @@
+import { withMermaid } from "vitepress-plugin-mermaid";
+
 /**
  * @type {import('vitepress').UserConfig}
  */
-export default {
+
+export default withMermaid({
     title: 'iGEM-ToolBox',
     description: 'A tool to help edit wiki in iGEM.',
     lastUpdated: true,
     themeConfig: {
+        logo: '/igem_toolbox.svg',
         nav: [
             {
                 text: 'Guide',
@@ -38,8 +42,12 @@ export default {
         ]
     },
     markdown: {
-        config: (md)=>{
-            md.use(require('markdown-it-texmath'))
+        config: (md) => {
+            // md.use(require('@wekanteam/markdown-it-mermaid'))
+            md.use(require('markdown-it-texmath'), {
+                engine: require('katex'),
+                delimiters: 'gitlab',
+            })
         }
     }
-}
+})

@@ -5,7 +5,6 @@ import { useWikiEditorStore } from "@/store";
 export const editor = new Editor({
     extensions: Extensions,
     injectCSS: false,
-    // content: useWikiEditorStore().content,
     onUpdate: ({ editor }) => {
         useWikiEditorStore().content = editor.getHTML();
         useWikiEditorStore().jsonContent = editor.getJSON();
