@@ -57,6 +57,6 @@ export function getElectronStore() {
 }
 
 
-export function readConfig() {
+// export function readConfig(projectPath) {
     
-}
+// }
