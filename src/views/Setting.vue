@@ -237,7 +237,26 @@
                   react(`wiki pages template path`, useTemplateStore().save())
                 "
                 v-model="useTemplateStore().pageTemplatePath"
-              ></el-input>
+              >
+                <template #prepend>
+                  {{ useTemplateStore().projectPath }}\
+                </template>
+                <template #append>
+                  <el-button
+                    @click="
+                      openFileDialog(
+                        { properties: ['openDirectory'] },
+                        ({ filePaths, canceled }) => {
+                          if (!canceled) {
+                            useTemplateStore().pageTemplatePath = filePaths[0];
+                          }
+                        }
+                      )
+                    "
+                    :icon="MoreFilled"
+                  />
+                </template>
+              </el-input>
             </el-form-item>
             <el-form-item label="WikiSuffix">
               <el-input
@@ -249,13 +268,47 @@
               <el-input
                 @change="react(`project path`, useTemplateStore().save())"
                 v-model="useTemplateStore().projectPath"
-              ></el-input>
+                readonly
+              >
+                <template #append>
+                  <el-button
+                    @click="
+                      openFileDialog(
+                        { properties: ['openDirectory'] },
+                        ({ filePaths, canceled }) => {
+                          if (!canceled) {
+                            useTemplateStore().projectPath = filePaths[0];
+                          }
+                        }
+                      )
+                    "
+                    :icon="MoreFilled"
+                  />
+                </template>
+              </el-input>
             </el-form-item>
             <el-form-item label="ComponentsPath">
               <el-input
                 @change="react(`component path`, useTemplateStore().save())"
                 v-model="useTemplateStore().componentsPath"
-              ></el-input>
+                readonly
+              >
+                <template #append>
+                  <el-button
+                    @click="
+                      openFileDialog(
+                        { properties: ['openDirectory'] },
+                        ({ filePaths, canceled }) => {
+                          if (!canceled) {
+                            useTemplateStore().componentsPath = filePaths[0];
+                          }
+                        }
+                      )
+                    "
+                    :icon="MoreFilled"
+                  />
+                </template>
+              </el-input>
             </el-form-item>
           </el-form>
         </el-scrollbar>
@@ -289,6 +342,8 @@ import {
 import { Uppercase } from "../utils/index";
 import { toRefs, ref } from "vue";
 import { getAllBranch, setBranch } from "@/utils/git";
+import { MoreFilled } from "@element-plus/icons-vue";
+import { openFileDialog } from "@/utils/useIPC";
 
 const settingScrollBar = ref();
 const branches = ref([]);

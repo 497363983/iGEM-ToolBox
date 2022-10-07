@@ -17,7 +17,8 @@ export const useUserStore = defineStore('userStore', {
         team: "",
         email: "",
         isDeveloper: false,
-        isTrue: true
+        isTrue: true,
+        
     }),
     actions: {
         async save() {

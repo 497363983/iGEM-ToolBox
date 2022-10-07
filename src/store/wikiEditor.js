@@ -75,7 +75,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
             console.log('json', this.$state.jsonContent)
             let content = `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} start-->\n`;
             content += DOMcreateElement(this.$state.jsonContent) + '\n';
-            content += `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} end-->\n`;
+            content += `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} end-->`;
             let fileContent = readFile(this.$state.path);
             const testBlock = new RegExp(`<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} -->`);
             if (testBlock.test(fileContent)) {

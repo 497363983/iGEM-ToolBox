@@ -41,6 +41,7 @@
             >
               <el-tab-pane style="height: 100%" label="Pages" name="pages">
                 <div
+                  v-if="pages.length !== 0"
                   class="infinite-list-wrapper"
                   style="overflow: auto; height: 100%"
                 >
@@ -53,6 +54,9 @@
                     </li>
                   </ul>
                 </div>
+                <el-empty v-else description="No pages">
+                  <el-button type="primary">Init</el-button>
+                </el-empty>
               </el-tab-pane>
               <el-tab-pane
                 style="height: 100%"
@@ -60,6 +64,7 @@
                 name="templates"
               >
                 <div
+                  v-if="templates.length !== 0"
                   class="infinite-list-wrapper"
                   style="overflow: auto; height: 100%"
                 >
@@ -72,6 +77,9 @@
                     </li>
                   </ul>
                 </div>
+                <el-empty v-else description="No templates">
+                  <el-button type="primary">Init</el-button>
+                </el-empty>
               </el-tab-pane>
             </el-tabs>
           </el-col>
@@ -123,11 +131,17 @@ function loadPages() {
 }
 
 function loadTemplates() {
-  console.log("kk");
+  let dirs = getDirTree(
+    joinPath(useTemplateStore().projectPath, useTemplateStore().componentsPath)
+  );
+  templates.value = dirs.filter((item) => {
+    return item.extname.replace(".", "") === useTemplateStore().pageSuffix;
+  });
 }
 
 onMounted(async () => {
   git.value = await isGit();
+  loadPages();
   gitInit();
 });
 </script>
