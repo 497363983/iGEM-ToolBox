@@ -1,4 +1,4 @@
-import { useTemplateStore, useGitLabStore, useUserStore, useGitStore } from '@/store';
+import { useTemplateStore, useGitLabStore, useUserStore, useGitStore, useCompetitionStore } from '@/store';
 // import simpleGit from "simple-git";
 const simpleGit = window.require("simple-git");
 
@@ -55,16 +55,19 @@ export async function setBranch(branch) {
     // await pullProject();
 }
 
-export async function isGitRepository() {
-    return await simpleGit(useTemplateStore().projectPath).raw('rev-parse', '--is-inside-work-tree');
+export async function isGitRepository(projectPath) {
+    return await simpleGit(projectPath).raw('rev-parse', '--is-inside-work-tree');
 }
 
 export async function cloneProject(options) {
-    const { username, accessTokens, gitPath } = options;
-    const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
-    if (!isGitRepository(useTemplateStore().projectPath)) {
-        simpleGit(useTemplateStore().projectPath).clone(gitpath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
-    }
+    const { username, accessTokens } = options;
+    const gitpath = `https://${username}:${accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`;
+    console.log(gitpath)
+    // if (!isGitRepository('E:\\iGEM\\test')) {
+    console.log('clooo')
+    // simpleGit(useTemplateStore().projectPath, {progress}).clone(gitpath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+    simpleGit('E:\\iGEM\\test', { progress }).clone(gitpath).then((res) => console.log('cloned',res)).catch((err) => console.error('failed clone:', err));
+    // }
 }
 
 export async function pullProject(options) {
@@ -73,18 +76,14 @@ export async function pullProject(options) {
     if (isGitRepository(useTemplateStore().projectPath)) {
         console.log('start pull')
         simpleGit(useTemplateStore().projectPath).pull().then((res) => {
-            // const { changes, deletions, insertions } = res.summary;
-            // if (changes !== 0 || deletions !== 0 || insertions !== 0) {
-            //     simpleGit(useTemplateStore().projectPath).merge().then(() => (success && typeof success === 'function') ? success(res) : console.log('pull success', res)).catch((err) => console.log(err));
-            // } else {
             console.log('pull end', res);
             (success && typeof success === 'function') ? success(res) : console.log('pull success', res);
-            // }
         }).catch((err) => (failure && typeof failure === 'function') ? failure(err) : console.log('pull failed:', err));
     } else {
         cloneProject();
     }
 }
+
 /**
  * 
  * @param {Object} options 
@@ -104,3 +103,6 @@ export async function pushProject(options, callback) {
     }
 }
 
+export async function goSSH() {
+    return simpleGit(useTemplateStore().projectPath, { progress }).raw('cd', '~/.ssh')
+}

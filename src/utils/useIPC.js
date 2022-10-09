@@ -6,7 +6,7 @@ const electron = window.require('electron');
 const {
   ipcRenderer
 } = electron;
-import { useConfigStore, useUserStore } from '@/store';
+import { useConfigStore } from '@/store';
 
 export function closeMain() {
   // console.log(ipcRenderer);
@@ -120,11 +120,22 @@ export function openFileDialog(option, callback) {
   })
 }
 
-
-export function checkCookie(username, password) {
+/**
+ * 
+ * @param {String} username 
+ * @param {String} password 
+ * @param {Function} callback 
+ */
+export function checkCookie(username, password, callback) {
   ipcRenderer.send("checkCookie", { username, password });
   ipcRenderer.once("checkCookieReturn", (event, res) => {
-    console.log(res)
-    useUserStore().isTrue = res ? false : true
+    if (callback && typeof callback == "function") {
+      callback(res)
+    }
   })
+}
+
+
+export function openLink(url) {
+  ipcRenderer.send("open-link", url);
 }

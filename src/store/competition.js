@@ -8,13 +8,14 @@ export const useCompetitionStore = defineStore('competitionStore', {
         year: `${new Date().getFullYear()}`,
         group: "",
         role: "",
-        ALLOWED_ROLE: ["leader", "member", "PI", "advisor"],
+        ALLOWED_ROLE: ["leader", "member", "Primary PI", "Secondary PI", "advisor"],
         ALLOWED_GROUP: ["dry", "wet", "HP"],
-        teamID: "4227"
+        teamID: "",
+        teamName: ""
     }),
     actions: {
-        save(){
-            electronStore.set('competition',this.$state);
+        save() {
+            electronStore.set('competition', this.$state);
         }
     }
 })

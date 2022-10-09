@@ -21,7 +21,12 @@
                       </el-row>
                       <el-row v-else>
                         <el-col>
-                          <el-button type="primary">Download</el-button>
+                          <el-button
+                            type="primary"
+                            @click="openLink('https://git-scm.com/downloads')"
+                            ><SvgIcon iconClass="out_link" />
+                            Download
+                          </el-button>
                         </el-col>
                       </el-row>
                     </el-col>
@@ -114,10 +119,12 @@ import {
 } from "@/store";
 import { getDirTree, joinPath } from "@/utils/files";
 import pageCard from "@/components/pageCard";
+import { openLink } from "@/utils/useIPC";
 const git = ref(false);
 const currentTag = ref("pages");
 const pages = ref([]);
 const templates = ref([]);
+
 function loadPages() {
   let dirs = getDirTree(
     joinPath(

@@ -6,8 +6,14 @@
 </template>
 
 <script setup>
+// import { useUserStore } from "@/store";
+// import { cloneProject } from "@/utils/git";
+import { useUserStore } from "@/store";
 async function test() {
-  
-
+  // cloneProject({
+  //   username: useUserStore().username,
+  //   accessTokens: useUserStore().accessTokens,
+  // });
+  useUserStore().setState(useUserStore().$state)
 }
 </script>

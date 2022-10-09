@@ -76,112 +76,21 @@
       fullscreen
       :show-close="false"
     >
-      <el-container direction="vertical">
-        <el-row>
-          <el-col :span="12">
-            <el-form label-width="100px" show-message :model="useUserStore()">
-              <h1 style="text-align: center; margin: 50px 0">iGEM Account</h1>
-              <el-form-item
-                label="Username"
-                prop="username"
-                :rules="[
-                  {
-                    required: true,
-                    message: 'Please input username',
-                    trigger: 'blur',
-                  },
-                ]"
-              >
-                <el-input
-                  v-model="useUserStore().username"
-                  placeholder="Please enter username"
-                ></el-input>
-              </el-form-item>
-              <el-form-item
-                label="Password"
-                prop="password"
-                :rules="[
-                  {
-                    required: true,
-                    message: 'Please input password',
-                    trigger: 'blur',
-                  },
-                ]"
-              >
-                <el-input
-                  v-model="useUserStore().password"
-                  placeholder="Please enter password"
-                  type="password"
-                  show-password
-                ></el-input>
-              </el-form-item>
-              <el-form-item
-                label="Email"
-                prop="email"
-                :rules="[
-                  {
-                    required: true,
-                    message: 'Please input email address',
-                    trigger: 'blur',
-                  },
-                  {
-                    type: 'email',
-                    trigger: ['blur', 'change'],
-                    message: 'Please input correct email address',
-                  },
-                ]"
-              >
-                <el-input
-                  v-model="useUserStore().email"
-                  placeholder="Please enter email"
-                  type="email"
-                ></el-input>
-              </el-form-item>
-              <!-- <el-form-item label="Team ID">
-          <el-input
-            v-model="useCompetitionStore().teamID"
-            placeholder="Please enter team ID"
-          ></el-input>
-        </el-form-item> -->
-              <el-space fill>
-                <el-alert type="info" show-icon :closable="false">
-                  <p>
-                    The iGEM account will be stored on your local storage, and
-                    will only be used to push code to
-                    <a href="https://gitlab.igem.org/">GitLab</a> and upload
-                    assets to <a href="uploads.igem.org">uploads.igem.org</a>
-                  </p>
-                </el-alert>
-              </el-space>
-              <el-form-item>
-                <el-button
-                  style="margin: 50px 0"
-                  @click="
-                    checkCookie(
-                      useUserStore().username,
-                      useUserStore().password
-                    )
-                  "
-                  type="primary"
-                  >Verify</el-button
-                >
-              </el-form-item>
-            </el-form>
-          </el-col>
-          <el-col :span="12">
-            <svgIcon
-              style="
-                font-size: 15rem;
-                left: 50%;
-                top: 50%;
-                position: relative;
-                transform: translate(-50%, -50%);
-              "
-              iconClass="igem_toolbox"
-            ></svgIcon>
-          </el-col>
-        </el-row>
-      </el-container>
+      <el-row justify="end">
+        <el-select
+          v-model="useConfigStore().theme.currentTheme"
+          @change="useConfigStore().save()"
+        >
+          <el-option
+            v-for="(item, index) in useConfigStore().theme.themeList"
+            :key="index"
+            :label="Uppercase(item)"
+            :value="item"
+          />
+        </el-select>
+      </el-row>
+      <Login />
+      <SetTeam />
     </el-dialog>
   </el-config-provider>
 </template>
@@ -248,9 +157,11 @@ import {
   // useCompetitionStore,
 } from "@/store";
 import { computed, onMounted } from "vue";
-import { getElectronStore } from "@/utils";
+import { getElectronStore, Uppercase } from "@/utils";
 import { getBranch } from "@/utils/git";
 import { getInstallationPath, checkCookie } from "@/utils/useIPC";
+import Login from "@/views/Login";
+import SetTeam from "@/views/SetTeam";
 
 useUserStore().$subscribe((mutation, state) => {
   useUserStore().save();
@@ -263,7 +174,9 @@ onMounted(async () => {
   useGitLabStore().getGit();
   getInstallationPath();
   console.log(useUserStore().isTrue);
-  checkCookie(useUserStore().username, useUserStore().password);
+  checkCookie(useUserStore().username, useUserStore().password, (res) => {
+    useUserStore().isTrue = res ? false : true;
+  });
 });
 
 const language = computed(() => {
