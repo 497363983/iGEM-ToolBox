@@ -89,8 +89,6 @@
                   v-model="useUserStore().description"
                   :show-word-limit="true"
                 ></el-input>
-
-                
               </el-form-item>
             </div>
             <el-divider />
@@ -108,13 +106,7 @@
             </el-form-item>
             <el-form-item label="Team">
               <el-input
-                @change="
-                  react(`team`, () => {
-                    useGitLabStore().setPaths();
-                    useUserStore().save();
-                    useTemplateStore().setPageTemplatePath();
-                  })
-                "
+                @change="react(`team`)"
                 v-model="useUserStore().team"
               ></el-input>
             </el-form-item>
@@ -200,18 +192,18 @@
             <div class="title_wrapper">
               <h1>GitLab</h1>
             </div>
-            <el-form-item label="GitLabPath">
+            <!-- <el-form-item label="GitLabPath">
               <el-input
                 @change="react(`gitlab path`)"
                 v-model="useGitLabStore().gitLabPath"
               ></el-input>
-            </el-form-item>
-            <el-form-item label="GitPath">
+            </el-form-item> -->
+            <!-- <el-form-item label="GitPath">
               <el-input
                 @change="react(`git path`)"
                 v-model="useGitLabStore().gitPath"
               ></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="Branch">
               <el-select
                 v-model="useGitLabStore().currentBranch"

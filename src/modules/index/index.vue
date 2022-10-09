@@ -157,7 +157,7 @@ import {
   // useCompetitionStore,
 } from "@/store";
 import { computed, onMounted } from "vue";
-import { getElectronStore, Uppercase } from "@/utils";
+import { Uppercase } from "@/utils";
 import { getBranch } from "@/utils/git";
 import { getInstallationPath, checkCookie } from "@/utils/useIPC";
 import Login from "@/views/Login";
@@ -169,7 +169,7 @@ useUserStore().$subscribe((mutation, state) => {
 });
 
 onMounted(async () => {
-  getElectronStore();
+  // getElectronStore();
   getBranch();
   useGitLabStore().getGit();
   getInstallationPath();
