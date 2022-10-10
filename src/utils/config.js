@@ -1,6 +1,7 @@
 const fs = window.require('fs');
 const path = window.require("path");
 import { writeJSONFile, readJSONFile } from ".";
+import { useTemplateStore } from "@/store";
 
 export function checkConfig(projectPath, callback) {
     fs.access(path.join(projectPath, 'tool.config.json'), fs.constants.F_OK, (err) => {
@@ -15,7 +16,7 @@ export function createConfig(projectPath, data, callback) {
 }
 
 
-export function readConfig(path) {
+function readConfig(path) {
     const config = JSON.parse(readJSONFile(path));
     return (key) => {
         return key.split('.').reduce((o, i) => {
@@ -23,3 +24,5 @@ export function readConfig(path) {
         }, config)
     }
 }
+
+export const readConfigByKey = readConfig(useTemplateStore().getProjectPath);
