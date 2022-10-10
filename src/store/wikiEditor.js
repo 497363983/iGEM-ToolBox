@@ -33,7 +33,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
 
     }),
     getters: {
-        getBlockPath: (state) => (extname = 'html') => path.join(useTemplateStore().projectPath, `tool_box/${useUserStore().username}/pages/${state.page}/block/${state.block}.${extname}`)
+        getBlockPath: (state) => (extname = 'html') => path.join(useTemplateStore().getProjectPath, `tool_box/${useUserStore().username}/pages/${state.page}/block/${state.block}.${extname}`)
     },
     actions: {
         setPath(path) {

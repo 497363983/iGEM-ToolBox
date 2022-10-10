@@ -14,7 +14,6 @@ export const useUserStore = defineStore('userStore', {
         password: "",
         description: "",
         accessTokens: "",
-        team: "",
         email: "",
         isDeveloper: false,
         isTrue: true,

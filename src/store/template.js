@@ -14,7 +14,7 @@ export const useTemplateStore = defineStore('templateStore', {
     }),
     getters: {
         getPageTemplatePath() {
-            return `${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`
+            return `${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`
         },
         getProjectPath() {
             return `${useConfigStore().installationPath}\\wiki\\${useCompetitionStore().year}\\${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}`
