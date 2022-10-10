@@ -2,8 +2,6 @@ const electron = window.require('electron');
 const {
     ipcRenderer,
 } = electron;
-import { useUserStore, useConfigStore, useTemplateStore, useCompetitionStore } from "@/store";
-import { electronStore } from "@/electron-store";
 
 /**
  * 
