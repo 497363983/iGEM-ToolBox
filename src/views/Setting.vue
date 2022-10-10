@@ -218,65 +218,6 @@
               </el-select>
             </el-form-item>
             <el-divider />
-            <div class="title_wrapper">
-              <h1>Template</h1>
-            </div>
-            <el-form-item label="WikiPages">
-              <el-input
-                @change="
-                  react(`wiki pages template path`)
-                "
-                v-model="useTemplateStore().pageTemplatePath"
-              >
-                <template #prepend>
-                  {{ useTemplateStore().projectPath }}\
-                </template>
-                <template #append>
-                  <el-button
-                    @click="
-                      openFileDialog(
-                        { properties: ['openDirectory'] },
-                        ({ filePaths, canceled }) => {
-                          if (!canceled) {
-                            useTemplateStore().pageTemplatePath = filePaths[0];
-                          }
-                        }
-                      )
-                    "
-                    :icon="MoreFilled"
-                  />
-                </template>
-              </el-input>
-            </el-form-item>
-            <el-form-item label="WikiSuffix">
-              <el-input
-                @change="react(`wiki page suffix`)"
-                v-model="useTemplateStore().pageSuffix"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="ComponentsPath">
-              <el-input
-                @change="react(`component path`)"
-                v-model="useTemplateStore().componentsPath"
-                readonly
-              >
-                <template #append>
-                  <el-button
-                    @click="
-                      openFileDialog(
-                        { properties: ['openDirectory'] },
-                        ({ filePaths, canceled }) => {
-                          if (!canceled) {
-                            useTemplateStore().componentsPath = filePaths[0];
-                          }
-                        }
-                      )
-                    "
-                    :icon="MoreFilled"
-                  />
-                </template>
-              </el-input>
-            </el-form-item>
           </el-form>
         </el-scrollbar>
       </el-main>
@@ -303,14 +244,11 @@ import {
   useConfigStore,
   useUserStore,
   useGitLabStore,
-  useTemplateStore,
   useCompetitionStore,
 } from "../store";
 import { Uppercase } from "../utils/index";
 import { toRefs, ref } from "vue";
 import { getAllBranch, setBranch } from "@/utils/git";
-import { MoreFilled } from "@element-plus/icons-vue";
-import { openFileDialog } from "@/utils/useIPC";
 
 const settingScrollBar = ref();
 const branches = ref([]);

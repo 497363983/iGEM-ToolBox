@@ -151,7 +151,6 @@ function loadPages() {
       useTemplateStore().getPageTemplatePath
     )
   );
-  console.log(dirs)
   pages.value = dirs.filter((item) => {
     return item.extname.replace(".", "") === useTemplateStore().getPageExtName;
   });
@@ -165,9 +164,13 @@ function loadTemplates() {
     )
   );
   templates.value = dirs.filter((item) => {
-    return item.extname.replace(".", "") === useTemplateStore().pageSuffix;
+    return item.extname.replace(".", "") === "html";
   });
 }
+
+// function loadLogs(){
+
+// }
 
 onMounted(async () => {
   git.value = await isGit();
