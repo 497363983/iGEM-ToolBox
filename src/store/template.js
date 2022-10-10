@@ -1,23 +1,30 @@
 import {
     defineStore
 } from 'pinia';
-import { useUserStore } from './user';
 import { useConfigStore } from './config';
 import { useCompetitionStore } from './competition';
+import { readConfig } from '@/utils/config';
+import { joinPath } from '@/utils/files';
 
 export const useTemplateStore = defineStore('templateStore', {
     state: () => ({
-        pageTemplatePath: '',
-        pageSuffix: `html`,
-        // projectPath: ``,
-        componentsPath: null
+
     }),
     getters: {
         getPageTemplatePath() {
-            return `${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`
+            const getConfig = readConfig(joinPath(this.getProjectPath, 'tool.config.json'));
+            return getConfig('pages.path') || `${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`
         },
         getProjectPath() {
-            return `${useConfigStore().installationPath}\\wiki\\${useCompetitionStore().year}\\${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}`
+            return `${useConfigStore().installationPath}\\wiki\\${useCompetitionStore().year}\\${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}`
+        },
+        getTemplatesPath() {
+            const getConfig = readConfig(joinPath(this.getProjectPath, 'tool.config.json'));
+            return getConfig('templates.path') || `${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`
+        },
+        getPageExtName(){
+            const getConfig = readConfig(joinPath(this.getProjectPath, 'tool.config.json'));
+            return getConfig('pages.extname') || `${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`
         }
     },
     actions: {

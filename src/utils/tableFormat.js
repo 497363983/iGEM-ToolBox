@@ -1,4 +1,4 @@
-import { DOMcreateElement ,escapeHtml } from "@/TiptapEditor/utils/useTemplate";
+import { DOMcreateElement, escapeHtml } from "@/TiptapEditor/utils/useTemplate";
 
 /**
  * 
@@ -12,20 +12,16 @@ export function transTableFormat(tablejson) {
         for (let cell in tablejson["content"][row]["content"]) {
             let tabcell = []
             let content = ""
-            if(tablejson["content"][row]["content"][cell]["content"].length == 1 && tablejson["content"][row]["content"][cell]["content"] == "paragraph"){
-                // console.log(tablejson["content"][row]["content"][cell]["content"][0]["type"])
-                if(tablejson["content"][row]["content"][cell]["content"][0]["content"]){
+            if (tablejson["content"][row]["content"][cell]["content"].length == 1 && tablejson["content"][row]["content"][cell]["content"] == "paragraph") {
+                if (tablejson["content"][row]["content"][cell]["content"][0]["content"]) {
                     content = escapeHtml(DOMcreateElement(tablejson["content"][row]["content"][cell]["content"][0]["content"][0]))
-                    // console.log(DOMcreateElement(tablejson["content"][row]["content"][cell]["content"][0]["content"][0]))
-                }else{
-                    content=""
+                } else {
+                    content = ""
                 }
-                // console.log(content)
-            }else{
-                tablejson["content"][row]["content"][cell]["content"].forEach((each) =>{
+            } else {
+                tablejson["content"][row]["content"][cell]["content"].forEach((each) => {
                     console.log(each)
                     content += escapeHtml(DOMcreateElement(each))
-                    // console.log(content)
                 })
             }
             if (tablejson["content"][row]["content"][cell]["content"][0]["content"]) {
@@ -39,8 +35,6 @@ export function transTableFormat(tablejson) {
         }
         tab.push(tabrow)
     }
-
-    // console.log(JSON.stringify(tab))
     return tab;
 }
 

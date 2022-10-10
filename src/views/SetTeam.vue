@@ -97,6 +97,16 @@
               >
                 <el-input v-model="useCompetitionStore().teamName"></el-input>
               </el-form-item>
+              <el-form-item
+                label="Team ID"
+                prop="teamID"
+                :rules="{
+                  required: true,
+                  message: 'Please input team ID',
+                }"
+              >
+                <el-input v-model="useCompetitionStore().teamID"></el-input>
+              </el-form-item>
               <el-form-item label="Year" prop="year">
                 <el-date-picker
                   v-model="useCompetitionStore().year"
@@ -175,6 +185,97 @@
       </el-col>
     </el-row>
   </el-container>
+  <el-dialog
+    v-model="editConfig"
+    align-center
+    append-to-body
+    lock-scroll
+    :close-on-click-modal="false"
+    :show-close="false"
+    destroy-on-close
+  >
+    <el-form
+      ref="configForm"
+      label-width="200px"
+      show-message
+      :model="configList"
+    >
+      <el-form-item
+        label="Page path"
+        :prop="['pages', 'path']"
+        :rules="{
+          required: true,
+          message: 'Please input pages path',
+        }"
+      >
+        <el-input v-model="configList.pages.path"></el-input>
+      </el-form-item>
+      <el-form-item
+        label="Page extension name"
+        :prop="['pages', 'extname']"
+        :rules="{
+          required: true,
+          message: 'Please input page extension name',
+        }"
+      >
+        <el-input v-model="configList.pages.extname"></el-input>
+      </el-form-item>
+      <el-form-item
+        label="Templates path"
+        :prop="['templates', 'path']"
+        :rules="{
+          required: true,
+          message: 'Please input templates path',
+        }"
+      >
+        <el-input v-model="configList.templates.path"></el-input>
+      </el-form-item>
+
+      <el-form-item
+        label="Page extension name"
+        :prop="['pages', 'extname']"
+        :rules="{
+          required: true,
+          message: 'Please input template extension name',
+        }"
+      >
+        <el-input v-model="configList.templates.extname"></el-input>
+      </el-form-item>
+      <el-form-item
+        label="Team name"
+        :prop="['team', 'name']"
+        :rules="{
+          required: true,
+          message: 'Please input team name',
+        }"
+      >
+        <el-input v-model="configList.team.name"></el-input>
+      </el-form-item>
+      <el-form-item
+        label="Team ID"
+        :prop="['team', 'ID']"
+        :rules="{
+          required: true,
+          message: 'Please input team ID',
+        }"
+      >
+        <el-input v-model="configList.team.ID"></el-input>
+      </el-form-item>
+      <el-form-item
+        label="Branch"
+        prop="branch"
+        :rules="{
+          required: true,
+          message: 'Please input branch',
+        }"
+      >
+        <el-input v-model="configList.branch"></el-input>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <el-button type="primary">confirm</el-button>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
@@ -189,12 +290,17 @@ import {
   Loading,
   SuccessFilled,
 } from "@element-plus/icons-vue";
-import { useUserStore, useCompetitionStore, useGitStore } from "@/store";
+import {
+  useUserStore,
+  useCompetitionStore,
+  useGitStore,
+  useTemplateStore,
+} from "@/store";
 import { openLink } from "@/utils/useIPC";
 import { isGit, getGitVersion } from "@/utils/git";
 import { ElMessage } from "element-plus";
 import { cloneProject } from "@/utils/git";
-
+import { checkConfig } from "@/utils/config";
 const active = ref(0);
 // const canNext = ref(false);
 const hasGit = ref(false);
@@ -203,6 +309,22 @@ const profileForm = ref();
 const teamForm = ref();
 const accessForm = ref();
 const gitVersion = ref("");
+const editConfig = ref(false);
+const configList = ref({
+  pages: {
+    path: "wiki/pages",
+    extname: "html",
+  },
+  templates: {
+    path: "templates",
+    extname: "html",
+  },
+  team: {
+    ID: "",
+    name: "",
+  },
+  branch: "main",
+});
 
 const steps = ref([
   {
@@ -275,14 +397,34 @@ const initList = ref([
   {
     title: "Cloning repository",
     state: "wait",
-    action: async () => {
-      await cloneProject();
+    action: () => {
+      return new Promise((resolve) => {
+        cloneProject(() => {
+          resolve(true);
+        });
+      });
     },
   },
-  // {
-  //   title: "check config",
-  //   state: "wait",
-  // },
+  {
+    title: "check config",
+    state: "wait",
+    action: () => {
+      return new Promise((resolve) => {
+        checkConfig(useTemplateStore().getProjectPath, (err) => {
+          if (err) {
+            console.log(err);
+            editConfig.value = true;
+            // createConfig(
+            //   useTemplateStore().getProjectPath,
+            //   JSON.stringify(configList.value)
+            // );
+          } else {
+            resolve(true);
+          }
+        });
+      });
+    },
+  },
   // {
   //   title: "init repository",
   //   state: "wait",

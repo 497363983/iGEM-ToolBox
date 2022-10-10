@@ -86,11 +86,7 @@
                   <el-button type="primary">Init</el-button>
                 </el-empty>
               </el-tab-pane>
-              <el-tab-pane
-                style="height: 100%"
-                label="Log"
-                name="log"
-              >
+              <el-tab-pane style="height: 100%" label="Log" name="log">
                 <div
                   v-if="templates.length !== 0"
                   class="infinite-list-wrapper"
@@ -133,7 +129,7 @@
 <script setup>
 import TiptapEditor from "@/TiptapEditor/index.vue";
 import { ref, onMounted } from "vue";
-import { isGit, gitInit } from "@/utils/git";
+import { isGit, gitInit, getGitVersion } from "@/utils/git";
 import {
   useGitLabStore,
   useTemplateStore,
@@ -151,18 +147,22 @@ const templates = ref([]);
 function loadPages() {
   let dirs = getDirTree(
     joinPath(
-      useTemplateStore().projectPath,
-      useTemplateStore().pageTemplatePath
+      useTemplateStore().getProjectPath,
+      useTemplateStore().getPageTemplatePath
     )
   );
+  console.log(dirs)
   pages.value = dirs.filter((item) => {
-    return item.extname.replace(".", "") === useTemplateStore().pageSuffix;
+    return item.extname.replace(".", "") === useTemplateStore().getPageExtName;
   });
 }
 
 function loadTemplates() {
   let dirs = getDirTree(
-    joinPath(useTemplateStore().projectPath, useTemplateStore().componentsPath)
+    joinPath(
+      useTemplateStore().getProjectPath,
+      useTemplateStore().getTemplatesPath
+    )
   );
   templates.value = dirs.filter((item) => {
     return item.extname.replace(".", "") === useTemplateStore().pageSuffix;
@@ -172,6 +172,7 @@ function loadTemplates() {
 onMounted(async () => {
   git.value = await isGit();
   loadPages();
+  getGitVersion();
   gitInit();
 });
 </script>

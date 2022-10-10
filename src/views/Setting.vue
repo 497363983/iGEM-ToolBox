@@ -254,29 +254,6 @@
                 v-model="useTemplateStore().pageSuffix"
               ></el-input>
             </el-form-item>
-            <el-form-item label="ProjectPath">
-              <el-input
-                @change="react(`project path`)"
-                v-model="useTemplateStore().projectPath"
-                readonly
-              >
-                <template #append>
-                  <el-button
-                    @click="
-                      openFileDialog(
-                        { properties: ['openDirectory'] },
-                        ({ filePaths, canceled }) => {
-                          if (!canceled) {
-                            useTemplateStore().projectPath = filePaths[0];
-                          }
-                        }
-                      )
-                    "
-                    :icon="MoreFilled"
-                  />
-                </template>
-              </el-input>
-            </el-form-item>
             <el-form-item label="ComponentsPath">
               <el-input
                 @change="react(`component path`)"

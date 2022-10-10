@@ -92,7 +92,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                             file: [
                                 `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.html`,
                                 `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.json`,
-                                `${useTemplateStore().pageTemplatePath}\\${this.$state.page}.${useTemplateStore().pageSuffix}`
+                                `${useTemplateStore().getPageTemplatePath}\\${this.$state.page}.${useTemplateStore().getPageExtName}`
                             ]
                         }, (res) => {
                             console.log('push', res)

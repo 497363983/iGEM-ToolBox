@@ -7,9 +7,6 @@ import Link from "@/components/Link.vue";
 import { keepData } from '@/store/plugins/keepData';
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
-const app = createApp(App);
-app.component("SvgIcon", SvgIcon);
-app.component("Link", Link);
 pinia.use(keepData({
     idList: [
         'userStore',
@@ -18,4 +15,8 @@ pinia.use(keepData({
         'competitionStore'
     ]
 }));
+const app = createApp(App);
 app.use(pinia).use(router).use(ref).mount('#app');
+app.component("SvgIcon", SvgIcon);
+app.component("Link", Link);
+

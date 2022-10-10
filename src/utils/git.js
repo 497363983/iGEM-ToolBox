@@ -1,4 +1,4 @@
-import { useTemplateStore, useGitLabStore, useUserStore, useGitStore } from '@/store';
+import { useTemplateStore, useGitLabStore, useUserStore, useGitStore, useCompetitionStore, useConfigStore } from '@/store';
 // import simpleGit from "simple-git";
 const fs = window.require('fs');
 const simpleGit = window.require("simple-git");
@@ -55,24 +55,26 @@ export async function isGitRepository(projectPath) {
     return await simpleGit(projectPath).checkIsRepo();
 }
 
-export async function cloneProject() {
-    // const { username, accessTokens } = options;
-    // const gitpath = `https://${username}:${accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`;
-    // console.log(gitpath)
-    // if (!isGitRepository(useTemplateStore().getProjectPath)) {
+export async function cloneProject(callback) {
     fs.access(useTemplateStore().getProjectPath, fs.constants.F_OK, (err) => {
         if (err) {
             fs.mkdir(useTemplateStore().getProjectPath, { recursive: true }, (err) => {
                 if (!err) {
-                    simpleGit(useTemplateStore().getProjectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+                    simpleGit(`${useConfigStore().installationPath}\\wiki\\${useCompetitionStore().year}`, { progress }).clone(useGitLabStore().getGitPath).then(() => {
+                        callback && typeof callback === 'function' ? callback(null) : console.log('cloned')
+                    }).catch((err) => {
+                        callback && typeof callback === 'function' ? callback(err) : console.log('cloned')
+                    });
                 }
             });
         } else {
-            simpleGit(useTemplateStore().getProjectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+            simpleGit(useTemplateStore().getProjectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => {
+                callback && typeof callback === 'function' ? callback(null) : console.log('cloned')
+            }).catch((err) => {
+                callback && typeof callback === 'function' ? callback(err) : console.log('cloned')
+            });
         }
     })
-
-    // }
 }
 
 export async function pullProject(options) {

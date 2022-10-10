@@ -7,8 +7,8 @@
 
 <script setup>
 // import { useUserStore } from "@/store";
-// import { gitLog, isGitRepository } from "@/utils/git";
-import { checkFile } from "@/utils/files";
+import {  isGitRepository } from "@/utils/git";
+// import { checkFile } from "@/utils/files";
 // import { useUserStore } from "@/store";
 async function test() {
   // cloneProject({
@@ -17,8 +17,8 @@ async function test() {
   // });
   console.log(
     // JSON.stringify(await gitLog()).slice("\n"),
-    // isGitRepository(),
-    checkFile("E:\\iGEM")
+    isGitRepository(),
+    // checkFile("E:\\iGEM")
   );
 }
 </script>

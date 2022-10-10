@@ -14,11 +14,11 @@ export const useGitLabStore = defineStore('gitLabStore', {
         useSSH: false
     }),
     getters: {
-        getGitPath(){
+        getGitPath() {
             if (this.useSSH) {
                 return `https://gitlab.igem.org:${useCompetitionStore().year}/${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}.git`
             } else {
-                return `https://${useUserStore().username}:${useUserStore().accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`
+                return `https://${useUserStore().username}:${useUserStore().accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}.git`
             }
         }
     },

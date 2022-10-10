@@ -89,7 +89,7 @@
           />
         </el-select>
       </el-row>
-      <Login />
+      <Login v-if="useUserStore().isTrue" />
       <SetTeam />
     </el-dialog>
   </el-config-provider>
