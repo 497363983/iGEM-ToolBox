@@ -11,12 +11,12 @@ const progress = ({ method, stage, progress }) => {
 }
 
 export async function setGitPath() {
-    await simpleGit(useTemplateStore().projectPath).raw('remote', 'set-url', 'origin', useGitLabStore().gitPath);
+    await simpleGit(useTemplateStore().getProjectPath).raw('remote', 'set-url', 'origin', useGitLabStore().gitPath);
 }
 
 export async function gitInit() {
-    await simpleGit(useTemplateStore().projectPath).raw('config', 'user.name', `${useUserStore().username}`);
-    await simpleGit(useTemplateStore().projectPath).raw('config', 'user.email', `${useUserStore().email}`);
+    await simpleGit(useTemplateStore().getProjectPath).raw('config', 'user.name', `${useUserStore().username}`);
+    await simpleGit(useTemplateStore().getProjectPath).raw('config', 'user.email', `${useUserStore().email}`);
 }
 
 export async function isGit() {
@@ -25,19 +25,16 @@ export async function isGit() {
 }
 
 export async function getGitVersion() {
-    let version = await simpleGit(useTemplateStore().projectPath).raw('version');
-    version = version.replace("git version", "");
-    version = version.replace("\n", "");
-    return version;
+    return await simpleGit().version();
 }
 
 export async function getAllBranch() {
-    let branches = await simpleGit(useTemplateStore().projectPath).raw('branch', '-a');
+    let branches = await simpleGit(useTemplateStore().getProjectPath).raw('branch', '-a');
     return branches.split("\n")
 }
 
 export async function getBranch() {
-    return await simpleGit(useTemplateStore().projectPath).raw('symbolic-ref', '--short', '-q', 'HEAD');
+    return await simpleGit(useTemplateStore().getProjectPath).raw('symbolic-ref', '--short', '-q', 'HEAD');
 }
 /**
  * 
@@ -48,9 +45,9 @@ export async function setBranch(branch) {
         let remoteBranch = branch.replace("remotes/", "");
         let branchArr = branch.split("/");
         console.log(remoteBranch, branchArr)
-        await simpleGit(useTemplateStore().projectPath).raw('checkout', '-b', branchArr[branchArr.length - 1], remoteBranch);
+        await simpleGit(useTemplateStore().getProjectPath).raw('checkout', '-b', branchArr[branchArr.length - 1], remoteBranch);
     } else {
-        await simpleGit(useTemplateStore().projectPath).raw('checkout', branch);
+        await simpleGit(useTemplateStore().getProjectPath).raw('checkout', branch);
     }
 }
 
@@ -62,16 +59,16 @@ export async function cloneProject() {
     // const { username, accessTokens } = options;
     // const gitpath = `https://${username}:${accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`;
     // console.log(gitpath)
-    // if (!isGitRepository(useTemplateStore().projectPath)) {
-    fs.access(useTemplateStore().projectPath, fs.constants.F_OK, (err) => {
+    // if (!isGitRepository(useTemplateStore().getProjectPath)) {
+    fs.access(useTemplateStore().getProjectPath, fs.constants.F_OK, (err) => {
         if (err) {
-            fs.mkdir(useTemplateStore().projectPath, { recursive: true }, (err) => {
+            fs.mkdir(useTemplateStore().getProjectPath, { recursive: true }, (err) => {
                 if (!err) {
-                    simpleGit(useTemplateStore().projectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+                    simpleGit(useTemplateStore().getProjectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
                 }
             });
         } else {
-            simpleGit(useTemplateStore().projectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+            simpleGit(useTemplateStore().getProjectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
         }
     })
 
@@ -81,9 +78,9 @@ export async function cloneProject() {
 export async function pullProject(options) {
     let success = options?.success;
     let failure = options?.failure;
-    if (isGitRepository(useTemplateStore().projectPath)) {
+    if (isGitRepository(useTemplateStore().getProjectPath)) {
         console.log('start pull')
-        simpleGit(useTemplateStore().projectPath).pull(useGitLabStore().getGitPath).then((res) => {
+        simpleGit(useTemplateStore().getProjectPath).pull(useGitLabStore().getGitPath).then((res) => {
             console.log('pull end', res);
             (success && typeof success === 'function') ? success(res) : console.log('pull success', res);
         }).catch((err) => (failure && typeof failure === 'function') ? failure(err) : console.log('pull failed:', err));
@@ -99,12 +96,9 @@ export async function pullProject(options) {
  */
 export async function pushProject(options, callback) {
     const { commitInformation, file } = options;
-    // const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
-    if (isGitRepository(useTemplateStore().projectPath)) {
-        console.log('start push')
-        await simpleGit(useTemplateStore().projectPath, { progress }).add(file).commit(commitInformation).push([useGitLabStore().getGitPath, useGitLabStore().currentBranch.trim()], (res) => {
-            console.log('push end', res)
-            if (callback && typeof callback == 'function') {
+    if (isGitRepository(useTemplateStore().getProjectPath)) {
+        await simpleGit(useTemplateStore().getProjectPath, { progress }).add(file).commit(commitInformation).push([useGitLabStore().getGitPath, useGitLabStore().currentBranch.trim()], (res) => {
+            if (callback && typeof callback === 'function') {
                 callback(res)
             }
         });
@@ -112,5 +106,5 @@ export async function pushProject(options, callback) {
 }
 
 export async function gitLog() {
-    return await simpleGit(useTemplateStore().projectPath, { progress }).log();
+    return await simpleGit(useTemplateStore().getProjectPath, { progress }).log();
 }

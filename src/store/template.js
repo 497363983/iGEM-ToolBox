@@ -9,7 +9,7 @@ export const useTemplateStore = defineStore('templateStore', {
     state: () => ({
         pageTemplatePath: '',
         pageSuffix: `html`,
-        projectPath: ``,
+        // projectPath: ``,
         componentsPath: null
     }),
     getters: {

@@ -1,6 +1,6 @@
 const fs = window.require('fs');
 const path = window.require("path");
-import { writeJSONFile } from ".";
+import { writeJSONFile, readJSONFile } from ".";
 
 export function checkConfig(projectPath, callback) {
     fs.access(path.join(projectPath, 'tool.config.json'), fs.constants.F_OK, (err) => {
@@ -12,4 +12,14 @@ export function checkConfig(projectPath, callback) {
 
 export function createConfig(projectPath, data, callback) {
     writeJSONFile(path.join(projectPath, 'tool.config.json'), data, callback);
+}
+
+
+export function readConfig(path) {
+    const config = JSON.parse(readJSONFile(path));
+    return (key) => {
+        return key.split('.').reduce((o, i) => {
+            if (o) return o[i]
+        }, config)
+    }
 }
