@@ -13,11 +13,7 @@ export const useGitLabStore = defineStore('gitLabStore', {
         currentBranch: "",
         useSSH: false
     }),
-    actions: {
-        async getGit() {
-            this.$state.currentBranch = await getBranch();
-            this.$state.git.version = await getGitVersion();
-        },
+    getters: {
         getGitPath() {
             if (this.$state.useSSH) {
                 return `https://gitlab.igem.org:${useCompetitionStore().year}/${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}.git`
@@ -25,5 +21,12 @@ export const useGitLabStore = defineStore('gitLabStore', {
                 return `https://${useUserStore().username}:${useUserStore().accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`
             }
         }
+    },
+    actions: {
+        async getGit() {
+            this.$state.currentBranch = await getBranch();
+            this.$state.git.version = await getGitVersion();
+        },
+
     }
 });

@@ -19,7 +19,7 @@ export async function gitInit() {
 }
 
 export async function isGit() {
-    let version = await simpleGit(useTemplateStore().projectPath).raw('version');
+    let version = await simpleGit().raw('version');
     return version.includes("git version");
 }
 
@@ -61,9 +61,9 @@ export async function cloneProject() {
     // const { username, accessTokens } = options;
     // const gitpath = `https://${username}:${accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`;
     // console.log(gitpath)
-    if (!isGitRepository(useTemplateStore().projectPath)) {
-        simpleGit(useTemplateStore().projectPath, { progress }).clone(useGitLabStore().getGitPath()).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
-    }
+    // if (!isGitRepository(useTemplateStore().projectPath)) {
+    simpleGit(useTemplateStore().projectPath, { progress }).clone(useGitLabStore().getGitPath()).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+    // }
 }
 
 export async function pullProject(options) {

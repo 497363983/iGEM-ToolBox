@@ -190,6 +190,7 @@ import { useUserStore, useCompetitionStore, useGitStore } from "@/store";
 import { openLink } from "@/utils/useIPC";
 import { isGit, getGitVersion } from "@/utils/git";
 import { ElMessage } from "element-plus";
+import { cloneProject } from "@/utils/git";
 
 const active = ref(0);
 // const canNext = ref(false);
@@ -271,6 +272,9 @@ const initList = ref([
   {
     title: "Cloning repository",
     state: "wait",
+    action: async () => {
+      await cloneProject();
+    },
   },
   {
     title: "check config",
@@ -293,7 +297,7 @@ function last() {
   active.value = Math.max(active.value - 1, 0);
 }
 
-function next() {
+async function next() {
   console.log(profileForm.value);
   if (active.value === 1) {
     if (hasGit.value) {
@@ -311,9 +315,14 @@ function next() {
       }
     });
   } else if (active.value === 3) {
-    accessForm.value.validate((valid) => {
+    accessForm.value.validate(async (valid) => {
       if (valid) {
         active.value = Math.min(active.value + 1, steps.value.length - 1);
+        for (let i = 0; i < initList.value.length - 1; i++) {
+          console.log("i", i, initList.value[i].state);
+          initList.value[i].state = "process";
+          await initList.value[i].action();
+        }
       }
     });
   } else {
