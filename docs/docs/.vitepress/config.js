@@ -13,22 +13,32 @@ export default withMermaid({
         nav: [
             {
                 text: 'Guide',
-                link: '/guide/introduction/what-is-iGEM-ToolBox'
+                link: '/en/guide/introduction/what-is-iGEM-ToolBox'
+            },
+            {
+                text: 'Language',
+                items:[{
+                    text: '简体中文',
+                    link: '/zh_cn/'
+                },{
+                    text: 'English',
+                    link: '/'
+                }]
             }
         ],
         sidebar: {
-            '/guide/': [
+            '/en/guide/': [
                 {
                     text: 'Introduction',
                     collapsible: true,
                     items: [
                         {
                             text: 'What is iGEM-ToolBox',
-                            link: '/guide/introduction/what-is-iGEM-ToolBox'
+                            link: '/en/guide/introduction/what-is-iGEM-ToolBox'
                         },
                         {
                             text: 'Getting started',
-                            link: '/guide/introduction/'
+                            link: '/en/guide/introduction/'
                         }
                     ]
                 }

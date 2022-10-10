@@ -21,7 +21,6 @@ export const useUserStore = defineStore('userStore', {
     }),
     actions: {
         async save() {
-            electronStore.set('user', this.$state);
             await pullProject({
                 success: () => {
                     writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\members\\${this.$state.username}.json`, {

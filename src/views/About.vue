@@ -7,13 +7,13 @@
 
 <script setup>
 // import { useUserStore } from "@/store";
-// import { cloneProject } from "@/utils/git";
-import { useUserStore } from "@/store";
+import { gitLog, isGitRepository } from "@/utils/git";
+// import { useUserStore } from "@/store";
 async function test() {
   // cloneProject({
   //   username: useUserStore().username,
   //   accessTokens: useUserStore().accessTokens,
   // });
-  useUserStore().setState(useUserStore().$state)
+  console.log(JSON.stringify(await gitLog()).slice("\n"), isGitRepository());
 }
 </script>

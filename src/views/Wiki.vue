@@ -86,6 +86,29 @@
                   <el-button type="primary">Init</el-button>
                 </el-empty>
               </el-tab-pane>
+              <el-tab-pane
+                style="height: 100%"
+                label="Log"
+                name="log"
+              >
+                <div
+                  v-if="templates.length !== 0"
+                  class="infinite-list-wrapper"
+                  style="overflow: auto; height: 100%"
+                >
+                  <ul
+                    v-infinite-scroll="loadTemplates"
+                    class="pages-list infinite-list"
+                  >
+                    <li v-for="(template, index) in templates" :key="index">
+                      <pageCard :page="template"></pageCard>
+                    </li>
+                  </ul>
+                </div>
+                <el-empty v-else description="No templates">
+                  <el-button type="primary">Init</el-button>
+                </el-empty>
+              </el-tab-pane>
             </el-tabs>
           </el-col>
         </el-row>

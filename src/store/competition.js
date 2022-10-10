@@ -1,7 +1,6 @@
 import {
     defineStore
 } from 'pinia';
-import { electronStore } from '@/electron-store';
 
 export const useCompetitionStore = defineStore('competitionStore', {
     state: () => ({
@@ -14,8 +13,6 @@ export const useCompetitionStore = defineStore('competitionStore', {
         teamName: ""
     }),
     actions: {
-        save() {
-            electronStore.set('competition', this.$state);
-        }
+
     }
 })

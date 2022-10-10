@@ -97,7 +97,7 @@
             </div>
             <el-form-item label="Year">
               <el-date-picker
-                @change="react(`year`, useGitLabStore().setPaths())"
+                @change="react(`year`)"
                 v-model="useCompetitionStore().year"
                 type="year"
                 format="YYYY"
@@ -107,24 +107,20 @@
             <el-form-item label="Team">
               <el-input
                 @change="react(`team`)"
-                v-model="useUserStore().team"
+                v-model="useCompetitionStore().teamName"
               ></el-input>
             </el-form-item>
             <el-form-item label="Team ID">
               <el-input
                 @change="
-                  react(`team ID`, () => {
-                    useGitLabStore().setPaths();
-                    useCompetitionStore().save();
-                    useTemplateStore().setPageTemplatePath();
-                  })
+                  react(`team ID`)
                 "
                 v-model="useCompetitionStore().teamID"
               ></el-input>
             </el-form-item>
             <el-form-item label="Role">
               <el-select
-                @change="react(`role`, useCompetitionStore().save())"
+                @change="react(`role`)"
                 v-model="useCompetitionStore().role"
               >
                 <el-option
@@ -137,7 +133,7 @@
             </el-form-item>
             <el-form-item label="Group">
               <el-select
-                @change="react(`group`, useCompetitionStore().save())"
+                @change="react(`group`)"
                 v-model="useCompetitionStore().group"
               >
                 <el-option
@@ -228,7 +224,7 @@
             <el-form-item label="WikiPages">
               <el-input
                 @change="
-                  react(`wiki pages template path`, useTemplateStore().save())
+                  react(`wiki pages template path`)
                 "
                 v-model="useTemplateStore().pageTemplatePath"
               >
@@ -254,13 +250,13 @@
             </el-form-item>
             <el-form-item label="WikiSuffix">
               <el-input
-                @change="react(`wiki page suffix`, useTemplateStore().save())"
+                @change="react(`wiki page suffix`)"
                 v-model="useTemplateStore().pageSuffix"
               ></el-input>
             </el-form-item>
             <el-form-item label="ProjectPath">
               <el-input
-                @change="react(`project path`, useTemplateStore().save())"
+                @change="react(`project path`)"
                 v-model="useTemplateStore().projectPath"
                 readonly
               >
@@ -283,7 +279,7 @@
             </el-form-item>
             <el-form-item label="ComponentsPath">
               <el-input
-                @change="react(`component path`, useTemplateStore().save())"
+                @change="react(`component path`)"
                 v-model="useTemplateStore().componentsPath"
                 readonly
               >

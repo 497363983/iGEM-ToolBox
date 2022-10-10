@@ -112,7 +112,7 @@
               ref="accessForm"
               label-width="200px"
               show-message
-              :model="useGitLabStore()"
+              :model="useUserStore()"
             >
               <el-form-item
                 label="AccessToken"
@@ -122,11 +122,39 @@
                   message: 'Please input accessToken',
                 }"
               >
-                <el-input v-model="useGitLabStore().accessTokens"></el-input>
+                <el-input
+                  v-model="useUserStore().accessTokens"
+                  show-password
+                ></el-input>
               </el-form-item>
             </el-form>
           </div>
-          <div v-if="active === 4"></div>
+          <div v-if="active === 4">
+            <el-progress :percentage="useGitStore().progress"></el-progress>
+            <p>
+              git.{{ useGitStore().method }} {{ useGitStore().stage }} stage
+              {{ useGitStore().progress }}% complete
+            </p>
+            <div
+              style="
+                width: 60%;
+                display: block;
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+              "
+            >
+              <ol>
+                <li v-for="(item, index) in initList" :key="index">
+                  {{ item.title }}
+                  <el-icon :class="{ 'is-loading': item.state === 'process' }">
+                    <Loading v-if="item.state === 'process'" />
+                    <SuccessFilled v-if="item.state === 'success'" />
+                  </el-icon>
+                </li>
+              </ol>
+            </div>
+          </div>
           <el-divider />
           <el-row justify="end">
             <el-button v-show="active >= 1" @click="last" type="default"
@@ -155,8 +183,10 @@ import {
   Connection,
   Box,
   RefreshRight,
+  Loading,
+  SuccessFilled,
 } from "@element-plus/icons-vue";
-import { useUserStore, useCompetitionStore, useGitLabStore } from "@/store";
+import { useUserStore, useCompetitionStore, useGitStore } from "@/store";
 import { openLink } from "@/utils/useIPC";
 import { isGit, getGitVersion } from "@/utils/git";
 import { ElMessage } from "element-plus";
@@ -234,6 +264,21 @@ const steps = ref([
         return "wait";
       }
     }),
+  },
+]);
+
+const initList = ref([
+  {
+    title: "Cloning repository",
+    state: "wait",
+  },
+  {
+    title: "check config",
+    state: "wait",
+  },
+  {
+    title: "init repository",
+    state: "wait",
   },
 ]);
 

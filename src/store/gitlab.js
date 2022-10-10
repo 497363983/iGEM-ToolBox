@@ -1,7 +1,6 @@
 import {
     defineStore
 } from 'pinia';
-// import { useUserStore } from './user';
 import { useCompetitionStore } from './competition';
 import { getBranch, getGitVersion } from '@/utils/git';
 import { useUserStore } from './user';
@@ -12,8 +11,7 @@ export const useGitLabStore = defineStore('gitLabStore', {
             version: ""
         },
         currentBranch: "",
-        useSSH: false,
-        accessTokens: ""
+        useSSH: false
     }),
     actions: {
         async getGit() {
@@ -26,7 +24,6 @@ export const useGitLabStore = defineStore('gitLabStore', {
             } else {
                 return `https://${useUserStore().username}:${useUserStore().accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`
             }
-
         }
     }
 });
