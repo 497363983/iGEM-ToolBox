@@ -72,7 +72,6 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 duration: 0
             })
             getTemplates();
-            console.log('json', this.$state.jsonContent)
             let content = `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} start-->\n`;
             content += DOMcreateElement(this.$state.jsonContent) + '\n';
             content += `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} end-->`;

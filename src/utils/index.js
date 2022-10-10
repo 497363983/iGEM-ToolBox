@@ -2,12 +2,8 @@ const electron = window.require('electron');
 const {
     ipcRenderer,
 } = electron;
-
 import { useUserStore, useConfigStore, useTemplateStore, useCompetitionStore } from "@/store";
 import { electronStore } from "@/electron-store";
-export function getData() {
-
-}
 
 /**
  * 
@@ -49,11 +45,5 @@ export function Uppercase(str) {
     });
 }
 
-export function getElectronStore() {
-    useUserStore().$state = electronStore.get('user');
-    useConfigStore().$state = electronStore.get('config');
-    useTemplateStore().$state = electronStore.get('template');
-    useCompetitionStore().$state = electronStore.get('competition');
-}
 
 

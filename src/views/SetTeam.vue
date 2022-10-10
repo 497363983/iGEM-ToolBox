@@ -149,7 +149,10 @@
                   {{ item.title }}
                   <el-icon :class="{ 'is-loading': item.state === 'process' }">
                     <Loading v-if="item.state === 'process'" />
-                    <SuccessFilled v-if="item.state === 'success'" />
+                    <SuccessFilled
+                      style="color: #7ec050"
+                      v-if="item.state === 'success'"
+                    />
                   </el-icon>
                 </li>
               </ol>
@@ -276,14 +279,14 @@ const initList = ref([
       await cloneProject();
     },
   },
-  {
-    title: "check config",
-    state: "wait",
-  },
-  {
-    title: "init repository",
-    state: "wait",
-  },
+  // {
+  //   title: "check config",
+  //   state: "wait",
+  // },
+  // {
+  //   title: "init repository",
+  //   state: "wait",
+  // },
 ]);
 
 async function refresh() {
@@ -318,10 +321,10 @@ async function next() {
     accessForm.value.validate(async (valid) => {
       if (valid) {
         active.value = Math.min(active.value + 1, steps.value.length - 1);
-        for (let i = 0; i < initList.value.length - 1; i++) {
-          console.log("i", i, initList.value[i].state);
+        for (let i = 0; i <= initList.value.length - 1; i++) {
           initList.value[i].state = "process";
           await initList.value[i].action();
+          initList.value[i].state = "success";
         }
       }
     });

@@ -170,12 +170,13 @@ useUserStore().$subscribe((mutation, state) => {
 
 onMounted(async () => {
   // getElectronStore();
-  getBranch();
-  useGitLabStore().getGit();
-  getInstallationPath();
-  console.log(useUserStore().isTrue);
   checkCookie(useUserStore().username, useUserStore().password, (res) => {
     useUserStore().isTrue = res ? false : true;
+    if (res) {
+      getBranch();
+      useGitLabStore().getGit();
+      getInstallationPath();
+    }
   });
 });
 

@@ -123,6 +123,7 @@ export function checkFile(dirPath, callback) {
     })
 }
 
+
 /**
  * 
  * @param {String} filePath 

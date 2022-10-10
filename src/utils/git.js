@@ -1,5 +1,6 @@
 import { useTemplateStore, useGitLabStore, useUserStore, useGitStore } from '@/store';
 // import simpleGit from "simple-git";
+const fs = window.require('fs');
 const simpleGit = window.require("simple-git");
 
 const progress = ({ method, stage, progress }) => {
@@ -62,7 +63,18 @@ export async function cloneProject() {
     // const gitpath = `https://${username}:${accessTokens}@gitlab.igem.org/${useCompetitionStore().year}/${useUserStore().team.toLowerCase().replace(/\s+/g, "-")}.git`;
     // console.log(gitpath)
     // if (!isGitRepository(useTemplateStore().projectPath)) {
-    simpleGit(useTemplateStore().projectPath, { progress }).clone(useGitLabStore().getGitPath()).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+    fs.access(useTemplateStore().projectPath, fs.constants.F_OK, (err) => {
+        if (err) {
+            fs.mkdir(useTemplateStore().projectPath, { recursive: true }, (err) => {
+                if (!err) {
+                    simpleGit(useTemplateStore().projectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+                }
+            });
+        } else {
+            simpleGit(useTemplateStore().projectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
+        }
+    })
+
     // }
 }
 
@@ -71,7 +83,7 @@ export async function pullProject(options) {
     let failure = options?.failure;
     if (isGitRepository(useTemplateStore().projectPath)) {
         console.log('start pull')
-        simpleGit(useTemplateStore().projectPath).pull(useGitLabStore().getGitPath()).then((res) => {
+        simpleGit(useTemplateStore().projectPath).pull(useGitLabStore().getGitPath).then((res) => {
             console.log('pull end', res);
             (success && typeof success === 'function') ? success(res) : console.log('pull success', res);
         }).catch((err) => (failure && typeof failure === 'function') ? failure(err) : console.log('pull failed:', err));
@@ -90,7 +102,7 @@ export async function pushProject(options, callback) {
     // const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
     if (isGitRepository(useTemplateStore().projectPath)) {
         console.log('start push')
-        await simpleGit(useTemplateStore().projectPath, { progress }).add(file).commit(commitInformation).push([useGitLabStore().getGitPath(), useGitLabStore().currentBranch.trim()], (res) => {
+        await simpleGit(useTemplateStore().projectPath, { progress }).add(file).commit(commitInformation).push([useGitLabStore().getGitPath, useGitLabStore().currentBranch.trim()], (res) => {
             console.log('push end', res)
             if (callback && typeof callback == 'function') {
                 callback(res)
