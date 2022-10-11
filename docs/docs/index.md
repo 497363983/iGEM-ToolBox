@@ -20,5 +20,4 @@ hero:
 .image-src{
   max-width: 500px;
 }
-  
 </style>
