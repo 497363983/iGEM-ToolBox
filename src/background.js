@@ -159,7 +159,7 @@ ipcMain.on('SyncFiles', (event, { filelist, username, password, teamID }) => {
     event.sender.send("SyncFiles:error", error)
   })
 });
-
+ 
 ipcMain.on('readJSONFile', function (event, arg) {
   fs.access(arg, fs.constants.F_OK, (err) => {
     if (!err) {
@@ -217,7 +217,7 @@ ipcMain.on("openFileDialog", (event, option) => {
 
 ipcMain.on("checkCookie", (event, { username, password }) => {
   get_cookie(username, password).then((res) => {
-    if (res) {
+    if (res.cookie) {
       event.sender.send("checkCookieReturn", true)
     } else {
       event.sender.send("checkCookieReturn", false)
