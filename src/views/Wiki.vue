@@ -109,7 +109,7 @@
                     </el-timeline>
                   </div>
                 </div>
-                <el-empty v-else description="No logs"> </el-empty>
+                <el-empty v-else description="No logs"></el-empty>
               </el-tab-pane>
             </el-tabs>
           </el-col>

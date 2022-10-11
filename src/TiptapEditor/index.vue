@@ -81,7 +81,9 @@
     <el-container style="height: calc(100% - 24px)">
       <el-header>
         <div>
-          <el-button :loading="uploading" @click="upload" type="primary">upload</el-button>
+          <el-button :loading="uploading" @click="upload" type="primary"
+            >upload</el-button
+          >
         </div>
       </el-header>
       <el-container style="height: 90%">
@@ -332,8 +334,10 @@ function setLink() {
 
 function upload() {
   uploading.value = true;
-  useWikiEditorStore().save();
-  
+  useWikiEditorStore().save(() => {
+    uploading.value = false;
+  });
+
   console.log("lo", editor.options.content);
 }
 

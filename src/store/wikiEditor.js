@@ -63,7 +63,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
             let pagearr = this.$state.path.split('/');
             return pagearr[pagearr.length - 1];
         },
-        async save() {
+        async save(callback) {
             ElNotification({
                 title: useGitStore().method,
                 message: h(ElProgress, {
@@ -96,6 +96,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                             ]
                         }, (res) => {
                             console.log('push', res)
+                            callback && typeof callback === 'function' ? callback(res) : null;
                         });
                     });
                 }
