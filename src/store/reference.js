@@ -15,7 +15,7 @@ export const useReferenceStore = defineStore('referenceStore', {
         getReferences(callback) {
             pullProject();
             readJSONFile(
-                `${useTemplateStore().projectPath}\\tool_box\\references\\index.json`,
+                `${useTemplateStore().getProjectPath}\\tool_box\\references\\index.json`,
                 (content) => {
                     this.$state.references = JSON.parse(content);
                     if (callback && typeof callback === 'function') {
@@ -32,10 +32,10 @@ export const useReferenceStore = defineStore('referenceStore', {
                     references.push(reference);
                     await pullProject({
                         success: () => {
-                            writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\references\\${doi.replace("/", "_")}.json`, reference, (data) => {
+                            writeJSONFile(`${useTemplateStore().getProjectPath}\\tool_box\\references\\${doi.replace("/", "_")}.json`, reference, (data) => {
                                 console.log(data);
                             });
-                            writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\references\\index.json`, references, (data) => {
+                            writeJSONFile(`${useTemplateStore().getProjectPath}\\tool_box\\references\\index.json`, references, (data) => {
                                 console.log(data);
                             });
                             pushProject({
@@ -62,7 +62,7 @@ export const useReferenceStore = defineStore('referenceStore', {
             });
         },
         saveReferences() {
-            writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\references\\index.json`, this.$state.references, (data) => {
+            writeJSONFile(`${useTemplateStore().getProjectPath}\\tool_box\\references\\index.json`, this.$state.references, (data) => {
                 console.log(data);
             });
         }
