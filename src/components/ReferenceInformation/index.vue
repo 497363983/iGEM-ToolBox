@@ -121,6 +121,12 @@
           @change="useReferenceStore().saveReferences()"
         ></el-input>
       </el-descriptions-item>
+      <el-descriptions-item label="Citation">
+        <el-input
+          v-model="useReferenceStore().references[reference].publisher"
+          @change="useReferenceStore().saveReferences()"
+        ></el-input>
+      </el-descriptions-item>
     </el-descriptions>
   </div>
 </template>

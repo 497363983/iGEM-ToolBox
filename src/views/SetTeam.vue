@@ -261,16 +261,6 @@
       >
         <el-input v-model="configList.team.ID"></el-input>
       </el-form-item>
-      <!-- <el-form-item
-        label="Branch"
-        prop="branch"
-        :rules="{
-          required: true,
-          message: 'Please input branch',
-        }"
-      >
-        <el-input v-model="configList.branch"></el-input>
-      </el-form-item> -->
       <el-form-item
         label="Branch"
         prop="branch"
