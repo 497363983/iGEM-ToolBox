@@ -1,7 +1,8 @@
 import { editor } from "..";
 // import { useFileSystemAccess } from '@vueuse/core';
-import { openFileDialog } from "@/utils/useIPC";
-
+import { openFileDialog, SyncFiles, SyncFiles_return } from "@/utils/useIPC";
+import { useUserStore, useCompetitionStore } from "@/store";
+import { baseName } from "@/utils/files";
 
 export const floating = [
     {
@@ -25,14 +26,24 @@ export const floating = [
         // }
         action: () => openFileDialog({
             filters: [{ name: "images", extensions: ['png', 'jpg', 'gif', 'jpeg', 'svg'] }],
-            properties: ["openFile"]
+            properties: ["openFile"],
+            title: 'choose image'
         }, ({ canceled, filePaths }) => {
+            console.log(filePaths, baseName(filePaths[0]))
             if (!canceled) {
-                editor
-                    .chain()
-                    .focus()
-                    .setImage({ src: filePaths[0] })
-                    .run();
+                SyncFiles([{
+                    filepath: filePaths[0],
+                    filename: baseName(filePaths[0]),
+                    type: 'image'
+                }], useUserStore().username, useUserStore().password, useCompetitionStore().teamID)
+                SyncFiles_return((data) => {
+                    editor
+                        .chain()
+                        .focus()
+                        .setImage({ src: data[0] })
+                        .run();
+                })
+
             }
         })
     },

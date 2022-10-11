@@ -147,3 +147,7 @@ export async function writeFileItem(filePath, data, callback) {
 export function joinPath(...arr) {
     return path.join(...arr)
 }
+
+export function baseName(file) {
+    return path.basename(file)
+}

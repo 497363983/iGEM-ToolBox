@@ -13,14 +13,14 @@ const FormData = require('form-data');
 export async function SyncFiles(args) {
     //Fetch cookies
     const { username, password, event, teamID, filelist } = args;
-    let cookie , status = await get_cookie(username, password).catch((error, resolve) => {
+    let cookie, status = await get_cookie(username, password).catch((error, resolve) => {
         event.sender.send("SyncFiles:error", error)
         resolve(null)
     });
 
-    if (status == 200){
+    if (status == 200) {
         event.sender.send("SyncFiles:error", "wrong username or password")
-    }else if(status == 404){
+    } else if (status == 404) {
         event.sender.send("SyncFiles:error", "get cookie failed!")
     }
 
@@ -80,14 +80,14 @@ export async function get_cookie(username, password) {
             console.log(res.statusCode)
             if (res.statusCode == 200) {
                 // event.sender.send("SyncFiles:error", "wrong username or password")
-                resolve(null , 200);
+                resolve(null, 200);
             }
             let cookie = res.rawHeaders[9]
             // console.log(cookie)
-            resolve(cookie , 0);
+            resolve(cookie, 0);
         });
         req.on('error', () => {
-            resolve(null , 404);
+            resolve(null, 404);
             // event.sender.send("SyncFiles:error", "get cookie failed!")
         })
         req.write(data)
@@ -105,7 +105,6 @@ export async function get_cookie(username, password) {
  */
 async function SyncFile(teamID, cookie, formData, event) {
     console.log(teamID, cookie)
-    console.log('https://shim-s3.igem.org/v1/teams/' + teamID.trim() + '/wiki')
     const res = await axios({
         url: 'https://shim-s3.igem.org/v1/teams/' + teamID.trim() + '/wiki',
         method: 'POST',

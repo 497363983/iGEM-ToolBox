@@ -20,12 +20,16 @@ export const useTemplateStore = defineStore('templateStore', {
         },
         getTemplatesPath() {
             const getConfig = readConfig(joinPath(this.getProjectPath, 'tool.config.json'));
-            return getConfig('templates.path') || `${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`
+            return getConfig('templates.path') || `${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}/templates`
         },
-        getPageExtName(){
+        getPageExtName() {
             const getConfig = readConfig(joinPath(this.getProjectPath, 'tool.config.json'));
-            return getConfig('pages.extname') || `${useCompetitionStore().teamName.toLowerCase().replace(/\s+/g, "-")}/wiki/pages`
-        }
+            return getConfig('pages.extname') || `html`
+        },
+        getTemplatesExtName() {
+            const getConfig = readConfig(joinPath(this.getProjectPath, 'tool.config.json'));
+            return getConfig('templates.extname') || `html`
+        },
     },
     actions: {
 

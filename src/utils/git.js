@@ -10,9 +10,9 @@ const progress = ({ method, stage, progress }) => {
     useGitStore().stage = stage;
 }
 
-export async function setGitPath() {
-    await simpleGit(useTemplateStore().getProjectPath).raw('remote', 'set-url', 'origin', useGitLabStore().gitPath);
-}
+// export async function setGitPath() {
+//     await simpleGit(useTemplateStore().getProjectPath).raw('remote', 'set-url', 'origin', useGitLabStore().gitPath);
+// }
 
 export async function gitInit() {
     await simpleGit(useTemplateStore().getProjectPath).raw('config', 'user.name', `${useUserStore().username}`);
@@ -99,7 +99,7 @@ export async function pullProject(options) {
 export async function pushProject(options, callback) {
     const { commitInformation, file } = options;
     if (isGitRepository(useTemplateStore().getProjectPath)) {
-        await simpleGit(useTemplateStore().getProjectPath, { progress }).add(file).commit(commitInformation).push([useGitLabStore().getGitPath, useGitLabStore().currentBranch.trim()], (res) => {
+        await simpleGit(useTemplateStore().getProjectPath, { progress }).add(file).commit(commitInformation).push([useGitLabStore().getGitPath, useGitLabStore().getBranch.trim()], (res) => {
             if (callback && typeof callback === 'function') {
                 callback(res)
             }
