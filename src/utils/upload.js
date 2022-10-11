@@ -111,12 +111,12 @@ async function SyncFile(teamID, cookie, formData, event) {
         data: formData,
         headers: {
             "Content-Type": "multipart/form-data",
-            "origin":"https://uploads.igem.org",
-            "referer":"https://uploads.igem.org",
-            "accept":" application/json, text/plain, */*",
+            // "origin":"https://uploads.igem.org",
+            // "referer":"https://uploads.igem.org",
+            // "accept":" application/json, text/plain, */*",
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 ',
             'cookie': cookie,
-            'sec-fetch-site': 'same-site',
+            // 'sec-fetch-site': 'same-site',
         }
     }).catch((error) => {
         console.log(error)
