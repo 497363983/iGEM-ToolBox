@@ -7,7 +7,7 @@
 
 <script setup>
 // import { useUserStore } from "@/store";
-import {  isGitRepository } from "@/utils/git";
+import {  isGitRepository, gitLog } from "@/utils/git";
 // import { checkFile } from "@/utils/files";
 // import { useUserStore } from "@/store";
 async function test() {
@@ -16,7 +16,7 @@ async function test() {
   //   accessTokens: useUserStore().accessTokens,
   // });
   console.log(
-    // JSON.stringify(await gitLog()).slice("\n"),
+    gitLog(),
     isGitRepository(),
     // checkFile("E:\\iGEM")
   );
