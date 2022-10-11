@@ -16,7 +16,7 @@ async function test() {
   //   accessTokens: useUserStore().accessTokens,
   // });
   console.log(
-    gitLog(),
+    gitLog({from: '9-1-2022', to: '10-11-2022'}),
     isGitRepository(),
     // checkFile("E:\\iGEM")
   );

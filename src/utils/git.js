@@ -108,7 +108,5 @@ export async function pushProject(options, callback) {
 }
 
 export async function gitLog() {
-    return await simpleGit(useTemplateStore().getProjectPath, { progress }).log({
-        from: ''
-    });
+    return await simpleGit(useTemplateStore().getProjectPath, { progress }).log();
 }
