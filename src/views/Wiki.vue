@@ -178,7 +178,6 @@ function loadPages() {
 
 async function loadLogs() {
   logList.value = (await gitLog()).all;
-  console.log(logList.value);
 }
 
 onMounted(async () => {

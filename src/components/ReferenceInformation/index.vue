@@ -269,4 +269,13 @@ function getTitle(title) {
   }
   return titleString + ". ";
 }
+
+const citationText = computed(()=>{
+  let text = '';
+  
+
+  return text;
+})
+
+console.log(citationText)
 </script>
