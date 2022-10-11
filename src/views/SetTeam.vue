@@ -273,7 +273,9 @@
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button type="primary">confirm</el-button>
+      <el-button :loading="confirming" @click="setConfig" type="primary"
+        >confirm</el-button
+      >
     </template>
   </el-dialog>
 </template>
@@ -300,7 +302,7 @@ import { openLink } from "@/utils/useIPC";
 import { isGit, getGitVersion } from "@/utils/git";
 import { ElMessage } from "element-plus";
 import { cloneProject } from "@/utils/git";
-import { checkConfig } from "@/utils/config";
+import { checkConfig, createConfig } from "@/utils/config";
 const active = ref(0);
 // const canNext = ref(false);
 const hasGit = ref(false);
@@ -308,8 +310,10 @@ const refreshLoading = ref(false);
 const profileForm = ref();
 const teamForm = ref();
 const accessForm = ref();
+const configForm = ref();
 const gitVersion = ref("");
 const editConfig = ref(false);
+const confirming = ref(false);
 const configList = ref({
   pages: {
     path: "wiki/pages",
@@ -414,11 +418,14 @@ const initList = ref([
           if (err) {
             console.log(err);
             editConfig.value = true;
+            configList.value.team.name = useCompetitionStore().teamName;
+            configList.value.team.ID = useCompetitionStore().teamID;
             // createConfig(
             //   useTemplateStore().getProjectPath,
             //   JSON.stringify(configList.value)
             // );
           } else {
+            editConfig.value = true;
             resolve(true);
           }
         });
@@ -478,6 +485,17 @@ async function next() {
 function skip() {
   active.value = Math.min(active.value + 1, steps.value.length - 1);
   console.log(active.value);
+}
+
+function setConfig() {
+  confirming.value = true;
+  configForm.value.validate((valid) => {
+    if (valid) {
+      createConfig(useTemplateStore().getProjectPath, configList.value, () => {
+        confirming.value = false;
+      });
+    }
+  });
 }
 
 onMounted(async () => {
