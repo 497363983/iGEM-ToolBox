@@ -13,7 +13,7 @@ const FormData = require('form-data');
 export async function SyncFiles(args) {
     //Fetch cookies
     const { username, password, event, teamID, filelist } = args;
-    let cookie, status = await get_cookie(username, password).catch((error, resolve) => {
+    let {cookie, status} = await get_cookie(username, password).catch((error, resolve) => {
         event.sender.send("SyncFiles:error", error)
         resolve(null)
     });
@@ -25,7 +25,7 @@ export async function SyncFiles(args) {
     }
 
     if (cookie == null) {
-        event.sender.send("SyncFiles:error", "error")
+        event.sender.send("SyncFiles:error", status)
         return null;
     }
     event.sender.send("SyncFiles:return", "fetch cookie successful!")
@@ -76,18 +76,18 @@ export async function get_cookie(username, password) {
         }
         const req = https.request(options, (res) => {
             console.log("get cookie status:")
-            console.log(res)
+            // console.log(res)
             console.log(res.statusCode)
             if (res.statusCode == 200) {
                 // event.sender.send("SyncFiles:error", "wrong username or password")
-                resolve(null, 200);
+                resolve({"cookie" : null ,status: 200});
             }
             let cookie = res.rawHeaders[9]
-            // console.log(cookie)
-            resolve(cookie, 0);
+            console.log(cookie)
+            resolve({"cookie" : cookie, status : 0});
         });
         req.on('error', () => {
-            resolve(null, 404);
+            resolve({"cookie" : null, status: 404});
             // event.sender.send("SyncFiles:error", "get cookie failed!")
         })
         req.write(data)
