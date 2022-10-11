@@ -5,12 +5,12 @@ import { useWikiEditorStore } from "@/store";
 export const editor = new Editor({
     extensions: Extensions,
     injectCSS: false,
-    // content: useWikiEditorStore().content,
     onUpdate: ({ editor }) => {
         useWikiEditorStore().content = editor.getHTML();
         useWikiEditorStore().jsonContent = editor.getJSON();
-        console.log('update', useWikiEditorStore().content, editor);
+        console.log('update', useWikiEditorStore().jsonContent, editor);
         useWikiEditorStore().saveBlock();
+
         const transaction = editor.state.tr;
         const headings = [];
         editor.state.doc.descendants((node, pos) => {

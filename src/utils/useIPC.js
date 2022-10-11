@@ -71,7 +71,7 @@ export function getDirName() {
 }
 /**
  * 
- * @param {String} filelist 
+ * @param {Object} filelist 
  * @param {String} username 
  * @param {String} password 
  * @param {String|Number} teamID 
@@ -81,10 +81,11 @@ export function SyncFiles(filelist, username, password, teamID) {
 
 }
 
-export function SyncFiles_return() {
+export function SyncFiles_return(callback) {
   //upload successful
   ipcRenderer.on('SyncFiles:return', (event, data) => {
-    console.log('SyncFiles return:', data)
+    
+    callback && typeof callback ? callback(data): console.log('SyncFiles return:', data)
   });
   //upload failed
   ipcRenderer.on('SyncFiles:error', (event, msg) => {
@@ -118,4 +119,24 @@ export function openFileDialog(option, callback) {
       callback({ canceled, filePaths })
     }
   })
+}
+
+/**
+ * 
+ * @param {String} username 
+ * @param {String} password 
+ * @param {Function} callback 
+ */
+export function checkCookie(username, password, callback) {
+  ipcRenderer.send("checkCookie", { username, password });
+  ipcRenderer.once("checkCookieReturn", (event, res) => {
+    if (callback && typeof callback == "function") {
+      callback(res)
+    }
+  })
+}
+
+
+export function openLink(url) {
+  ipcRenderer.send("open-link", url);
 }

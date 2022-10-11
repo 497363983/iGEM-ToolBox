@@ -11,7 +11,8 @@ import {
   dialog
 } from 'electron';
 import {
-  SyncFiles
+  SyncFiles,
+  get_cookie
 } from './utils/upload';
 import runPython from './utils/runPython';
 // import { concat } from 'core-js/core/array';
@@ -64,13 +65,6 @@ let mainWindow, tray;
 // }
 // }
 
-app.on('web-contents-created', (e, webContents) => {
-  webContents.on('new-window', (event, url) => {
-    event.preventDefault();
-    shell.openExternal(url);
-  });
-});
-
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
@@ -107,6 +101,10 @@ app.on('ready', async () => {
       webSecurity: false
     }
   });
+  mainWindow.webContents.on('new-window', (e, url) => {
+    e.preventDefault();
+    shell.openExternal(url);
+  });
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '/index.html');
@@ -120,29 +118,48 @@ app.on('ready', async () => {
   setTray();
 });
 
+
+
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     // createWindow();
   }
 });
 
+app.on('open-url', (event, url) => {
+  event.preventDefault();
+  shell.openExternal(url);
+});
+
+app.on('web-contents-created', (e, webContents) => {
+  webContents.on('new-window', (event, url) => {
+    event.preventDefault();
+    shell.openExternal(url);
+  });
+});
+
 ipcMain.on('mainWindow:close', () => {
   mainWindow.hide();
 });
+
 ipcMain.on('mainWindow:maximize', () => {
   mainWindow.maximize();
 });
+
 ipcMain.on('mainWindow:unmaximize', () => {
   mainWindow.unmaximize();
 });
+
 ipcMain.on('mainWindow:minimize', () => {
   mainWindow.minimize();
 });
+
 ipcMain.on('SyncFiles', (event, { filelist, username, password, teamID }) => {
   SyncFiles({ filelist, username, password, teamID, event }).catch((error) => {
     event.sender.send("SyncFiles:error", error)
   })
 });
+ 
 ipcMain.on('readJSONFile', function (event, arg) {
   fs.access(arg, fs.constants.F_OK, (err) => {
     if (!err) {
@@ -154,16 +171,9 @@ ipcMain.on('readJSONFile', function (event, arg) {
         }
       });
     } else {
-      // fs.mkdir(path.dirname(arg),{recursive: true}, (err) => {
-      // if (err) {
-      //   throw (err)
-      // } else {
       event.sender.send('readJSONFile-reply', '[]');
-      // }
-      // })
     }
   })
-
 });
 
 ipcMain.on('writeJSONFile', function (event, arg) {
@@ -203,6 +213,17 @@ ipcMain.on("openFileDialog", (event, option) => {
   dialog.showOpenDialog(option).then(({ canceled, filePaths }) => {
     event.sender.send("openFileDialogReturn", { canceled, filePaths })
   })
+})
+
+ipcMain.on("checkCookie", (event, { username, password }) => {
+  get_cookie(username, password).then((res) => {
+    if (res.cookie) {
+      event.sender.send("checkCookieReturn", true)
+    } else {
+      event.sender.send("checkCookieReturn", false)
+    }
+  })
+
 })
 
 function setTray() {
@@ -272,6 +293,10 @@ ipcMain.on('runPython', (event, arg) => {
     });
   });
 });
+
+ipcMain.on('open-link', (event, url) => {
+  shell.openExternal(url);
+})
 
 // ipcMain.handle('git', async function (e, { projectPath, cmd, args }) {
 //   const git = simpleGit(projectPath);

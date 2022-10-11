@@ -40,7 +40,7 @@
           <el-form
             ref="form"
             label-position="left"
-            label-width="100px"
+            label-width="120px"
             style="width: 90%"
           >
             <div class="title_wrapper">
@@ -66,14 +66,14 @@
                   v-model="useUserStore().email"
                 ></el-input>
               </el-form-item>
-              <el-form-item label="Password">
+              <!-- <el-form-item label="Password">
                 <el-input
                   @change="react(`password`, useUserStore().save())"
                   type="password"
                   v-model="useUserStore().password"
                   show-password
                 ></el-input>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="AccessToken">
                 <el-input
                   type="password"
@@ -97,7 +97,7 @@
             </div>
             <el-form-item label="Year">
               <el-date-picker
-                @change="react(`year`, useGitLabStore().setPaths())"
+                @change="react(`year`)"
                 v-model="useCompetitionStore().year"
                 type="year"
                 format="YYYY"
@@ -106,31 +106,21 @@
             </el-form-item>
             <el-form-item label="Team">
               <el-input
-                @change="
-                  react(`team`, () => {
-                    useGitLabStore().setPaths();
-                    useUserStore().save();
-                    useTemplateStore().setPageTemplatePath();
-                  })
-                "
-                v-model="useUserStore().team"
+                @change="react(`team`)"
+                v-model="useCompetitionStore().teamName"
               ></el-input>
             </el-form-item>
             <el-form-item label="Team ID">
               <el-input
                 @change="
-                  react(`team ID`, () => {
-                    useGitLabStore().setPaths();
-                    useCompetitionStore().save();
-                    useTemplateStore().setPageTemplatePath();
-                  })
+                  react(`team ID`)
                 "
                 v-model="useCompetitionStore().teamID"
               ></el-input>
             </el-form-item>
             <el-form-item label="Role">
               <el-select
-                @change="react(`role`, useCompetitionStore().save())"
+                @change="react(`role`)"
                 v-model="useCompetitionStore().role"
               >
                 <el-option
@@ -143,7 +133,7 @@
             </el-form-item>
             <el-form-item label="Group">
               <el-select
-                @change="react(`group`, useCompetitionStore().save())"
+                @change="react(`group`)"
                 v-model="useCompetitionStore().group"
               >
                 <el-option
@@ -198,18 +188,18 @@
             <div class="title_wrapper">
               <h1>GitLab</h1>
             </div>
-            <el-form-item label="GitLabPath">
+            <!-- <el-form-item label="GitLabPath">
               <el-input
                 @change="react(`gitlab path`)"
                 v-model="useGitLabStore().gitLabPath"
               ></el-input>
-            </el-form-item>
-            <el-form-item label="GitPath">
+            </el-form-item> -->
+            <!-- <el-form-item label="GitPath">
               <el-input
                 @change="react(`git path`)"
                 v-model="useGitLabStore().gitPath"
               ></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="Branch">
               <el-select
                 v-model="useGitLabStore().currentBranch"
@@ -228,29 +218,6 @@
               </el-select>
             </el-form-item>
             <el-divider />
-            <div class="title_wrapper">
-              <h1>Template</h1>
-            </div>
-            <el-form-item label="WikiPages">
-              <el-input
-                @change="
-                  react(`wiki pages template path`, useTemplateStore().save())
-                "
-                v-model="useTemplateStore().pageTemplatePath"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="WikiSuffix">
-              <el-input
-                @change="react(`wiki page suffix`, useTemplateStore().save())"
-                v-model="useTemplateStore().pageSuffix"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="ProjectPath">
-              <el-input
-                @change="react(`project path`, useTemplateStore().save())"
-                v-model="useTemplateStore().projectPath"
-              ></el-input>
-            </el-form-item>
           </el-form>
         </el-scrollbar>
       </el-main>
@@ -277,7 +244,6 @@ import {
   useConfigStore,
   useUserStore,
   useGitLabStore,
-  useTemplateStore,
   useCompetitionStore,
 } from "../store";
 import { Uppercase } from "../utils/index";

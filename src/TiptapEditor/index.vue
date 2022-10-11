@@ -81,14 +81,16 @@
     <el-container style="height: calc(100% - 24px)">
       <el-header>
         <div>
-          <el-button @click="upload" type="primary">upload</el-button>
+          <el-button :loading="uploading" @click="upload" type="primary"
+            >upload</el-button
+          >
         </div>
       </el-header>
       <el-container style="height: 90%">
         <el-aside width="25%">
-          <side-directory
+          <!-- <side-directory
             :content="useWikiEditorStore().jsonContent.content"
-          ></side-directory>
+          ></side-directory> -->
         </el-aside>
         <el-main>
           <el-scrollbar height="100%">
@@ -106,7 +108,7 @@
     append-to-body
     destroy-on-close
   >
-    <el-upload v-model:file-list="useWikiEditorStore().filelist"> </el-upload>
+    <el-upload v-model:file-list="useWikiEditorStore().filelist"></el-upload>
   </el-dialog>
 </template>
 <style lang="scss" scoped>
@@ -115,6 +117,8 @@
   // padding: 0;
   border-left: 1px solid #ced4da;
 }
+</style>
+<style lang="scss">
 .el-header {
   height: 10%;
 }
@@ -260,7 +264,7 @@
 import { editor } from "./index";
 import { EditorContent, FloatingMenu, BubbleMenu } from "@tiptap/vue-3";
 import MenuItem from "@/components/MenuItem.vue";
-import SideDirectory from "@/components/SideDirectory.vue";
+// import SideDirectory from "@/components/SideDirectory.vue";
 import { ref, onMounted, defineProps } from "vue";
 import { LinkMenu, bubble, inputLink } from "./config/bubble";
 import { useWikiEditorStore } from "@/store";
@@ -271,7 +275,7 @@ defineProps({
   content: String,
   path: String,
 });
-
+const uploading = ref(false);
 const editLinkAble = ref(false);
 // const floating = [
 //   {
@@ -329,12 +333,11 @@ function setLink() {
 }
 
 function upload() {
-  // pushProject({
-  //   commitInformation: `upload ${useWikiEditorStore().$state.page}`,
-  //   file: [``],
-  // });
-  // useWikiEditorStore().saveBlock();
-  useWikiEditorStore().save();
+  uploading.value = true;
+  useWikiEditorStore().save(() => {
+    uploading.value = false;
+  });
+
   console.log("lo", editor.options.content);
 }
 

@@ -13,19 +13,19 @@ const FormData = require('form-data');
 export async function SyncFiles(args) {
     //Fetch cookies
     const { username, password, event, teamID, filelist } = args;
-    let cookie , status = await get_cookie(username, password).catch((error, resolve) => {
+    let {cookie, status} = await get_cookie(username, password).catch((error, resolve) => {
         event.sender.send("SyncFiles:error", error)
         resolve(null)
     });
 
-    if (status == 200){
+    if (status == 200) {
         event.sender.send("SyncFiles:error", "wrong username or password")
-    }else if(status == 404){
+    } else if (status == 404) {
         event.sender.send("SyncFiles:error", "get cookie failed!")
     }
 
     if (cookie == null) {
-        event.sender.send("SyncFiles:error", "error")
+        event.sender.send("SyncFiles:error", status)
         return null;
     }
     event.sender.send("SyncFiles:return", "fetch cookie successful!")
@@ -58,10 +58,9 @@ export async function SyncFiles(args) {
  * @description Fetch cookie
  * @param {String} username 
  * @param {String} password 
- * @param {import('electron/renderer').Event} event 
  * @returns {Promise}
  */
-async function get_cookie(username, password) {
+export async function get_cookie(username, password) {
     return new Promise((resolve) => {
         const data = 'return_to=https%3A%2F%2Fold.igem.org%2FLogin2&username=' + username + '&password=' + password + '&Login=Login'
         // console.log(data)
@@ -81,14 +80,14 @@ async function get_cookie(username, password) {
             console.log(res.statusCode)
             if (res.statusCode == 200) {
                 // event.sender.send("SyncFiles:error", "wrong username or password")
-                resolve(null , 200);
+                resolve({"cookie" : null ,status: 200});
             }
             let cookie = res.rawHeaders[9]
-            // console.log(cookie)
-            resolve(cookie , 0);
+            console.log(cookie)
+            resolve({"cookie" : cookie, status : 0});
         });
         req.on('error', () => {
-            resolve(null , 404);
+            resolve({"cookie" : null, status: 404});
             // event.sender.send("SyncFiles:error", "get cookie failed!")
         })
         req.write(data)
@@ -106,7 +105,6 @@ async function get_cookie(username, password) {
  */
 async function SyncFile(teamID, cookie, formData, event) {
     console.log(teamID, cookie)
-    console.log('https://shim-s3.igem.org/v1/teams/' + teamID.trim() + '/wiki')
     const res = await axios({
         url: 'https://shim-s3.igem.org/v1/teams/' + teamID.trim() + '/wiki',
         method: 'POST',

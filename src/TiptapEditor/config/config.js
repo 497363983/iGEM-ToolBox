@@ -10,6 +10,7 @@ import TableHeader from "@tiptap/extension-table-header";
 import { InlineMath } from "../extentions/InlineMath";
 import Focus from "@tiptap/extension-focus";
 import { BlockMath } from "../extentions/BlockMath";
+import Placeholder from '@tiptap/extension-placeholder'
 // import { inlineMath } from "../extentions/math/inlineMath";
 export const Extensions = [
     StarterKit.configure({
@@ -52,5 +53,8 @@ export const Extensions = [
     Focus.configure({
         className: 'focused',
         mode: 'all'
+    }),
+    Placeholder.configure({
+        placeholder: 'Write here'
     })
 ];

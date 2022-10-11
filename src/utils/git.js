@@ -1,5 +1,6 @@
-import { useTemplateStore, useGitLabStore, useUserStore, useGitStore } from '@/store';
+import { useTemplateStore, useGitLabStore, useUserStore, useGitStore, useCompetitionStore, useConfigStore } from '@/store';
 // import simpleGit from "simple-git";
+const fs = window.require('fs');
 const simpleGit = window.require("simple-git");
 
 const progress = ({ method, stage, progress }) => {
@@ -9,34 +10,31 @@ const progress = ({ method, stage, progress }) => {
     useGitStore().stage = stage;
 }
 
-export async function setGitPath() {
-    await simpleGit(useTemplateStore().projectPath).raw('remote', 'set-url', 'origin', useGitLabStore().gitPath);
-}
+// export async function setGitPath() {
+//     await simpleGit(useTemplateStore().getProjectPath).raw('remote', 'set-url', 'origin', useGitLabStore().gitPath);
+// }
 
 export async function gitInit() {
-    await simpleGit(useTemplateStore().projectPath).raw('config', 'user.name', `${useUserStore().username}`);
-    await simpleGit(useTemplateStore().projectPath).raw('config', 'user.email', `${useUserStore().email}`);
+    await simpleGit(useTemplateStore().getProjectPath).raw('config', 'user.name', `${useUserStore().username}`);
+    await simpleGit(useTemplateStore().getProjectPath).raw('config', 'user.email', `${useUserStore().email}`);
 }
 
 export async function isGit() {
-    let version = await simpleGit(useTemplateStore().projectPath).raw('version');
+    let version = await simpleGit().raw('version');
     return version.includes("git version");
 }
 
 export async function getGitVersion() {
-    let version = await simpleGit(useTemplateStore().projectPath).raw('version');
-    version = version.replace("git version", "");
-    version = version.replace("\n", "");
-    return version;
+    return await simpleGit().version();
 }
 
 export async function getAllBranch() {
-    let branches = await simpleGit(useTemplateStore().projectPath).raw('branch', '-a');
+    let branches = await simpleGit(useTemplateStore().getProjectPath).raw('branch', '-a');
     return branches.split("\n")
 }
 
 export async function getBranch() {
-    return await simpleGit(useTemplateStore().projectPath).raw('symbolic-ref', '--short', '-q', 'HEAD');
+    return await simpleGit(useTemplateStore().getProjectPath).raw('symbolic-ref', '--short', '-q', 'HEAD');
 }
 /**
  * 
@@ -47,44 +45,52 @@ export async function setBranch(branch) {
         let remoteBranch = branch.replace("remotes/", "");
         let branchArr = branch.split("/");
         console.log(remoteBranch, branchArr)
-        await simpleGit(useTemplateStore().projectPath).raw('checkout', '-b', branchArr[branchArr.length - 1], remoteBranch);
+        await simpleGit(useTemplateStore().getProjectPath).raw('checkout', '-b', branchArr[branchArr.length - 1], remoteBranch);
     } else {
-        await simpleGit(useTemplateStore().projectPath).raw('checkout', branch);
+        await simpleGit(useTemplateStore().getProjectPath).raw('checkout', branch);
     }
-
-    // await pullProject();
 }
 
-export async function isGitRepository() {
-    return await simpleGit(useTemplateStore().projectPath).raw('rev-parse', '--is-inside-work-tree');
+export async function isGitRepository(projectPath) {
+    return await simpleGit(projectPath).checkIsRepo();
 }
 
-export async function cloneProject(options) {
-    const { username, accessTokens, gitPath } = options;
-    const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
-    if (!isGitRepository(useTemplateStore().projectPath)) {
-        simpleGit(useTemplateStore().projectPath).clone(gitpath).then(() => console.log('cloned')).catch((err) => console.error('failed clone:', err));
-    }
+export async function cloneProject(callback) {
+    fs.access(useTemplateStore().getProjectPath, fs.constants.F_OK, (err) => {
+        if (err) {
+            fs.mkdir(useTemplateStore().getProjectPath, { recursive: true }, (err) => {
+                if (!err) {
+                    simpleGit(`${useConfigStore().installationPath}\\wiki\\${useCompetitionStore().year}`, { progress }).clone(useGitLabStore().getGitPath).then(() => {
+                        callback && typeof callback === 'function' ? callback(null) : console.log('cloned')
+                    }).catch((err) => {
+                        callback && typeof callback === 'function' ? callback(err) : console.log('cloned')
+                    });
+                }
+            });
+        } else {
+            simpleGit(useTemplateStore().getProjectPath, { progress }).clone(useGitLabStore().getGitPath).then(() => {
+                callback && typeof callback === 'function' ? callback(null) : console.log('cloned')
+            }).catch((err) => {
+                callback && typeof callback === 'function' ? callback(err) : console.log('cloned')
+            });
+        }
+    })
 }
 
 export async function pullProject(options) {
     let success = options?.success;
     let failure = options?.failure;
-    if (isGitRepository(useTemplateStore().projectPath)) {
+    if (isGitRepository(useTemplateStore().getProjectPath)) {
         console.log('start pull')
-        simpleGit(useTemplateStore().projectPath).pull().then((res) => {
-            // const { changes, deletions, insertions } = res.summary;
-            // if (changes !== 0 || deletions !== 0 || insertions !== 0) {
-            //     simpleGit(useTemplateStore().projectPath).merge().then(() => (success && typeof success === 'function') ? success(res) : console.log('pull success', res)).catch((err) => console.log(err));
-            // } else {
+        simpleGit(useTemplateStore().getProjectPath).pull(useGitLabStore().getGitPath).then((res) => {
             console.log('pull end', res);
             (success && typeof success === 'function') ? success(res) : console.log('pull success', res);
-            // }
         }).catch((err) => (failure && typeof failure === 'function') ? failure(err) : console.log('pull failed:', err));
     } else {
         cloneProject();
     }
 }
+
 /**
  * 
  * @param {Object} options 
@@ -92,15 +98,15 @@ export async function pullProject(options) {
  */
 export async function pushProject(options, callback) {
     const { commitInformation, file } = options;
-    // const gitpath = `https://${username}:${accessTokens}@${gitPath.replace('https://', '')}`;
-    if (isGitRepository(useTemplateStore().projectPath)) {
-        console.log('start push')
-        await simpleGit(useTemplateStore().projectPath, { progress }).add(file).commit(commitInformation).push(['origin', useGitLabStore().currentBranch.trim()], (res) => {
-            console.log('push end', res)
-            if (callback && typeof callback == 'function') {
+    if (isGitRepository(useTemplateStore().getProjectPath)) {
+        await simpleGit(useTemplateStore().getProjectPath, { progress }).add(file).commit(commitInformation).push([useGitLabStore().getGitPath, useGitLabStore().getBranch.trim()], (res) => {
+            if (callback && typeof callback === 'function') {
                 callback(res)
             }
         });
     }
 }
 
+export async function gitLog() {
+    return await simpleGit(useTemplateStore().getProjectPath, { progress }).log();
+}

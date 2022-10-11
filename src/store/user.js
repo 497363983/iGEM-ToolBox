@@ -14,14 +14,12 @@ export const useUserStore = defineStore('userStore', {
         password: "",
         description: "",
         accessTokens: "",
-        team: "",
         email: "",
         isDeveloper: false,
-        isTrue: true
+        isTrue: true,
     }),
     actions: {
         async save() {
-            electronStore.set('user', this.$state);
             await pullProject({
                 success: () => {
                     writeJSONFile(`${useTemplateStore().projectPath}\\tool_box\\members\\${this.$state.username}.json`, {

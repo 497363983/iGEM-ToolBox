@@ -2,7 +2,6 @@ import {
     defineStore
 } from 'pinia';
 import { en, zhCn } from "element-plus/lib/locale";
-import { electronStore } from '@/electron-store';
 import { useColorMode } from '@vueuse/core';
 
 export const useConfigStore = defineStore('configStore', {
@@ -40,7 +39,6 @@ export const useConfigStore = defineStore('configStore', {
         },
         save() {
             useColorMode().value = this.$state.theme.currentTheme;
-            electronStore.set('config', this.$state);
         }
     }
 });

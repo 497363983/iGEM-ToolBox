@@ -2,6 +2,7 @@ import {
     defineStore
 } from 'pinia';
 import { h } from "vue";
+import { readJSONFile } from '@/utils';
 import { pullProject, pushProject } from '@/utils/git';
 import { ElMessage, ElNotification, ElProgress } from 'element-plus';
 import { readFile, writeFileItem } from '@/utils/files';
@@ -9,7 +10,9 @@ import { useTemplateStore } from './template';
 import { useUserStore } from './user';
 import { useGitStore } from './git';
 import path from 'path';
+import { DOMcreateElement, getTemplates } from '@/TiptapEditor/utils/useTemplate';
 const beautify_html = require('js-beautify').html;
+
 
 export const useWikiEditorStore = defineStore('wikiEditorStore', {
     state: () => ({
@@ -30,7 +33,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
 
     }),
     getters: {
-        getBlockPath: (state) => (extname = 'html') => path.join(useTemplateStore().projectPath, `tool_box/${useUserStore().username}/pages/${state.page}/block/${state.block}.${extname}`)
+        getBlockPath: (state) => (extname = 'html') => path.join(useTemplateStore().getProjectPath, `tool_box/${useUserStore().username}/pages/${state.page}/block/${state.block}.${extname}`)
     },
     actions: {
         setPath(path) {
@@ -60,7 +63,7 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
             let pagearr = this.$state.path.split('/');
             return pagearr[pagearr.length - 1];
         },
-        async save() {
+        async save(callback) {
             ElNotification({
                 title: useGitStore().method,
                 message: h(ElProgress, {
@@ -68,9 +71,10 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                 }),
                 duration: 0
             })
+            getTemplates();
             let content = `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} start-->\n`;
-            content += this.$state.content + '\n';
-            content += `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} end-->\n`;
+            content += DOMcreateElement(this.$state.jsonContent) + '\n';
+            content += `<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} end-->`;
             let fileContent = readFile(this.$state.path);
             const testBlock = new RegExp(`<!-- iGEM-ToolBox:WIKI{{${this.$state.block}}} -->`);
             if (testBlock.test(fileContent)) {
@@ -85,9 +89,14 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                     writeFileItem(this.$state.path, beautify_html(content, { end_with_newline: false }), () => {
                         pushProject({
                             commitInformation: `upload block`,
-                            file: [`tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.html`, `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.json`, `wiki\\pages\\${this.$state.page}.html`]
+                            file: [
+                                `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.html`,
+                                `tool_box\\${useUserStore().username}\\pages\\${this.$state.page}\\block\\${this.$state.block}.json`,
+                                `${useTemplateStore().getPageTemplatePath}\\${this.$state.page}.${useTemplateStore().getPageExtName}`
+                            ]
                         }, (res) => {
                             console.log('push', res)
+                            callback && typeof callback === 'function' ? callback(res) : null;
                         });
                     });
                 }
@@ -108,6 +117,18 @@ export const useWikiEditorStore = defineStore('wikiEditorStore', {
                     writeFileItem(this.getBlockPath(), '');
                 }
             });
+
+            readJSONFile(this.getBlockPath('json'), (data) => {
+                this.$state.jsonContent = JSON.parse(data)
+                console.log(this.$state.jsonContent)
+            })
+
+
+            // this.$state.jsonContent = JSON.parse(readFile(this.getBlockPath('json'), (err) => {
+            //     if (err) {
+            //         writeFileItem(this.getBlockPath(), {});
+            //     }
+            // }))
             console.log('content', this.$state.content)
         }
     }

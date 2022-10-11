@@ -1,9 +1,7 @@
 import {
     PythonShell
 } from 'python-shell'
-// PythonShell.defaultOptions({
-//     script: `${__dirname}/py`
-// })
+
 /**
  * 
  * @param {String} src 

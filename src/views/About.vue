@@ -6,43 +6,19 @@
 </template>
 
 <script setup>
-// import { pullProject } from "@/utils/git";
-import { useUserStore, useCompetitionStore } from "@/store";
-import { SyncFiles, SyncFiles_return } from "../utils/useIPC";
-import { editor } from "@/TiptapEditor/index";
-console.log(editor);
+// import { useUserStore } from "@/store";
+import {  isGitRepository, gitLog } from "@/utils/git";
+// import { checkFile } from "@/utils/files";
+// import { useUserStore } from "@/store";
 async function test() {
-  // const { username, accsessTokens } = useUserStore().$state;
-  // const { projectPath } = useTemplateStore().$state;
-  // const { gitPath } = useGitLabStore().$state;
-  // await pullProject({
-  //   username,
-  //   accsessTokens,
-  //   projectPath,
-  //   gitPath,
-  //   success: (res) => {
-  //     console.log("hh", res);
-  //   },
+  // cloneProject({
+  //   username: useUserStore().username,
+  //   accessTokens: useUserStore().accessTokens,
   // });
-  const filelist = [
-    {
-      filename: "test",
-      filepath: "E:\\desktop\\Snipaste_2022-09-13_19-33-20.png",
-      type: "test",
-    },
-    // {
-    //   filename: "test",
-    //   filepath: "E:\\desktop\\图片.png",
-    //   type: "test",
-    // }
-  ];
-  SyncFiles(
-    filelist,
-    useUserStore().username,
-    useUserStore().password,
-    useCompetitionStore().teamID
+  console.log(
+    gitLog({from: '9-1-2022', to: '10-11-2022'}),
+    isGitRepository(),
+    // checkFile("E:\\iGEM")
   );
 }
-
-SyncFiles_return();
 </script>

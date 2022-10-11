@@ -1,5 +1,6 @@
 const fs = window.require('fs');
 const path = window.require("path");
+
 /**
  * 
  * @param {String} dirPath 
@@ -28,7 +29,7 @@ export function getDirTree(dirPath, depth = 0, except = ["node_modules", "dist",
                 }
                 if (state.isDirectory()) {
                     item.type = "directory";
-                    item.leaf = isLeaf(subPath)
+                    item.leaf = isLeaf(subPath);
                     item.name = path.basename(subPath);
                     if (currentDepth < depth) {
                         item.children = []
@@ -52,6 +53,7 @@ export function getDirTree(dirPath, depth = 0, except = ["node_modules", "dist",
 
     return getMap(dirPath, depth);
 }
+
 /**
  * 
  * @param {String} dirPath 
@@ -69,6 +71,7 @@ export function isLeaf(dirPath) {
     })
     return res
 }
+
 /**
  * 
  * @param {String} dirPath 
@@ -78,6 +81,7 @@ export function getFilesName(dirPath) {
     let files = fs.readdirSync(dirPath);
     return files;
 }
+
 /**
  * 
  * @param {String} dirPath 
@@ -97,9 +101,9 @@ export function readFile(dirPath, callback) {
         if (callback) {
             callback(err);
         }
-
     }
 }
+
 /**
  * 
  * @param {String} dirPath 
@@ -119,6 +123,7 @@ export function checkFile(dirPath, callback) {
     })
 }
 
+
 /**
  * 
  * @param {String} filePath 
@@ -137,4 +142,12 @@ export async function writeFileItem(filePath, data, callback) {
             }
         });
     })
+}
+
+export function joinPath(...arr) {
+    return path.join(...arr)
+}
+
+export function baseName(file) {
+    return path.basename(file)
 }

@@ -121,6 +121,56 @@
           @change="useReferenceStore().saveReferences()"
         ></el-input>
       </el-descriptions-item>
+      <el-descriptions-item label="Citation">
+        <p>
+          <span class="reference-item">
+            <p class="reference-content">
+              <!-- <span v-if="order" class="reference-order">[{{ order }}]</span> -->
+              <span
+                class="reference-authors"
+                v-html="
+                  getAuthorString(
+                    useReferenceStore().references[reference].authors
+                  )
+                "
+              ></span
+              ><span
+                class="reference-title"
+                v-html="
+                  getTitle(useReferenceStore().references[reference].title)
+                "
+              ></span>
+              <span class="reference-publisher"
+                ><i
+                  >{{ useReferenceStore().references[reference].publisher }}.</i
+                ></span
+              >
+              <span
+                class="reference-year"
+                v-if="useReferenceStore().references[reference].year"
+                >{{ useReferenceStore().references[reference].year }};</span
+              >
+              <span
+                class="reference-issue"
+                v-if="useReferenceStore().references[reference].issue"
+                >{{ useReferenceStore().references[reference].issue }}</span
+              >
+              <span
+                class="reference-volume"
+                v-if="useReferenceStore().references[reference].volume"
+              >
+                ({{ useReferenceStore().references[reference].volume }})
+              </span>
+              <span class="reference-page">
+                <span v-if="useReferenceStore().references[reference]?.issue"
+                  >:</span
+                >
+                {{ useReferenceStore().references[reference].page }}.
+              </span>
+            </p>
+          </span>
+        </p>
+      </el-descriptions-item>
     </el-descriptions>
   </div>
 </template>
@@ -176,8 +226,56 @@ const handleSubjectInputConfirm = () => {
 };
 
 const handleClose = (index) => {
-  console.log(index,useReferenceStore().references[reference.value]);
-  useReferenceStore().references[reference.value].subject.splice(index,1);
+  console.log(index, useReferenceStore().references[reference.value]);
+  useReferenceStore().references[reference.value].subject.splice(index, 1);
   useReferenceStore().saveReferences();
 };
+
+function getAuthorString(authors) {
+  if (authors) {
+    if (typeof authors === "string") {
+      return authors;
+    } else {
+      let authorString = "";
+      let length = authors.length;
+      authors.forEach((item, index) => {
+        if (typeof item === "string") {
+          authorString += item;
+          authorString += index === length - 1 ? ". " : ", ";
+        } else {
+          if (item.sequence === "first") {
+            authorString = `${item.given} ${item.family}` + authorString;
+            authorString += index === length - 1 ? ". " : ", ";
+          } else {
+            authorString += `${item.given} ${item.family}`;
+            authorString += index === length - 1 ? ". " : ", ";
+          }
+        }
+      });
+      return authorString;
+    }
+  } else {
+    return "";
+  }
+}
+
+function getTitle(title) {
+  let titleString = "";
+  if (typeof title === "string") {
+    titleString = title;
+  } else {
+    titleString = title[0].replace("\n", "");
+    titleString = titleString.replace(/\s{2,}/g, " ");
+  }
+  return titleString + ". ";
+}
+
+const citationText = computed(()=>{
+  let text = '';
+  
+
+  return text;
+})
+
+console.log(citationText)
 </script>

@@ -76,31 +76,21 @@
       fullscreen
       :show-close="false"
     >
-      <el-form label-width="100px">
-        <el-form-item label="Username">
-          <el-input
-            v-model="useUserStore().username"
-            placeholder="Please enter username"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="Password">
-          <el-input
-            v-model="useUserStore().password"
-            placeholder="Please enter password"
-            type="password"
-            show-password
-          ></el-input>
-        </el-form-item>
-        <!-- <el-form-item label="Team ID">
-          <el-input
-            v-model="useCompetitionStore().teamID"
-            placeholder="Please enter team ID"
-          ></el-input>
-        </el-form-item> -->
-        <el-form-item>
-          <el-button @click="getCookie" type="primary">Login</el-button>
-        </el-form-item>
-      </el-form>
+      <el-row justify="end">
+        <el-select
+          v-model="useConfigStore().theme.currentTheme"
+          @change="useConfigStore().save()"
+        >
+          <el-option
+            v-for="(item, index) in useConfigStore().theme.themeList"
+            :key="index"
+            :label="Uppercase(item)"
+            :value="item"
+          />
+        </el-select>
+      </el-row>
+      <Login v-if="useUserStore().isTrue" />
+      <SetTeam />
     </el-dialog>
   </el-config-provider>
 </template>
@@ -167,35 +157,27 @@ import {
   // useCompetitionStore,
 } from "@/store";
 import { computed, onMounted } from "vue";
-import { getElectronStore } from "@/utils";
+import { Uppercase } from "@/utils";
 import { getBranch } from "@/utils/git";
-import { getInstallationPath } from "@/utils/useIPC";
-import { get_cookie } from "@/utils/upload";
+import { getInstallationPath, checkCookie } from "@/utils/useIPC";
+import Login from "@/views/Login";
+import SetTeam from "@/views/SetTeam";
 
 useUserStore().$subscribe((mutation, state) => {
   useUserStore().save();
   console.log(mutation, state);
 });
 
-function getCookie() {
-  get_cookie()
-    .then((res) => {
-      if (res) {
-        useUserStore().isTrue = true;
-      } else {
-        useUserStore().isTrue = false;
-      }
-    })
-    .catch((err) => console.log(err));
-}
-
 onMounted(async () => {
-  getElectronStore();
-  getBranch();
-  useGitLabStore().getGit();
-  getInstallationPath();
-  console.log(useUserStore().isTrue);
-  getCookie();
+  // getElectronStore();
+  checkCookie(useUserStore().username, useUserStore().password, (res) => {
+    useUserStore().isTrue = res ? false : true;
+    if (res) {
+      getBranch();
+      useGitLabStore().getGit();
+      getInstallationPath();
+    }
+  });
 });
 
 const language = computed(() => {
