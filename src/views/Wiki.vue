@@ -63,7 +63,7 @@
                   <el-button type="primary">Init</el-button>
                 </el-empty>
               </el-tab-pane>
-              <el-tab-pane
+              <!-- <el-tab-pane
                 style="height: 100%"
                 label="Templates"
                 name="templates"
@@ -85,25 +85,31 @@
                 <el-empty v-else description="No templates">
                   <el-button type="primary">Init</el-button>
                 </el-empty>
-              </el-tab-pane>
+              </el-tab-pane> -->
               <el-tab-pane style="height: 100%" label="Log" name="log">
                 <div
-                  v-if="templates.length !== 0"
+                  v-if="logList.length !== 0"
                   class="infinite-list-wrapper"
                   style="overflow: auto; height: 100%"
                 >
-                  <ul
-                    v-infinite-scroll="loadTemplates"
+                  <div
+                    v-infinite-scroll="loadLogs"
                     class="pages-list infinite-list"
                   >
-                    <li v-for="(template, index) in templates" :key="index">
-                      <pageCard :page="template"></pageCard>
-                    </li>
-                  </ul>
+                    <el-timeline :reverse="reverse">
+                      <el-timeline-item
+                        v-for="(log, index) in logList"
+                        :key="index"
+                        :timestamp="log.date"
+                      >
+                        {{ log.hash.slice(0, 5) }}-{{ log.author_name }}-{{
+                          log.message
+                        }}
+                      </el-timeline-item>
+                    </el-timeline>
+                  </div>
                 </div>
-                <el-empty v-else description="No templates">
-                  <el-button type="primary">Init</el-button>
-                </el-empty>
+                <el-empty v-else description="No logs"> </el-empty>
               </el-tab-pane>
             </el-tabs>
           </el-col>
@@ -139,10 +145,12 @@ import {
 import { getDirTree, joinPath } from "@/utils/files";
 import pageCard from "@/components/pageCard";
 import { openLink } from "@/utils/useIPC";
+import { gitLog } from "@/utils/git";
 const git = ref(false);
 const currentTag = ref("pages");
 const pages = ref([]);
-const templates = ref([]);
+// const templates = ref([]);
+const logList = ref([]);
 
 function loadPages() {
   let dirs = getDirTree(
@@ -156,25 +164,27 @@ function loadPages() {
   });
 }
 
-function loadTemplates() {
-  let dirs = getDirTree(
-    joinPath(
-      useTemplateStore().getProjectPath,
-      useTemplateStore().getTemplatesPath
-    )
-  );
-  templates.value = dirs.filter((item) => {
-    return item.extname.replace(".", "") === "html";
-  });
-}
-
-// function loadLogs(){
-
+// function loadTemplates() {
+//   let dirs = getDirTree(
+//     joinPath(
+//       useTemplateStore().getProjectPath,
+//       useTemplateStore().getTemplatesPath
+//     )
+//   );
+//   templates.value = dirs.filter((item) => {
+//     return item.extname.replace(".", "") === "html";
+//   });
 // }
+
+async function loadLogs() {
+  logList.value = (await gitLog()).all;
+  console.log(logList.value);
+}
 
 onMounted(async () => {
   git.value = await isGit();
   loadPages();
+  loadLogs();
   getGitVersion();
   gitInit();
 });

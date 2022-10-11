@@ -81,7 +81,7 @@
     <el-container style="height: calc(100% - 24px)">
       <el-header>
         <div>
-          <el-button @click="upload" type="primary">upload</el-button>
+          <el-button :loading="uploading" @click="upload" type="primary">upload</el-button>
         </div>
       </el-header>
       <el-container style="height: 90%">
@@ -273,7 +273,7 @@ defineProps({
   content: String,
   path: String,
 });
-
+const uploading = ref(false);
 const editLinkAble = ref(false);
 // const floating = [
 //   {
@@ -331,12 +331,9 @@ function setLink() {
 }
 
 function upload() {
-  // pushProject({
-  //   commitInformation: `upload ${useWikiEditorStore().$state.page}`,
-  //   file: [``],
-  // });
-  // useWikiEditorStore().saveBlock();
+  uploading.value = true;
   useWikiEditorStore().save();
+  
   console.log("lo", editor.options.content);
 }
 

@@ -261,7 +261,7 @@
       >
         <el-input v-model="configList.team.ID"></el-input>
       </el-form-item>
-      <el-form-item
+      <!-- <el-form-item
         label="Branch"
         prop="branch"
         :rules="{
@@ -270,10 +270,34 @@
         }"
       >
         <el-input v-model="configList.branch"></el-input>
+      </el-form-item> -->
+      <el-form-item
+        label="Branch"
+        prop="branch"
+        :rules="{
+          required: true,
+          message: 'Please input branch',
+        }"
+      >
+        <el-select
+          v-model="configList.branch"
+          @visible-change="getBranches"
+          :loading="branchLoading"
+          @change="setBranch(configList.branch)"
+        >
+          <el-option
+            v-for="item in branches"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button type="primary">confirm</el-button>
+      <el-button :loading="confirming" @click="setConfig" type="primary"
+        >confirm</el-button
+      >
     </template>
   </el-dialog>
 </template>
@@ -297,10 +321,10 @@ import {
   useTemplateStore,
 } from "@/store";
 import { openLink } from "@/utils/useIPC";
-import { isGit, getGitVersion } from "@/utils/git";
+import { isGit, getGitVersion, getAllBranch } from "@/utils/git";
 import { ElMessage } from "element-plus";
-import { cloneProject } from "@/utils/git";
-import { checkConfig } from "@/utils/config";
+import { cloneProject, setBranch } from "@/utils/git";
+import { checkConfig, createConfig } from "@/utils/config";
 const active = ref(0);
 // const canNext = ref(false);
 const hasGit = ref(false);
@@ -308,8 +332,12 @@ const refreshLoading = ref(false);
 const profileForm = ref();
 const teamForm = ref();
 const accessForm = ref();
+const configForm = ref();
 const gitVersion = ref("");
 const editConfig = ref(false);
+const confirming = ref(false);
+const branchLoading = ref(false);
+const branches = ref([]);
 const configList = ref({
   pages: {
     path: "wiki/pages",
@@ -414,11 +442,14 @@ const initList = ref([
           if (err) {
             console.log(err);
             editConfig.value = true;
+            configList.value.team.name = useCompetitionStore().teamName;
+            configList.value.team.ID = useCompetitionStore().teamID;
             // createConfig(
             //   useTemplateStore().getProjectPath,
             //   JSON.stringify(configList.value)
             // );
           } else {
+            editConfig.value = true;
             resolve(true);
           }
         });
@@ -479,6 +510,34 @@ function skip() {
   active.value = Math.min(active.value + 1, steps.value.length - 1);
   console.log(active.value);
 }
+
+function setConfig() {
+  confirming.value = true;
+  configForm.value.validate((valid) => {
+    if (valid) {
+      createConfig(useTemplateStore().getProjectPath, configList.value, () => {
+        confirming.value = false;
+        editConfig.value = false;
+      });
+    }
+  });
+}
+
+const getBranches = async () => {
+  branchLoading.value = true;
+  let list = await getAllBranch();
+  list = list.filter((item) => {
+    return item !== "";
+  });
+  branches.value = list.map((item) => {
+    item = item.replace("* ", "");
+    return {
+      value: item.trim(),
+      label: item.trim(),
+    };
+  });
+  branchLoading.value = false;
+};
 
 onMounted(async () => {
   hasGit.value = await isGit();
