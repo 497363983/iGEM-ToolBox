@@ -55,7 +55,6 @@ module.exports = {
           "category": "public.app-category.utilities"
         },
         "asar": false,
-
         // "dmg": {
         //   // "background": "build/background.jfif",
         //   // "icon": "build/icons/icon.icns",
