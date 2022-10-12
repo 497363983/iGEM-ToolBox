@@ -41,7 +41,7 @@ export async function SyncFiles(args) {
             continue;
         } else {
             formData.append('file', createReadStream(filelist[i]["filepath"], {
-                encoding: 'utf8',
+                encoding: null,
                 autoClose: true
             }));
         }
