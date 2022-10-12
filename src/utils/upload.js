@@ -45,7 +45,7 @@ export async function SyncFiles(args) {
                 autoClose: true
             }));
         }
-        console.log(formData)
+        //console.log(filelist[i]["type"])
         formData.append('directory', filelist[i]["type"]);
         URL_list.push(await SyncFile(teamID, cookie, formData, event))
     }
@@ -111,14 +111,18 @@ async function SyncFile(teamID, cookie, formData, event) {
         data: formData,
         headers: {
             "Content-Type": "multipart/form-data",
-            // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 ',
-            'cookie': cookie
+            // "origin":"https://uploads.igem.org",
+            // "referer":"https://uploads.igem.org",
+            // "accept":" application/json, text/plain, */*",
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 ',
+            'cookie': cookie,
+            // 'sec-fetch-site': 'same-site',
         }
     }).catch((error) => {
         console.log(error)
         event.sender.send("SyncFiles:error", error)
     });
     console.log("upload status:")
-    console.log(res.status)
+    console.log(res)
     return res.data["location"];
 }
