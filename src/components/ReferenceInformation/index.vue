@@ -142,7 +142,7 @@
               ></span>
               <span class="reference-publisher"
                 ><i
-                  >{{ useReferenceStore().references[reference].publisher }}.</i
+                  >{{ useReferenceStore().references[reference].container }}.</i
                 ></span
               >
               <span

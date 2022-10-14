@@ -18,6 +18,7 @@ class Reference {
         this.type = JSONInformation.type;
         this.publisher = JSONInformation.publisher;
         this.volume = JSONInformation.volume;
+        this.container = JSONInformation['container-title'][0]
 
         this.abstract = JSONInformation.abstract;
         this.page = JSONInformation.page;
@@ -41,6 +42,7 @@ export function getReference({ doi, success, failure }) {
         url,
         success: async (res) => {
             const reference = await parseReferenceFromResToJSON(res.message);
+            // const reference = res.message;
             if (success && typeof success === "function") {
                 // console.log('success');
                 success({ reference, res });
@@ -57,3 +59,5 @@ export function getReference({ doi, success, failure }) {
 export function parseReferenceFromResToJSON(JSONRes) {
     return new Promise((resolve) => resolve(new Reference(JSONRes)));
 }
+
+
